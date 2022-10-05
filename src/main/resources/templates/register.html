@@ -76,6 +76,9 @@
                                 name="cgpa"
                                 type="number"
                                 th:field="*{CGPA}"
+                                min="0"
+                                max="4"
+                                step=".01"
                                 required
                                 class="relative block w-full appearance-none rounded-none h-12 text-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-primary-500 focus:outline-none focus:ring-primary-500"
                                 placeholder="CGPA"
@@ -88,10 +91,13 @@
                                 id="batch"
                                 name="batch"
                                 type="number"
+                                step="1"
+                                min="2000"
+                                max="4000"
                                 th:field="*{batch}"
                                 required
                                 class="relative block w-full appearance-none rounded-none h-12 text-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-primary-500 focus:outline-none focus:ring-primary-500"
-                                placeholder="Batch"
+                                placeholder="Batch i.e. 2020"
                             />
                         </div>
 

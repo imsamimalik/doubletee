@@ -4,6 +4,9 @@ import com.sda.doubleTee.dto.UserDto;
 import com.sda.doubleTee.model.User;
 import com.sda.doubleTee.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,9 +34,16 @@ public class AuthController {
     @GetMapping("/register")
     public String showRegistrationForm(Model model){
         // create model object to store form data
-        UserDto user = new UserDto();
-        model.addAttribute("user", user);
-        return "register";
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            UserDto user = new UserDto();
+            model.addAttribute("user", user);
+            return "register";
+        }
+
+        return "redirect:/users";
+
     }
 
     // handler method to handle user registration form submit request
@@ -68,7 +78,12 @@ public class AuthController {
     // handler method to handle login request
     @GetMapping("/login")
     public String login(){
-        return "login";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "login";
+        }
+
+        return "redirect:/users";
     }
 
 }
