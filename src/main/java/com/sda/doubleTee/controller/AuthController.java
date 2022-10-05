@@ -24,12 +24,6 @@ public class AuthController {
     private UserService userService;
 
 
-    // handler method to handle home page request
-    @GetMapping("/index")
-    public String home(){
-        return "index";
-    }
-
     // handler method to handle user registration form request
     @GetMapping("/register")
     public String showRegistrationForm(Model model){
@@ -42,7 +36,7 @@ public class AuthController {
             return "register";
         }
 
-        return "redirect:/users";
+        return "redirect:/";
 
     }
 
@@ -68,7 +62,7 @@ public class AuthController {
     }
 
     // handler method to handle list of users
-    @GetMapping("/users")
+    @GetMapping("/")
     public String users(Model model){
         List<UserDto> users = userService.findAllUsers();
         model.addAttribute("users", users);
@@ -83,7 +77,7 @@ public class AuthController {
             return "login";
         }
 
-        return "redirect:/users";
+        return "redirect:/";
     }
 
 }
