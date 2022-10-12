@@ -5,6 +5,7 @@ import com.sda.doubleTee.model.Role;
 import com.sda.doubleTee.model.User;
 import com.sda.doubleTee.repository.RoleRepository;
 import com.sda.doubleTee.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,27 +16,31 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
 
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
     private RoleRepository roleRepository;
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository,
-                           RoleRepository roleRepository,
-                           PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Override
     public void saveUser(UserDto userDto) {
+        
         User user = new User();
         user.setName(userDto.getName());
         user.setEmail(userDto.getEmail());
         // encrypt the password using spring security
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setBatch(userDto.getBatch());
+        user.setDegree(userDto.getDegree());
+        user.setCGPA(userDto.getCGPA());
+        user.setDOB(userDto.getDOB());
+        user.setPostalAddress(userDto.getPostalAddress());
+        user.setEmployeeId(userDto.getEmployeeId());
+        user.setDesignation(userDto.getDesignation());
 
-        Role role = roleRepository.findByName("ROLE_ADMIN");
+        Role role = roleRepository.findByName(userDto.getRole());
         if(role == null){
             role = checkRoleExist();
         }
@@ -66,7 +71,7 @@ public class UserServiceImpl implements UserService {
 
     private Role checkRoleExist(){
         Role role = new Role();
-        role.setName("ROLE_ADMIN");
+        role.setName("ROLE_STUDENT");
         return roleRepository.save(role);
     }
 }

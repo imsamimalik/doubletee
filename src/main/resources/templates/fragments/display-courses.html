@@ -1,0 +1,39 @@
+<div th:fragment="displayCourses" class="overflow-x-auto my-10 relative shadow-md sm:rounded-lg">
+	<h1 class="text-2xl my-10">List of All Courses</h1>
+	<table
+		class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+	>
+		<thead
+			class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+		>
+			<tr>
+				<th scope="col" class="py-3 px-6">Code</th>
+				<th scope="col" class="py-3 px-6">Course Name</th>
+				<th scope="col" class="py-3 px-6">Credit Hours</th>
+				<th scope="col" class="py-3 px-6">Section</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr
+				th:each="course : ${courses}"
+				class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+			>
+				<td
+					th:text="${course.code}"
+					scope="row"
+					class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+				></td>
+				<td th:text="${course.name}" class="py-4 px-6"></td>
+				<td
+					th:text="${course.creditHours}"
+					scope="row"
+					class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+				></td>
+				<td
+					th:text="${course.section}"
+					class="py-4 px-6"
+				></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

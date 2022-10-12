@@ -1,5 +1,6 @@
 module.exports = {
     content: ["./src/main/resources/templates/**/*.{html,js}"],
+    // important: true,
     theme: {
         extend: {
             colors: {

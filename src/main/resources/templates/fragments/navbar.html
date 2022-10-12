@@ -39,13 +39,24 @@
             >
                 <li>
                     <a
-                        th:href="@{/users}"
+                        th:href="@{/}"
                         th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'md:text-blue-700':''}"
                         class="block py-2 pr-4 pl-3 text-gray-700 bg-blue-700 rounded md:bg-transparent md:p-0 dark:text-white"
                         aria-current="page"
                         >Home</a
                     >
                 </li>
+
+                <li sec:authorize="hasRole('ADMIN')">
+                    <a
+                        th:href="@{/add-courses}"
+                        th:classappend="${#httpServletRequest.getRequestURI() == '/add-courses' ? 'md:text-blue-700':''}"
+                        class="block py-2 pr-4 pl-3 text-gray-700 bg-blue-700 rounded md:bg-transparent md:p-0 dark:text-white"
+                        aria-current="page"
+                        >Add Courses</a
+                    >
+                </li>
+
                 <li sec:authorize="isAuthenticated()">
                     <a
                         th:href="@{/logout}"

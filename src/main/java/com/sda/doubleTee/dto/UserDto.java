@@ -6,8 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.NonNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -33,6 +36,8 @@ public class UserDto {
     private Float CGPA;
     private int batch;
     private String degree;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date DOB;
 
     @Column(length = 255)
@@ -40,4 +45,7 @@ public class UserDto {
 
     private String employeeId;
     private String designation;
+    private String rollNumber;
+
+    private String role = "ROLE_STUDENT";
 }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ public class User {
     private Float CGPA;
     private int batch;
     private String degree;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date DOB;
 
     @Column(length = 255)
@@ -38,6 +41,8 @@ public class User {
 
     private String employeeId;
     private String designation;
+    @Column(length = 8)
+    private String rollNumber;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
