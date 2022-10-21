@@ -6,29 +6,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Time;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "courses")
-public class Course {
+@Table(name = "rooms")
+public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String code;
-
-    @Column(nullable = false)
     private String name;
-
-    @Column(nullable = false)
-    private Float creditHours;
-
-    @Column(nullable = false)
-    private String section;
 
 }

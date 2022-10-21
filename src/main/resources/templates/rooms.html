@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <div th:replace="fragments/header::head"></div>
+
+        <title>Rooms - doubleTee</title>
+    </head>
+    <body class="w-full">
+        <nav th:replace="fragments/navbar::navbar"></nav>
+        <div class="flex flex-col justify-center align-center w-3/5 m-auto">
+            
+            <div th:include="fragments/display-rooms::displayRooms" th:with="rooms=${rooms}"></div>
+
+        </div>
+    </body>
+</html>

@@ -59,5 +59,13 @@ public class AddCourseController {
     }
 
 
+    @GetMapping("/courses")
+    public String displayCourses(Model model){
+        List<Course> allCourses = courseService.findAllCourses();
+        model.addAttribute("courses",allCourses);
+        return "courses";
+    }
+
+
 
     }

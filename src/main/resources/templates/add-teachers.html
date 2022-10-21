@@ -3,13 +3,13 @@
     <head>
         <div th:replace="fragments/header::head"></div>
 
-        <title>Add Courses - doubleTee</title>
+        <title>Add Teachers - doubleTee</title>
     </head>
     <body class="w-full">
         <nav th:replace="fragments/navbar::navbar"></nav>
         <div class="flex flex-col justify-center align-center w-3/5 m-auto">
             <div class="my-10 sm:mt-10">
-                <h1 class="text-2xl">Add Course</h1>
+                <h1 class="text-2xl">Add Teacher</h1>
             </div>
 
             <div class="w-full space-y-8">
@@ -17,24 +17,24 @@
                     class="mt-8 space-y-6"
                     method="POST"
                     role="form"
-                    th:action="@{/add-courses/save}"
-                    th:object="${addCourse}"
+                    th:action="@{/add-teachers/save}"
+                    th:object="${addTeacher}"
                 >
                     <div class="flex flex-wrap justify-evenly w-full">
                         <div class="w-full md:w-1/4 relative z-0 pb-6 group">
                             <input
-                                id="code"
-                                name="code"
+                                id="employeeID"
+                                name="employeeID"
                                 type="text"
-                                th:field="*{code}"
+                                th:field="*{employeeID}"
                                 required
                                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                 placeholder=" "
                             />
                             <label
-                                for="code"
+                                for="employeeID"
                                 class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                >Course Code</label
+                                >Employee ID</label
                             >
                         </div>
                         <div
@@ -60,55 +60,35 @@
                     <div class="flex flex-wrap justify-evenly w-full">
                         <div class="w-full md:w-1/4 relative z-0 pb-6 group">
                             <input
-                                id="creditHours"
-                                name="creditHours"
-                                type="number"
-                                min="0"
-                                max="10"
-                                step="0.5"
-                                th:field="*{creditHours}"
+                                id="department"
+                                name="department"
+                                type="text"
+                                
+                                th:field="*{department}"
                                 required
                                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                 placeholder=" "
                             />
                             <label
-                                for="creditHours"
+                                for="department"
                                 class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                >Credit Hours</label
+                                >Department</label
                             >
                         </div>
 
-                        <div
-                            class="w-full md:w-1/4 md:pl-3 relative z-0 pb-6 group"
-                        >
-                            <input
-                                id="section"
-                                name="section"
-                                type="text"
-                                th:field="*{section}"
-                                required
-                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" "
-                            />
-                            <label
-                                for="section"
-                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                >Section</label
-                            >
-                        </div>
                     </div>
                     <div class="flex justify-center">
                         <button
                             type="submit"
                             class="group relative flex w-full sm:w-1/4 justify-center rounded-md border border-transparent bg-primary-500 py-2 px-4 text-sm font-medium text-white hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                         >
-                            Add Course
+                            Add Teacher
                         </button>
                     </div>
                 </form>
             </div>
 
-            <div th:include="fragments/display-courses :: displayCourses" th:with="courses=${courses}"></div>
+            <div th:include="fragments/display-teachers :: displayTeachers" th:with="teachers=${teachers}"></div>
 
         </div>
         <div
@@ -129,7 +109,7 @@
                     clip-rule="evenodd"
                 ></path>
             </svg>
-            <span class="font-medium">Course added successfully!</span>
+            <span class="font-medium">Teacher added successfully!</span>
         </div>
     </body>
 </html>
