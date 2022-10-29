@@ -4,6 +4,7 @@ import com.sda.doubleTee.dto.UserDto;
 import com.sda.doubleTee.model.Role;
 import com.sda.doubleTee.model.User;
 import com.sda.doubleTee.repository.RoleRepository;
+import com.sda.doubleTee.repository.TimeTableRepository;
 import com.sda.doubleTee.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
