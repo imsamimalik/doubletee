@@ -36,12 +36,13 @@ public class TimetableController {
     TeacherService teacherService;
 
 
-    @GetMapping("/allocate")
+    @GetMapping("/timetable/add")
     public String allocateTimetable(Model model, String url){
 
         List<Course> courses = courseService.findAllCourses();
         List<Room> rooms = roomService.findAllRooms();
         List<Teacher> teachers = teacherService.findAllTeachers();
+        List<String> days = List.of(new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"});
 
         TimeTableDto timeTableDto = new TimeTableDto();
 
@@ -49,54 +50,57 @@ public class TimetableController {
         model.addAttribute("rooms", rooms);
         model.addAttribute("teachers", teachers);
         model.addAttribute("timetableDto",timeTableDto);
+        model.addAttribute("days",days);
 
         return "/allocate-timetable";
     }
 
-    @PostMapping("/allocate")
+    @PostMapping("/timetable/add")
     public String saveAllocationToTT(@Valid @ModelAttribute("timetableDto") TimeTableDto timeTableDto, BindingResult result, Model model) {
 
         TimeTable teacherClash = timeTableService.findTeacherClash(timeTableDto);
         TimeTable roomClash = timeTableService.findRoomClash(timeTableDto);
 
-        if(teacherClash != null && teacherClash.getTeacherId() != null){
+        if(teacherClash != null && teacherClash.getTeacher().getId() != null){
             result.rejectValue("teacherId", null,
                     "This teacher is not free at the given time.");
 
             List<Course> courses = courseService.findAllCourses();
             List<Room> rooms = roomService.findAllRooms();
             List<Teacher> teachers = teacherService.findAllTeachers();
-
+            List<String> days = List.of(new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"});
 
             model.addAttribute("courses", courses);
             model.addAttribute("rooms", rooms);
             model.addAttribute("teachers", teachers);
             model.addAttribute("timetableDto",timeTableDto);
+            model.addAttribute("days",days);
 
-            return "redirect:/allocate?teacherClash";
+            return "redirect:/timetable/add?teacherClash";
 
         }
 
-        if(roomClash != null && roomClash.getRoomId() != null){
+        if(roomClash != null && roomClash.getRoom().getId() != null){
             result.rejectValue("teacherId", null,
                     "This room is not free at the given time.");
 
             List<Course> courses = courseService.findAllCourses();
             List<Room> rooms = roomService.findAllRooms();
             List<Teacher> teachers = teacherService.findAllTeachers();
-
+            List<String> days = List.of(new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"});
 
             model.addAttribute("courses", courses);
             model.addAttribute("rooms", rooms);
             model.addAttribute("teachers", teachers);
             model.addAttribute("timetableDto",timeTableDto);
+            model.addAttribute("days",days);
 
-            return "redirect:/allocate?roomClash";
+            return "redirect:/timetable/add?roomClash";
         }
 
         timeTableService.addToTimeTable(timeTableDto);
 
-        return "redirect:/allocate?success";
+        return "redirect:/timetable/add?success";
     }
 
 

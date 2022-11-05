@@ -24,7 +24,7 @@ public class AddTeacherController {
     private TeacherService teacherService;
 
 
-    @GetMapping("/add-teachers")
+    @GetMapping("/teachers/add")
     public String showAddCourses(Model model){
         AddTeacherDto addTeacherDto = new AddTeacherDto();
         List<Teacher> allTeachers = teacherService.findAllTeachers();
@@ -34,7 +34,7 @@ public class AddTeacherController {
         return "add-teachers";
     }
 
-    @PostMapping("/add-teachers/save")
+    @PostMapping("/teachers/add")
     public String addCourses(@Valid @ModelAttribute("addTeacher") AddTeacherDto addTeacherDto, BindingResult result, Model model) {
 
         Teacher existingTeacher = teacherService.findById(addTeacherDto.getEmployeeID());
@@ -57,7 +57,7 @@ public class AddTeacherController {
 
         teacherService.saveTeacher(addTeacherDto);
 
-        return "redirect:/add-teachers?success";
+        return "redirect:/teachers/add?success";
     }
 
     @GetMapping("/teachers")

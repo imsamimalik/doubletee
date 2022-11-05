@@ -14,38 +14,31 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "timetable")
-@IdClass(TimeTableId.class)
 
 public class TimeTable {
 
     @Id
-    @Column(name="room_id", nullable = false)
-    private Long roomId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Id
-    @Column(name="teacher_id", nullable = false)
-    private Long teacherId;
-
-    @Id
-    @Column(name="course_id", nullable = false)
-    private Long courseId;
-
-    @Id
     @Column(name="start_time", nullable = false)
     private LocalTime startTime;
 
     @Column(name="end_time", nullable = false)
     private LocalTime endTime;
 
-    @ManyToOne
+    @Column(name="day", nullable = false)
+    private String day;
+
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "teacher")
     private Teacher teacher;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "course")
     private Course course;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "room")
     private Room room;
 

@@ -49,6 +49,24 @@
 
 
                  <li>
+                    <button id="dropdownNavbarLink11" data-dropdown-toggle="dropdownNavbar11" class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">TimeTable <svg class="ml-1 w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
+                    <!-- Dropdown menu -->
+                    <div id="dropdownNavbar11" class="hidden z-10 w-44 font-normal bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                        <ul class="py-1 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
+                          <li>
+                            <a th:href="@{/timetable}" th:classappend="${#httpServletRequest.getRequestURI() == '/timetable' ? 'md:text-blue-700':''}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">View Timetable</a>
+                          </li>
+                          <li sec:authorize="hasRole('ADMIN')">
+                            <a th:href="@{/timetable/add}" th:classappend="${#httpServletRequest.getRequestURI() == '/timetable/add' ? 'md:text-blue-700':''}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Allocate Timetable</a>
+                          </li>
+                          
+                        </ul>
+                        
+                    </div>
+                </li>
+
+
+                 <li>
                     <button id="dropdownNavbarLink1" data-dropdown-toggle="dropdownNavbar1" class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">Courses <svg class="ml-1 w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
                     <!-- Dropdown menu -->
                     <div id="dropdownNavbar1" class="hidden z-10 w-44 font-normal bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
@@ -57,7 +75,7 @@
                             <a th:href="@{/courses}" th:classappend="${#httpServletRequest.getRequestURI() == '/courses' ? 'md:text-blue-700':''}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">View Courses</a>
                           </li>
                           <li sec:authorize="hasRole('ADMIN')">
-                            <a th:href="@{/add-courses}" th:classappend="${#httpServletRequest.getRequestURI() == '/add-courses' ? 'md:text-blue-700':''}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Add Courses</a>
+                            <a th:href="@{/courses/add}" th:classappend="${#httpServletRequest.getRequestURI() == '/courses/add' ? 'md:text-blue-700':''}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Add Courses</a>
                           </li>
                           
                         </ul>
@@ -74,7 +92,7 @@
                             <a th:href="@{/rooms}" th:classappend="${#httpServletRequest.getRequestURI() == '/rooms' ? 'md:text-blue-700':''}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">View Rooms</a>
                           </li>
                           <li sec:authorize="hasRole('ADMIN')">
-                            <a th:href="@{/add-rooms}" th:classappend="${#httpServletRequest.getRequestURI() == '/add-rooms' ? 'md:text-blue-700':''}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Add Rooms</a>
+                            <a th:href="@{/rooms/add}" th:classappend="${#httpServletRequest.getRequestURI() == '/rooms/add' ? 'md:text-blue-700':''}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Add Rooms</a>
                           </li>
                           
                         </ul>
@@ -92,7 +110,7 @@
                             <a th:href="@{/teachers}" th:classappend="${#httpServletRequest.getRequestURI() == '/teachers' ? 'md:text-blue-700':''}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">View teachers</a>
                           </li>
                           <li sec:authorize="hasRole('ADMIN')">
-                            <a th:href="@{/add-teachers}" th:classappend="${#httpServletRequest.getRequestURI() == '/add-teachers' ? 'md:text-blue-700':''}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Add teachers</a>
+                            <a th:href="@{/teachers/add}" th:classappend="${#httpServletRequest.getRequestURI() == '/teachers/add' ? 'md:text-blue-700':''}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Add teachers</a>
                           </li>
                           
                         </ul>

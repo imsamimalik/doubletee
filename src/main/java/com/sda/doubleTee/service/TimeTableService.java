@@ -28,13 +28,9 @@ public class TimeTableService {
     public void addToTimeTable(TimeTableDto timeTableDto) {
 
         TimeTable allocation  = new TimeTable();
-       // TimeTableId id = new TimeTableId(timeTableDto.getRoomId(), timeTableDto.getTeacherId(), timeTableDto.getCourseId(), timeTableDto.getStartTime());
-        //allocation.setId(id);
-        allocation.setRoomId(timeTableDto.getRoomId());
-        allocation.setTeacherId(timeTableDto.getTeacherId());
-        allocation.setCourseId(timeTableDto.getCourseId());
         allocation.setStartTime(timeTableDto.getStartTime());
         allocation.setEndTime(timeTableDto.getEndTime());
+        allocation.setDay(timeTableDto.getDay());
 
         Course course = courseRepository.findById(timeTableDto.getCourseId()).orElse(null);
         allocation.setCourse(course);
@@ -58,5 +54,9 @@ public class TimeTableService {
 
     public TimeTable findRoomClash(TimeTableDto timeTableDto) {
         return timeTableRepository.findByRoomIdAndStartTimeGreaterThanEqualAndStartTimeLessThanEqual(timeTableDto.getRoomId(),timeTableDto.getStartTime(),timeTableDto.getEndTime());
+    }
+
+    public List<TimeTable> test() {
+        return timeTableRepository.findByTeacher_Id(Long.valueOf(2));
     }
 }

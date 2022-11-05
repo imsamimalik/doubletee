@@ -51,7 +51,7 @@ public class AuthController {
 
 
     // handler method to handle user registration form submit request
-    @PostMapping("/register/save")
+    @PostMapping("/register")
     public String registration(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result, Model model){
         User existingUser = userService.findUserByEmail(userDto.getEmail());
 

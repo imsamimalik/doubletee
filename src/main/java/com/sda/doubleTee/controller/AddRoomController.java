@@ -22,7 +22,7 @@ public class AddRoomController {
     private RoomService roomService;
 
 
-    @GetMapping("/add-rooms")
+    @GetMapping("/rooms/add")
     public String showAddCourses(Model model){
         AddRoomDto addRoomDto = new AddRoomDto();
         List<Room> allRooms = roomService.findAllRooms();
@@ -32,7 +32,7 @@ public class AddRoomController {
         return "add-rooms";
     }
 
-    @PostMapping("/add-rooms/save")
+    @PostMapping("/rooms/add")
     public String addCourses(@Valid @ModelAttribute("addRoom") AddRoomDto addRoomDto, BindingResult result, Model model) {
 
         Room existingRoom = roomService.findByName(addRoomDto.getName());
@@ -55,7 +55,7 @@ public class AddRoomController {
 
         roomService.saveRoom(addRoomDto);
 
-        return "redirect:/add-rooms?success";
+        return "redirect:/rooms/add?success";
     }
 
     @GetMapping("/rooms")

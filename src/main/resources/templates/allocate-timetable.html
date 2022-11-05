@@ -17,10 +17,15 @@
                     class="mt-8 space-y-6"
                     method="POST"
                     role="form"
-                    th:action="@{/allocate}"
+                    th:action="@{/timetable/add}"
                     th:object="${timetableDto}"
                 >
-				<input type="hidden" id="timezone" name="timezone" value="+05:00" />
+                    <input
+                        type="hidden"
+                        id="timezone"
+                        name="timezone"
+                        value="+05:00"
+                    />
 
                     <div class="flex flex-wrap justify-evenly w-full">
                         <div class="w-full md:w-1/4 relative z-0 pb-6 group">
@@ -34,7 +39,7 @@
                                 <option
                                     th:each="course : ${courses}"
                                     th:value="${course.id}"
-                                    th:text="${course.name}"
+                                    th:text="|${course.name} (${course.section})|"
                                 ></option>
                             </select>
                         </div>
@@ -96,19 +101,34 @@
                                 required
                             />
                         </div>
+                        <div class="w-full md:w-1/4 relative z-0 pb-6 group">
+                            <label for="day">Select day:</label>
+                            <select
+                                class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
+                                th:field="*{day}"
+                                id="day"
+                                required
+                            >
+                                <option value="">Select Day</option>
+
+                                <option
+                                    th:each="day : ${days}"
+                                    th:value="${day}"
+                                    th:text="${day}"
+                                ></option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="flex justify-center">
+                    <div class="flex justify-center md:!mt-20">
                         <button
                             type="submit"
-                            class="group relative flex w-full sm:w-1/4 justify-center rounded-md border border-transparent bg-primary-500 py-2 px-4 text-sm font-medium text-white hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                            class="group relative text-lg flex w-full sm:w-1/4 justify-center rounded-md border border-transparent bg-primary-500 py-2 px-4 font-medium text-white hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                         >
                             Add
                         </button>
                     </div>
                 </form>
             </div>
-
-            <!-- <div th:include="fragments/display-courses :: displayCourses" th:with="courses=${courses}"></div> -->
         </div>
         <div
             th:if="${param.success}"
@@ -131,7 +151,7 @@
             <span class="font-medium">Operation Successful!</span>
         </div>
 
-		<div
+        <div
             th:if="${param.teacherClash}"
             class="flex fixed bottom-1 left-1 sm:bottom-8 sm:left-8 p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg"
             role="alert"
@@ -152,7 +172,7 @@
             <span class="font-medium">Teacher Clash!</span>
         </div>
 
-		<div
+        <div
             th:if="${param.roomClash}"
             class="flex fixed bottom-1 left-1 sm:bottom-8 sm:left-8 p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg"
             role="alert"

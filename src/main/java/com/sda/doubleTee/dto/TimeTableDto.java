@@ -31,4 +31,7 @@ public class TimeTableDto {
     @NotNull(message = "End Time cannot be empty")
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalTime endTime;
+
+    @NotNull(message = "Weekday cannot be empty")
+    private String day;
 }

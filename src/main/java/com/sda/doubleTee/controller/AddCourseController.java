@@ -23,7 +23,7 @@ public class AddCourseController {
     private CourseService courseService;
 
 
-    @GetMapping("/add-courses")
+    @GetMapping("/courses/add")
     public String showAddCourses(Model model){
         AddCourseDto addCourseDto = new AddCourseDto();
         List<Course> allCourses = courseService.findAllCourses();
@@ -32,7 +32,7 @@ public class AddCourseController {
         return "add-courses";
     }
 
-    @PostMapping("/add-courses/save")
+    @PostMapping("/courses/add")
     public String addCourses(@Valid @ModelAttribute("addCourse") AddCourseDto addCourseDto, BindingResult result, Model model) {
 
         Course existingCourse = courseService.findByCodeSection(addCourseDto.getCode(), addCourseDto.getSection());
@@ -55,7 +55,7 @@ public class AddCourseController {
 
         courseService.saveCourse(addCourseDto);
 
-        return "redirect:/add-courses?success";
+        return "redirect:/courses/add?success";
     }
 
 
