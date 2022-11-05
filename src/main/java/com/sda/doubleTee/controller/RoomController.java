@@ -1,22 +1,19 @@
 package com.sda.doubleTee.controller;
 
 import com.sda.doubleTee.dto.AddRoomDto;
-import com.sda.doubleTee.model.Course;
 import com.sda.doubleTee.model.Room;
 import com.sda.doubleTee.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-public class AddRoomController {
+public class RoomController {
 
     @Autowired
     private RoomService roomService;
@@ -64,6 +61,12 @@ public class AddRoomController {
         model.addAttribute("rooms",allRooms);
 
         return "rooms";
+    }
+
+    @DeleteMapping("/rooms/delete/{id}")
+    public String deleteRoom(@PathVariable Long id) {
+        roomService.deleteRoom(id);
+        return "redirect:/rooms?success";
     }
 
     }

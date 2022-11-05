@@ -34,13 +34,54 @@ public class AuthController {
 
 
 
-    // handler method to handle user registration form request
     @GetMapping("/register")
-    public String showRegistrationForm(Model model){
+    public String redirectRegistration(){
+        return "redirect:/register/student";
+    }
+
+    // handler method to handle user registration form request
+    @GetMapping("/register/student")
+    public String showRegistrationStudent(Model model){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             UserDto user = new UserDto();
+            user.setRole("ROLE_STUDENT");
+            model.addAttribute("title", "Student");
+            model.addAttribute("user", user);
+            return "register";
+        }
+
+        return "redirect:/";
+
+    }
+
+
+    @GetMapping("/register/faculty")
+    public String showRegistrationFaculty(Model model){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            UserDto user = new UserDto();
+            user.setRole("ROLE_FACULTY");
+            model.addAttribute("title", "Faculty");
+            model.addAttribute("user", user);
+            return "register";
+        }
+
+        return "redirect:/";
+
+    }
+
+
+    @GetMapping("/register/admin")
+    public String showRegistrationAdmin(Model model){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            UserDto user = new UserDto();
+            user.setRole("ROLE_ADMIN");
+            model.addAttribute("title", "Admin");
             model.addAttribute("user", user);
             return "register";
         }
@@ -84,10 +125,33 @@ public class AuthController {
     }
 
     // handler method to handle login request
-    @GetMapping("/login")
-    public String login(){
+    @GetMapping("/login/student")
+    public String loginStudent(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("title", "student");
+            return "login";
+        }
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/login/faculty")
+    public String loginFaculty(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("title", "faculty");
+            return "login";
+        }
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/login/admin")
+    public String loginAdmin(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("title", "admin");
             return "login";
         }
 

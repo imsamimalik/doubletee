@@ -6,45 +6,59 @@
         <title>Users - doubleTee</title>
     </head>
     <body class="w-full">
-        <nav th:replace="fragments/navbar::navbar"></nav>
-        <div class="flex flex-col justify-center align-center w-2/5 m-auto">
-            <div class="">
-                <div class="mb-5">
-                    <h1 class="text-2xl">List of Registered Users</h1>
-                </div>
-
+        <div id="app" class="flex flex-col">
+            <div class="content flex-1 min-h-[calc(100vh-70px)]">
+                <nav th:replace="fragments/navbar::navbar"></nav>
                 <div
-                    class="overflow-x-auto relative shadow-md sm:rounded-lg "
+                    class="flex flex-col justify-center align-center w-2/5 m-auto"
                 >
-                    <table
-                        class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
-                    >
-                        <thead
-                            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+                    <div class="">
+                        <div class="mb-5">
+                            <h1 class="text-2xl">List of Registered Users</h1>
+                        </div>
+
+                        <div
+                            class="overflow-x-auto relative shadow-md sm:rounded-lg"
                         >
-                            <tr>
-                                <th scope="col" class="py-3 px-6">Name</th>
-                                <th scope="col" class="py-3 px-6">Email</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr
-                                th:each="user : ${users}"
-                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                            <table
+                                class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
                             >
-                                <td
-                                    th:text="${user.name}"
-                                    scope="row"
-                                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                                ></td>
-                                <td th:text="${user.email}" class="py-4 px-6">
-                                    Sliver
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                <thead
+                                    class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+                                >
+                                    <tr>
+                                        <th scope="col" class="py-3 px-6">
+                                            Name
+                                        </th>
+                                        <th scope="col" class="py-3 px-6">
+                                            Email
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        th:each="user : ${users}"
+                                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                                    >
+                                        <td
+                                            th:text="${user.name}"
+                                            scope="row"
+                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                        ></td>
+                                        <td
+                                            th:text="${user.email}"
+                                            class="py-4 px-6"
+                                        >
+                                            Sliver
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <footer th:replace="fragments/footer::footer"></footer>
         </div>
     </body>
 </html>

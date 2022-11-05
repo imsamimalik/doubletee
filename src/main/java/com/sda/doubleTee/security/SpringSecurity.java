@@ -38,14 +38,30 @@ public class SpringSecurity {
                 .antMatchers("/").hasRole("ADMIN")
                 .antMatchers("/add-courses").hasRole("ADMIN")
                 .antMatchers("/add-rooms").hasRole("ADMIN")
+                .antMatchers("/**/delete/").hasRole("ADMIN")
                 .and()
                 .formLogin(
                         form -> form
-                                .loginPage("/login")
+                                .loginPage("/login/student")
                                 .loginProcessingUrl("/login")
                                 .defaultSuccessUrl("/")
                                 .permitAll()
-                ).logout(
+                )
+                .formLogin(
+                        form -> form
+                                .loginPage("/login/faculty")
+                                .loginProcessingUrl("/login")
+                                .defaultSuccessUrl("/")
+                                .permitAll()
+                )
+                .formLogin(
+                        form -> form
+                                .loginPage("/login/admin")
+                                .loginProcessingUrl("/login")
+                                .defaultSuccessUrl("/")
+                                .permitAll()
+                )
+                .logout(
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                                 .deleteCookies("JSESSIONID")

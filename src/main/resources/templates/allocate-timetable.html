@@ -6,191 +6,214 @@
         <title>Allocate Timetable - doubleTee</title>
     </head>
     <body class="w-full">
-        <nav th:replace="fragments/navbar::navbar"></nav>
-        <div class="flex flex-col justify-center align-center w-3/5 m-auto">
-            <div class="my-10 sm:mt-10">
-                <h1 class="text-2xl">Allocate Timetable</h1>
-            </div>
-
-            <div class="w-full space-y-8">
-                <form
-                    class="mt-8 space-y-6"
-                    method="POST"
-                    role="form"
-                    th:action="@{/timetable/add}"
-                    th:object="${timetableDto}"
+        <div id="app" class="flex flex-col">
+            <div class="content flex-1 min-h-[calc(100vh-70px)]">
+                <nav th:replace="fragments/navbar::navbar"></nav>
+                <div
+                    class="flex flex-col justify-center align-center w-3/5 m-auto"
                 >
-                    <input
-                        type="hidden"
-                        id="timezone"
-                        name="timezone"
-                        value="+05:00"
-                    />
+                    <div class="my-10 sm:mt-10">
+                        <h1 class="text-2xl">Allocate Timetable</h1>
+                    </div>
 
-                    <div class="flex flex-wrap justify-evenly w-full">
-                        <div class="w-full md:w-1/4 relative z-0 pb-6 group">
-                            <select
-                                class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
-                                th:field="*{courseId}"
-                                required
-                            >
-                                <option value="">Select Course</option>
-
-                                <option
-                                    th:each="course : ${courses}"
-                                    th:value="${course.id}"
-                                    th:text="|${course.name} (${course.section})|"
-                                ></option>
-                            </select>
-                        </div>
-                        <div
-                            class="w-full md:w-1/4 md:pl-3 relative z-0 pb-6 group"
+                    <div class="w-full space-y-8">
+                        <form
+                            class="mt-8 space-y-6"
+                            method="POST"
+                            role="form"
+                            th:action="@{/timetable/add}"
+                            th:object="${timetableDto}"
                         >
-                            <select
-                                class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
-                                th:field="*{teacherId}"
-                                required
-                            >
-                                <option value="">Select Teacher</option>
-
-                                <option
-                                    th:each="teacher : ${teachers}"
-                                    th:value="${teacher.id}"
-                                    th:text="${teacher.name}"
-                                ></option>
-                            </select>
-                        </div>
-
-                        <div class="w-full md:w-1/4 relative z-0 pb-6 group">
-                            <select
-                                class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
-                                th:field="*{roomId}"
-                                required
-                            >
-                                <option value="">Select Room</option>
-
-                                <option
-                                    th:each="room : ${rooms}"
-                                    th:value="${room.id}"
-                                    th:text="${room.name}"
-                                ></option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-wrap justify-evenly w-full md:pt-10">
-                        <div class="w-full md:w-1/4 relative z-0 pb-6 group">
-                            <label for="startTime">Select start time:</label>
                             <input
-                                class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
-                                th:field="*{startTime}"
-                                type="time"
-                                id="startTime"
-                                name="startTime"
-                                required
+                                type="hidden"
+                                id="timezone"
+                                name="timezone"
+                                value="+05:00"
                             />
-                        </div>
-                        <div class="w-full md:w-1/4 relative z-0 pb-6 group">
-                            <label for="endTime">Select end time:</label>
-                            <input
-                                class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
-                                th:field="*{endTime}"
-                                type="time"
-                                id="endTime"
-                                name="endTime"
-                                required
-                            />
-                        </div>
-                        <div class="w-full md:w-1/4 relative z-0 pb-6 group">
-                            <label for="day">Select day:</label>
-                            <select
-                                class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
-                                th:field="*{day}"
-                                id="day"
-                                required
-                            >
-                                <option value="">Select Day</option>
 
-                                <option
-                                    th:each="day : ${days}"
-                                    th:value="${day}"
-                                    th:text="${day}"
-                                ></option>
-                            </select>
-                        </div>
+                            <div class="flex flex-wrap justify-evenly w-full">
+                                <div
+                                    class="w-full md:w-1/4 relative z-0 pb-6 group"
+                                >
+                                    <select
+                                        class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
+                                        th:field="*{courseId}"
+                                        required
+                                    >
+                                        <option value="">Select Course</option>
+
+                                        <option
+                                            th:each="course : ${courses}"
+                                            th:value="${course.id}"
+                                            th:text="|${course.name} (${course.section})|"
+                                        ></option>
+                                    </select>
+                                </div>
+                                <div
+                                    class="w-full md:w-1/4 md:pl-3 relative z-0 pb-6 group"
+                                >
+                                    <select
+                                        class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
+                                        th:field="*{teacherId}"
+                                        required
+                                    >
+                                        <option value="">Select Teacher</option>
+
+                                        <option
+                                            th:each="teacher : ${teachers}"
+                                            th:value="${teacher.id}"
+                                            th:text="${teacher.name}"
+                                        ></option>
+                                    </select>
+                                </div>
+
+                                <div
+                                    class="w-full md:w-1/4 relative z-0 pb-6 group"
+                                >
+                                    <select
+                                        class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
+                                        th:field="*{roomId}"
+                                        required
+                                    >
+                                        <option value="">Select Room</option>
+
+                                        <option
+                                            th:each="room : ${rooms}"
+                                            th:value="${room.id}"
+                                            th:text="${room.name}"
+                                        ></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div
+                                class="flex flex-wrap justify-evenly w-full md:pt-10"
+                            >
+                                <div
+                                    class="w-full md:w-1/4 relative z-0 pb-6 group"
+                                >
+                                    <label for="startTime"
+                                        >Select start time:</label
+                                    >
+                                    <input
+                                        class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
+                                        th:field="*{startTime}"
+                                        type="time"
+                                        id="startTime"
+                                        name="startTime"
+                                        required
+                                    />
+                                </div>
+                                <div
+                                    class="w-full md:w-1/4 relative z-0 pb-6 group"
+                                >
+                                    <label for="endTime"
+                                        >Select end time:</label
+                                    >
+                                    <input
+                                        class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
+                                        th:field="*{endTime}"
+                                        type="time"
+                                        id="endTime"
+                                        name="endTime"
+                                        required
+                                    />
+                                </div>
+                                <div
+                                    class="w-full md:w-1/4 relative z-0 pb-6 group"
+                                >
+                                    <label for="day">Select day:</label>
+                                    <select
+                                        class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
+                                        th:field="*{day}"
+                                        id="day"
+                                        required
+                                    >
+                                        <option value="">Select Day</option>
+
+                                        <option
+                                            th:each="day : ${days}"
+                                            th:value="${day}"
+                                            th:text="${day}"
+                                        ></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="flex justify-center md:!mt-20">
+                                <button
+                                    type="submit"
+                                    class="group relative text-lg flex w-full sm:w-1/4 justify-center rounded-md border border-transparent bg-primary-500 py-2 px-4 font-medium text-white hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                                >
+                                    Add
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="flex justify-center md:!mt-20">
-                        <button
-                            type="submit"
-                            class="group relative text-lg flex w-full sm:w-1/4 justify-center rounded-md border border-transparent bg-primary-500 py-2 px-4 font-medium text-white hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                        >
-                            Add
-                        </button>
-                    </div>
-                </form>
+                </div>
+                <div
+                    th:if="${param.success}"
+                    class="flex fixed bottom-1 left-1 sm:bottom-8 sm:left-8 p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg"
+                    role="alert"
+                >
+                    <svg
+                        aria-hidden="true"
+                        class="flex-shrink-0 w-5 h-5 mr-2 text-green-700 dark:text-green-800"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                            clip-rule="evenodd"
+                        ></path>
+                    </svg>
+                    <span class="font-medium">Operation Successful!</span>
+                </div>
+
+                <div
+                    th:if="${param.teacherClash}"
+                    class="flex fixed bottom-1 left-1 sm:bottom-8 sm:left-8 p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg"
+                    role="alert"
+                >
+                    <svg
+                        aria-hidden="true"
+                        class="flex-shrink-0 w-5 h-5 mr-2 text-green-700 dark:text-green-800"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                            clip-rule="evenodd"
+                        ></path>
+                    </svg>
+                    <span class="font-medium">Teacher Clash!</span>
+                </div>
+
+                <div
+                    th:if="${param.roomClash}"
+                    class="flex fixed bottom-1 left-1 sm:bottom-8 sm:left-8 p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg"
+                    role="alert"
+                >
+                    <svg
+                        aria-hidden="true"
+                        class="flex-shrink-0 w-5 h-5 mr-2 text-green-700 dark:text-green-800"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                            clip-rule="evenodd"
+                        ></path>
+                    </svg>
+                    <span class="font-medium">Room Clash!</span>
+                </div>
             </div>
-        </div>
-        <div
-            th:if="${param.success}"
-            class="flex fixed bottom-1 left-1 sm:bottom-8 sm:left-8 p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg"
-            role="alert"
-        >
-            <svg
-                aria-hidden="true"
-                class="flex-shrink-0 w-5 h-5 mr-2 text-green-700 dark:text-green-800"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    fill-rule="evenodd"
-                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                    clip-rule="evenodd"
-                ></path>
-            </svg>
-            <span class="font-medium">Operation Successful!</span>
-        </div>
-
-        <div
-            th:if="${param.teacherClash}"
-            class="flex fixed bottom-1 left-1 sm:bottom-8 sm:left-8 p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg"
-            role="alert"
-        >
-            <svg
-                aria-hidden="true"
-                class="flex-shrink-0 w-5 h-5 mr-2 text-green-700 dark:text-green-800"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    fill-rule="evenodd"
-                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                    clip-rule="evenodd"
-                ></path>
-            </svg>
-            <span class="font-medium">Teacher Clash!</span>
-        </div>
-
-        <div
-            th:if="${param.roomClash}"
-            class="flex fixed bottom-1 left-1 sm:bottom-8 sm:left-8 p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg"
-            role="alert"
-        >
-            <svg
-                aria-hidden="true"
-                class="flex-shrink-0 w-5 h-5 mr-2 text-green-700 dark:text-green-800"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    fill-rule="evenodd"
-                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                    clip-rule="evenodd"
-                ></path>
-            </svg>
-            <span class="font-medium">Room Clhass!</span>
+            <footer th:replace="fragments/footer::footer"></footer>
         </div>
     </body>
 </html>

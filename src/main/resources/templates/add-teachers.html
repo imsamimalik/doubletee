@@ -6,110 +6,121 @@
         <title>Add Teachers - doubleTee</title>
     </head>
     <body class="w-full">
-        <nav th:replace="fragments/navbar::navbar"></nav>
-        <div class="flex flex-col justify-center align-center w-3/5 m-auto">
-            <div class="my-10 sm:mt-10">
-                <h1 class="text-2xl">Add Teacher</h1>
-            </div>
-
-            <div class="w-full space-y-8">
-                <form
-                    class="mt-8 space-y-6"
-                    method="POST"
-                    role="form"
-                    th:action="@{/teachers/add}"
-                    th:object="${addTeacher}"
+        <div id="app" class="flex flex-col">
+            <div class="content flex-1 min-h-[calc(100vh-70px)]">
+                <nav th:replace="fragments/navbar::navbar"></nav>
+                <div
+                    class="flex flex-col justify-center align-center w-3/5 m-auto"
                 >
-                    <div class="flex flex-wrap justify-evenly w-full">
-                        <div class="w-full md:w-1/4 relative z-0 pb-6 group">
-                            <input
-                                id="employeeID"
-                                name="employeeID"
-                                type="text"
-                                th:field="*{employeeID}"
-                                required
-                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" "
-                            />
-                            <label
-                                for="employeeID"
-                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                >Employee ID</label
-                            >
-                        </div>
-                        <div
-                            class="w-full md:w-1/4 md:pl-3 relative z-0 pb-6 group"
-                        >
-                            <input
-                                id="name"
-                                name="name"
-                                type="text"
-                                th:field="*{name}"
-                                required
-                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" "
-                            />
-                            <label
-                                for="name"
-                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                >Name</label
-                            >
-                        </div>
+                    <div class="my-10 sm:mt-10">
+                        <h1 class="text-2xl">Add Teacher</h1>
                     </div>
 
-                    <div class="flex flex-wrap justify-evenly w-full">
-                        <div class="w-full md:w-1/4 relative z-0 pb-6 group">
-                            <input
-                                id="department"
-                                name="department"
-                                type="text"
-                                
-                                th:field="*{department}"
-                                required
-                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" "
-                            />
-                            <label
-                                for="department"
-                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                >Department</label
-                            >
-                        </div>
-
-                    </div>
-                    <div class="flex justify-center">
-                        <button
-                            type="submit"
-                            class="group relative flex w-full sm:w-1/4 justify-center rounded-md border border-transparent bg-primary-500 py-2 px-4 text-sm font-medium text-white hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                    <div class="w-full space-y-8">
+                        <form
+                            class="mt-8 space-y-6"
+                            method="POST"
+                            role="form"
+                            th:action="@{/teachers/add}"
+                            th:object="${addTeacher}"
                         >
-                            Add Teacher
-                        </button>
+                            <div class="flex flex-wrap justify-evenly w-full">
+                                <div
+                                    class="w-full md:w-1/4 relative z-0 pb-6 group"
+                                >
+                                    <input
+                                        id="employeeID"
+                                        name="employeeID"
+                                        type="text"
+                                        th:field="*{employeeID}"
+                                        required
+                                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" "
+                                    />
+                                    <label
+                                        for="employeeID"
+                                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                        >Employee ID</label
+                                    >
+                                </div>
+                                <div
+                                    class="w-full md:w-1/4 md:pl-3 relative z-0 pb-6 group"
+                                >
+                                    <input
+                                        id="name"
+                                        name="name"
+                                        type="text"
+                                        th:field="*{name}"
+                                        required
+                                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" "
+                                    />
+                                    <label
+                                        for="name"
+                                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                        >Name</label
+                                    >
+                                </div>
+                            </div>
+
+                            <div class="flex flex-wrap justify-evenly w-full">
+                                <div
+                                    class="w-full md:w-1/4 relative z-0 pb-6 group"
+                                >
+                                    <input
+                                        id="department"
+                                        name="department"
+                                        type="text"
+                                        th:field="*{department}"
+                                        required
+                                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" "
+                                    />
+                                    <label
+                                        for="department"
+                                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                        >Department</label
+                                    >
+                                </div>
+                            </div>
+                            <div class="flex justify-center">
+                                <button
+                                    type="submit"
+                                    class="group relative flex w-full sm:w-1/4 justify-center rounded-md border border-transparent bg-primary-500 py-2 px-4 text-sm font-medium text-white hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                                >
+                                    Add Teacher
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+
+                    <div
+                        th:include="fragments/display-teachers :: displayTeachers"
+                        th:with="teachers=${teachers}"
+                    ></div>
+                </div>
+                <div
+                    th:if="${param.success}"
+                    class="flex fixed bottom-1 left-1 sm:bottom-8 sm:left-8 p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg"
+                    role="alert"
+                >
+                    <svg
+                        aria-hidden="true"
+                        class="flex-shrink-0 w-5 h-5 mr-2 text-green-700 dark:text-green-800"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                            clip-rule="evenodd"
+                        ></path>
+                    </svg>
+                    <span class="font-medium">Teacher added successfully!</span>
+                </div>
             </div>
-
-            <div th:include="fragments/display-teachers :: displayTeachers" th:with="teachers=${teachers}"></div>
-
-        </div>
-        <div
-            th:if="${param.success}"
-            class="flex fixed bottom-1 left-1 sm:bottom-8 sm:left-8 p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg"
-            role="alert"
-        >
-            <svg
-                aria-hidden="true"
-                class="flex-shrink-0 w-5 h-5 mr-2 text-green-700 dark:text-green-800"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    fill-rule="evenodd"
-                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                    clip-rule="evenodd"
-                ></path>
-            </svg>
-            <span class="font-medium">Teacher added successfully!</span>
+            <footer th:replace="fragments/footer::footer"></footer>
         </div>
     </body>
 </html>

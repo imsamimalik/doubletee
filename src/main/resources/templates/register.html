@@ -5,382 +5,403 @@
         <title>Register - doubleTee</title>
     </head>
     <body class="h-[80vh]">
-        <nav th:replace="fragments/navbar::navbar"></nav>
-
-        <div
-            class="flex flex-col min-h-full items-center justify-center px-4 py-6 sm:px-6 lg:px-8"
-        >
-            <div>
-                <h1
-                    class="text-xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight"
-                >
-                    Register for doubleTee
-                </h1>
-            </div>
-
-            <div class="w-full max-w-md space-y-8">
-                <form
-                    class="mt-8 space-y-6"
-                    method="POST"
-                    role="form"
-                    th:action="@{/register}"
-                    th:object="${user}"
-                >
-                    <div class="-space-y-px rounded-md shadow-sm flex flex-col">
-                        <div class="relative z-0 pb-6 w-full group">
-                            <input
-                                id="name"
-                                name="name"
-                                type="text"
-                                th:field="*{name}"
-                                required
-                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" "
-                            />
-                            <label
-                                for="name"
-                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                >Name</label
-                            >
-                        </div>
-
-                        <div class="relative z-0 pb-6 w-full group">
-                            <input
-                                id="username"
-                                name="username"
-                                type="email"
-                                th:field="*{email}"
-                                required
-                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" "
-                            />
-                            <label
-                                for="username"
-                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                >Email address</label
-                            >
-                        </div>
-                        <div class="flex flex-wrap">
-                            <div
-                                class="w-full md:w-1/2 relative z-0 pb-6 group"
-                            >
-                                <input
-                                    id="rollNumber"
-                                    name="rollNumber"
-                                    type="text"
-                                    th:field="*{rollNumber}"
-                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                    placeholder=" "
-                                />
-                                <label
-                                    for="rollNumber"
-                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                    >Roll Number</label
-                                >
-                            </div>
-
-                            <div
-                                class="w-full md:w-1/2 md:pl-3 relative z-0 pb-6 group"
-                            >
-                                <input
-                                    id="employeeId"
-                                    name="employeeId"
-                                    type="text"
-                                    th:field="*{employeeId}"
-                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                    placeholder=" "
-                                />
-                                <label
-                                    for="employeeId"
-                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                    >Employee ID</label
-                                >
-                            </div>
-                        </div>
-
-                        <div class="relative z-0 pb-6 w-full group">
-                            <input
-                                id="password"
-                                name="password"
-                                type="password"
-                                th:field="*{password}"
-                                required
-                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" "
-                            />
-                            <label
-                                for="password"
-                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                >Password</label
-                            >
-                        </div>
-                        <div class="flex flex-wrap">
-                            <div
-                                class="w-full md:w-1/2 relative z-0 pb-6 group"
-                            >
-                                <input
-                                    id="cgpa"
-                                    name="cgpa"
-                                    type="number"
-                                    th:field="*{CGPA}"
-                                    min="0"
-                                    max="4"
-                                    step=".01"
-                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                    placeholder=" "
-                                />
-                                <label
-                                    for="cgpa"
-                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                    >CGPA</label
-                                >
-                            </div>
-
-                            <div
-                                class="w-full md:w-1/2 md:pl-3 relative z-0 pb-6 group"
-                            >
-                                <input
-                                    id="batch"
-                                    name="batch"
-                                    type="number"
-                                    step="1"
-                                    min="2000"
-                                    max="4000"
-                                    th:field="*{batch}"
-                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                    placeholder=" "
-                                />
-                                <label
-                                    for="batch"
-                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                    >Batch</label
-                                >
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap">
-                            <div
-                                class="w-full md:w-1/2 relative z-0 pb-6 group"
-                            >
-                                <input
-                                    id="degree"
-                                    name="degree"
-                                    type="text"
-                                    th:field="*{degree}"
-                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                    placeholder=" "
-                                />
-                                <label
-                                    for="degree"
-                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                    >Degree</label
-                                >
-                            </div>
-
-                            <div
-                                class="w-full md:w-1/2 md:pl-3 relative z-0 pb-6 group"
-                            >
-                                <input
-                                    id="dob"
-                                    name="dob"
-                                    type="date"
-                                    th:field="*{DOB}"
-                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                    placeholder=" "
-                                />
-                                <label
-                                    for="dob"
-                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                    >Date of Birth</label
-                                >
-                            </div>
-                        </div>
-
-                        <div class="relative z-0 pb-6 w-full group">
-                            <input
-                                id="designation"
-                                name="designation"
-                                type="text"
-                                th:field="*{designation}"
-                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" "
-                            />
-                            <label
-                                for="designation"
-                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                >Designation</label
-                            >
-                        </div>
-
-                        <div class="relative z-0 pb-6 w-full group">
-                            <input
-                                id="address"
-                                name="address"
-                                type="text"
-                                th:field="*{postalAddress}"
-                                required
-                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" "
-                            />
-                            <label
-                                for="address"
-                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                >Postal Address</label
-                            >
-                        </div>
-
-                        <h3
-                            class="mb-4 font-semibold text-gray-900 dark:text-white py-4"
-                        >
-                            Register for
-                        </h3>
-                        <ul
-                            class="items-center w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                        >
-                            <li
-                                class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
-                            >
-                                <div class="flex items-center pl-3">
-                                    <input
-                                        id="student"
-                                        type="radio"
-                                        value="ROLE_STUDENT"
-                                        th:field="*{role}"
-                                        name="registrationType"
-                                        class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 dark:bg-gray-600 dark:border-gray-500"
-                                    />
-                                    <label
-                                        for="student"
-                                        class="cursor-pointer py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
-                                        >Student
-                                    </label>
-                                </div>
-                            </li>
-                            <li
-                                class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
-                            >
-                                <div class="flex items-center pl-3">
-                                    <input
-                                        id="admin"
-                                        type="radio"
-                                        value="ROLE_ADMIN"
-                                        th:field="*{role}"
-                                        name="registrationType"
-                                        class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 dark:bg-gray-600 dark:border-gray-500"
-                                    />
-                                    <label
-                                        for="admin"
-                                        class="cursor-pointer py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
-                                        >Admin</label
-                                    >
-                                </div>
-                            </li>
-                            <li
-                                class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
-                            >
-                                <div class="flex items-center pl-3">
-                                    <input
-                                        id="faculty"
-                                        type="radio"
-                                        value="ROLE_FACULTY"
-                                        th:field="*{role}"
-                                        name="registrationType"
-                                        checked
-                                        class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 dark:bg-gray-600 dark:border-gray-500"
-                                    />
-                                    <label
-                                        for="faculty"
-                                        class="cursor-pointer py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
-                                        >Faculty</label
-                                    >
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <button
-                            type="submit"
-                            class="group relative flex w-full justify-center rounded-md border border-transparent bg-primary-500 py-2 px-4 text-sm font-medium text-white hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                        >
-                            <span
-                                class="absolute inset-y-0 left-0 flex items-center pl-3"
-                            >
-                                <svg
-                                    class="h-5 w-5 text-primary-700 group-hover:text-primary-500"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                    aria-hidden="true"
-                                >
-                                    <path
-                                        fill-rule="evenodd"
-                                        d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z"
-                                        clip-rule="evenodd"
-                                    />
-                                </svg>
-                            </span>
-                            Register
-                        </button>
-                    </div>
-                    <div>
-                        <span>
-                            Already registered?
-                            <a th:href="@{/login}" class="text-primary-500"
-                                >Login here</a
-                            >
-                        </span>
-                    </div>
-                    <p
-                        th:errors="*{name}"
-                        class="text-red-500"
-                        th:if="${#fields.hasErrors('name')}"
-                    ></p>
-                    <p
-                        th:errors="*{email}"
-                        class="text-red-500"
-                        th:if="${#fields.hasErrors('email')}"
-                    ></p>
-                    <p
-                        th:errors="*{password}"
-                        class="text-red-500"
-                        th:if="${#fields.hasErrors('password')}"
-                    ></p>
-                    <p
-                        th:errors="*{CGPA}"
-                        class="text-red-500"
-                        th:if="${#fields.hasErrors('CGPA')}"
-                    ></p>
-                    <p
-                        th:errors="*{batch}"
-                        class="text-red-500"
-                        th:if="${#fields.hasErrors('batch')}"
-                    ></p>
-                    <p
-                        th:errors="*{degree}"
-                        class="text-red-500"
-                        th:if="${#fields.hasErrors('degree')}"
-                    ></p>
-                    <p
-                        th:errors="*{DOB}"
-                        class="text-red-500"
-                        th:if="${#fields.hasErrors('DOB')}"
-                    ></p>
-                    <p
-                        th:errors="*{postalAddress}"
-                        class="text-red-500"
-                        th:if="${#fields.hasErrors('postalAddress')}"
-                    ></p>
-                </form>
+        <div id="app" class="flex flex-col">
+            <div class="content flex-1 min-h-[calc(100vh-70px)]">
+                <nav th:replace="fragments/navbar::navbar"></nav>
 
                 <div
-                    th:if="${param.success}"
-                    class="bg-primary-100 border border-primary-400 text-primary-600 px-4 py-3 rounded relative"
-                    role="alert"
+                    class="flex flex-col min-h-full items-center justify-center px-4 py-6 sm:px-6 lg:px-8"
                 >
-                    <strong class="font-bold">Success! </strong>
-                    <span class="block sm:inline"
-                        >You have successfully registered our app!</span
-                    >
+                    <div>
+                        <h1
+                            class="text-xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight"
+                            th:text="|Register as ${title}|"
+                        >
+                            Register for doubleTee
+                        </h1>
+                    </div>
+
+                    <div class="w-full max-w-md space-y-8">
+                        <form
+                            class="mt-8 space-y-6"
+                            method="POST"
+                            role="form"
+                            th:action="@{/register}"
+                            th:object="${user}"
+                        >
+                            <div
+                                class="-space-y-px rounded-md shadow-sm flex flex-col"
+                            >
+                                <div class="relative z-0 pb-6 w-full group">
+                                    <input
+                                        id="name"
+                                        name="name"
+                                        type="text"
+                                        th:field="*{name}"
+                                        required
+                                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" "
+                                    />
+                                    <label
+                                        for="name"
+                                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                        >Name</label
+                                    >
+                                </div>
+
+                                <div class="relative z-0 pb-6 w-full group">
+                                    <input
+                                        id="username"
+                                        name="username"
+                                        type="email"
+                                        th:field="*{email}"
+                                        required
+                                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" "
+                                    />
+                                    <label
+                                        for="username"
+                                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                        >Email address</label
+                                    >
+                                </div>
+                                <div class="flex flex-wrap">
+                                    <div
+                                        th:if="${title}=='Student'"
+                                        class="w-full relative z-0 pb-6 group"
+                                    >
+                                        <input
+                                            id="rollNumber"
+                                            name="rollNumber"
+                                            type="text"
+                                            th:field="*{rollNumber}"
+                                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                            placeholder=" "
+                                        />
+                                        <label
+                                            for="rollNumber"
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                            >Roll Number</label
+                                        >
+                                    </div>
+
+                                    <div
+                                        class="w-full relative z-0 pb-6 group"
+                                        th:if="${title}!='Student'"
+                                    >
+                                        <input
+                                            id="employeeId"
+                                            name="employeeId"
+                                            type="text"
+                                            th:field="*{employeeId}"
+                                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                            placeholder=" "
+                                        />
+                                        <label
+                                            for="employeeId"
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                            >Employee ID</label
+                                        >
+                                    </div>
+                                </div>
+
+                                <div class="relative z-0 pb-6 w-full group">
+                                    <input
+                                        id="password"
+                                        name="password"
+                                        type="password"
+                                        th:field="*{password}"
+                                        required
+                                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" "
+                                    />
+                                    <label
+                                        for="password"
+                                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                        >Password</label
+                                    >
+                                </div>
+                                <div class="flex flex-wrap">
+                                    <div
+                                        class="w-full md:w-1/2 relative z-0 pb-6 group"
+                                        th:if="${title}=='Student'"
+                                    >
+                                        <input
+                                            id="cgpa"
+                                            name="cgpa"
+                                            type="number"
+                                            th:field="*{CGPA}"
+                                            min="0"
+                                            max="4"
+                                            step=".01"
+                                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                            placeholder=" "
+                                        />
+                                        <label
+                                            for="cgpa"
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                            >CGPA</label
+                                        >
+                                    </div>
+
+                                    <div
+                                        class="w-full md:w-1/2 md:pl-3 relative z-0 pb-6 group"
+                                        th:if="${title}=='Student'"
+                                    >
+                                        <input
+                                            id="batch"
+                                            name="batch"
+                                            type="number"
+                                            step="1"
+                                            min="2000"
+                                            max="4000"
+                                            th:field="*{batch}"
+                                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                            placeholder=" "
+                                        />
+                                        <label
+                                            for="batch"
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                            >Batch</label
+                                        >
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap">
+                                    <div
+                                        class="w-full md:w-1/2 relative z-0 pb-6 group"
+                                        th:if="${title}=='Student'"
+                                    >
+                                        <input
+                                            id="degree"
+                                            name="degree"
+                                            type="text"
+                                            th:field="*{degree}"
+                                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                            placeholder=" "
+                                        />
+                                        <label
+                                            for="degree"
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                            >Degree</label
+                                        >
+                                    </div>
+
+                                    <div
+                                        class="w-full md:w-1/2 flex-1 relative z-0 pb-6 group"
+                                        th:classappend="${title == 'Student' ? 'md:pl-3':''}"
+                                    >
+                                        <input
+                                            id="dob"
+                                            name="dob"
+                                            type="date"
+                                            th:field="*{DOB}"
+                                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                            placeholder=" "
+                                        />
+                                        <label
+                                            for="dob"
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                            >Date of Birth</label
+                                        >
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="relative z-0 pb-6 w-full group"
+                                    th:if="${title}!='Student'"
+                                >
+                                    <input
+                                        id="designation"
+                                        name="designation"
+                                        type="text"
+                                        th:field="*{designation}"
+                                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" "
+                                    />
+                                    <label
+                                        for="designation"
+                                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                        >Designation</label
+                                    >
+                                </div>
+
+                                <div class="relative z-0 pb-6 w-full group">
+                                    <input
+                                        id="address"
+                                        name="address"
+                                        type="text"
+                                        th:field="*{postalAddress}"
+                                        required
+                                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" "
+                                    />
+                                    <label
+                                        for="address"
+                                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                        >Postal Address</label
+                                    >
+                                </div>
+
+                                <h3
+                                    class="mb-4 font-semibold text-gray-900 dark:text-white py-4"
+                                >
+                                    Register for
+                                </h3>
+                                <ul
+                                    class="items-center w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                >
+                                    <li
+                                        class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
+                                    >
+                                        <div class="flex items-center pl-3">
+                                            <input
+                                                id="student"
+                                                type="radio"
+                                                value="ROLE_STUDENT"
+                                                th:field="*{role}"
+                                                onclick="window.location.href = '/register/student'"
+                                                name="registrationType"
+                                                class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 dark:bg-gray-600 dark:border-gray-500"
+                                            />
+                                            <label
+                                                for="student"
+                                                class="cursor-pointer py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
+                                                >Student
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li
+                                        class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
+                                    >
+                                        <div class="flex items-center pl-3">
+                                            <input
+                                                id="admin"
+                                                type="radio"
+                                                value="ROLE_ADMIN"
+                                                th:field="*{role}"
+                                                onclick="window.location.href = '/register/admin'"
+                                                name="registrationType"
+                                                class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 dark:bg-gray-600 dark:border-gray-500"
+                                            />
+                                            <label
+                                                for="admin"
+                                                class="cursor-pointer py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
+                                                >Admin</label
+                                            >
+                                        </div>
+                                    </li>
+                                    <li
+                                        class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
+                                    >
+                                        <div class="flex items-center pl-3">
+                                            <input
+                                                id="faculty"
+                                                type="radio"
+                                                value="ROLE_FACULTY"
+                                                th:field="*{role}"
+                                                onclick="window.location.href = '/register/faculty'"
+                                                name="registrationType"
+                                                checked
+                                                class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 dark:bg-gray-600 dark:border-gray-500"
+                                            />
+                                            <label
+                                                for="faculty"
+                                                class="cursor-pointer py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
+                                                >Faculty</label
+                                            >
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <button
+                                    type="submit"
+                                    class="group relative flex w-full justify-center rounded-md border border-transparent bg-primary-500 py-2 px-4 text-sm font-medium text-white hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                                >
+                                    <span
+                                        class="absolute inset-y-0 left-0 flex items-center pl-3"
+                                    >
+                                        <svg
+                                            class="h-5 w-5 text-primary-700 group-hover:text-primary-500"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20"
+                                            fill="currentColor"
+                                            aria-hidden="true"
+                                        >
+                                            <path
+                                                fill-rule="evenodd"
+                                                d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z"
+                                                clip-rule="evenodd"
+                                            />
+                                        </svg>
+                                    </span>
+                                    Register
+                                </button>
+                            </div>
+                            <div>
+                                <span>
+                                    Already registered?
+                                    <a
+                                        th:href="@{/login}"
+                                        class="text-primary-500"
+                                        >Login here</a
+                                    >
+                                </span>
+                            </div>
+                            <p
+                                th:errors="*{name}"
+                                class="text-red-500"
+                                th:if="${#fields.hasErrors('name')}"
+                            ></p>
+                            <p
+                                th:errors="*{email}"
+                                class="text-red-500"
+                                th:if="${#fields.hasErrors('email')}"
+                            ></p>
+                            <p
+                                th:errors="*{password}"
+                                class="text-red-500"
+                                th:if="${#fields.hasErrors('password')}"
+                            ></p>
+                            <p
+                                th:errors="*{CGPA}"
+                                class="text-red-500"
+                                th:if="${#fields.hasErrors('CGPA')}"
+                            ></p>
+                            <p
+                                th:errors="*{batch}"
+                                class="text-red-500"
+                                th:if="${#fields.hasErrors('batch')}"
+                            ></p>
+                            <p
+                                th:errors="*{degree}"
+                                class="text-red-500"
+                                th:if="${#fields.hasErrors('degree')}"
+                            ></p>
+                            <p
+                                th:errors="*{DOB}"
+                                class="text-red-500"
+                                th:if="${#fields.hasErrors('DOB')}"
+                            ></p>
+                            <p
+                                th:errors="*{postalAddress}"
+                                class="text-red-500"
+                                th:if="${#fields.hasErrors('postalAddress')}"
+                            ></p>
+                        </form>
+
+                        <div
+                            th:if="${param.success}"
+                            class="bg-primary-100 border border-primary-400 text-primary-600 px-4 py-3 rounded relative"
+                            role="alert"
+                        >
+                            <strong class="font-bold">Success! </strong>
+                            <span class="block sm:inline"
+                                >You have successfully registered our app!</span
+                            >
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

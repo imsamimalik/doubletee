@@ -10,9 +10,15 @@
             class="flex flex-col min-h-full items-center justify-center px-4 sm:px-6 lg:px-8"
         >
             <div class="flex flex-col items-center justify-center">
-                <img th:src="@{/images/user.png}" alt="placeholder" class="w-20 h-20 mb-8 sm:w-40 sm:h-40" />
+                <img
+                    th:src="@{/images/user.png}"
+                    alt="placeholder"
+                    class="w-20 h-20 mb-8 sm:w-40 sm:h-40"
+                />
                 <h1
                     class="text-xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight"
+                    th:text="|Login as ${#strings.capitalize(title)}|"
+
                 >
                     Log into your account
                 </h1>
@@ -57,9 +63,7 @@
                         </div>
                     </div>
 
-                    <div
-                        class="flex flex-col sm:flex-row sm:justify-between"
-                    >
+                    <div class="flex flex-col sm:flex-row sm:justify-between">
                         <div class="flex items-center">
                             <input
                                 id="remember-me"
@@ -111,7 +115,9 @@
                     <div>
                         <span>
                             Not registered?
-                            <a th:href="@{/register}" class="text-primary-500"
+                            <a
+                                th:href="|/register/${title}|"
+                                class="text-primary-500"
                                 >Register here</a
                             >
                         </span>
@@ -123,9 +129,7 @@
                     role="alert"
                 >
                     <strong class="font-bold">Error!</strong>
-                    <span class="block sm:inline">
-                        Invalid Credentials!</span
-                    >
+                    <span class="block sm:inline"> Invalid Credentials!</span>
                 </div>
                 <div
                     th:if="${param.logout}"
