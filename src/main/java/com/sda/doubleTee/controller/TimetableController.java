@@ -1,13 +1,11 @@
 package com.sda.doubleTee.controller;
 
-import com.sda.doubleTee.dto.AddTeacherDto;
+import com.sda.doubleTee.constants.Days;
 import com.sda.doubleTee.dto.TimeTableDto;
 import com.sda.doubleTee.model.Course;
 import com.sda.doubleTee.model.Room;
 import com.sda.doubleTee.model.Teacher;
 import com.sda.doubleTee.model.TimeTable;
-import com.sda.doubleTee.repository.TeacherRepository;
-import com.sda.doubleTee.repository.TimeTableRepository;
 import com.sda.doubleTee.service.CourseService;
 import com.sda.doubleTee.service.RoomService;
 import com.sda.doubleTee.service.TeacherService;
@@ -16,11 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.Duration;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -42,7 +40,7 @@ public class TimetableController {
         List<Course> courses = courseService.findAllCourses();
         List<Room> rooms = roomService.findAllRooms();
         List<Teacher> teachers = teacherService.findAllTeachers();
-        List<String> days = List.of(new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"});
+        List<Enum> days = Arrays.asList(Days.values());
 
         TimeTableDto timeTableDto = new TimeTableDto();
 
@@ -68,7 +66,7 @@ public class TimetableController {
             List<Course> courses = courseService.findAllCourses();
             List<Room> rooms = roomService.findAllRooms();
             List<Teacher> teachers = teacherService.findAllTeachers();
-            List<String> days = List.of(new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"});
+            List<Enum> days = Arrays.asList(Days.values());
 
             model.addAttribute("courses", courses);
             model.addAttribute("rooms", rooms);
@@ -87,7 +85,8 @@ public class TimetableController {
             List<Course> courses = courseService.findAllCourses();
             List<Room> rooms = roomService.findAllRooms();
             List<Teacher> teachers = teacherService.findAllTeachers();
-            List<String> days = List.of(new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"});
+            List<Enum> days = Arrays.asList(Days.values());
+
 
             model.addAttribute("courses", courses);
             model.addAttribute("rooms", rooms);
@@ -97,11 +96,57 @@ public class TimetableController {
 
             return "redirect:/timetable/add?roomClash";
         }
+        Duration duration = Duration.between(timeTableDto.getStartTime(),timeTableDto.getEndTime());
+        long diff = duration.toMinutes();
+
+        if(diff<=0) {
+            result.rejectValue("startTime", null,
+                    "The time entered is invalid");
+
+            List<Course> courses = courseService.findAllCourses();
+            List<Room> rooms = roomService.findAllRooms();
+            List<Teacher> teachers = teacherService.findAllTeachers();
+            List<Enum> days = Arrays.asList(Days.values());
+
+
+            model.addAttribute("courses", courses);
+            model.addAttribute("rooms", rooms);
+            model.addAttribute("teachers", teachers);
+            model.addAttribute("timetableDto",timeTableDto);
+            model.addAttribute("days",days);
+
+            return "redirect:/timetable/add?invalidtime";
+        }
 
         timeTableService.addToTimeTable(timeTableDto);
 
         return "redirect:/timetable/add?success";
     }
 
+    @GetMapping("/timetable")
+    public String viewTimetable(Model model) {
+
+        List<TimeTable> monday =  timeTableService.findByDay(Days.MONDAY.getDay());
+        List<TimeTable> tuesday =  timeTableService.findByDay(Days.TUESDAY.getDay());
+        List<TimeTable> wednesday =  timeTableService.findByDay(Days.WEDNESDAY.getDay());
+        List<TimeTable> thursday =  timeTableService.findByDay(Days.THURSDAY.getDay());
+        List<TimeTable> friday =  timeTableService.findByDay(Days.FRIDAY.getDay());
+        List<TimeTable> saturday =  timeTableService.findByDay(Days.SATURDAY.getDay());
+
+        model.addAttribute("monday", monday);
+        model.addAttribute("tuesday", tuesday);
+        model.addAttribute("wednesday", wednesday);
+        model.addAttribute("thursday", thursday);
+        model.addAttribute("friday", friday);
+        model.addAttribute("saturday", saturday);
+
+        return "timetable";
+    }
+
+    @DeleteMapping("/timetable/delete/{id}")
+    public String deleteTimeTable(@PathVariable Long id) {
+        timeTableService.deleteTimeTable(id);
+        return "redirect:/timetable?success";
+    }
 
 }

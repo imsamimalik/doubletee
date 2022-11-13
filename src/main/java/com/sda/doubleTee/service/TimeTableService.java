@@ -1,5 +1,6 @@
 package com.sda.doubleTee.service;
 
+import com.sda.doubleTee.constants.Days;
 import com.sda.doubleTee.dto.TimeTableDto;
 import com.sda.doubleTee.dto.UserDto;
 import com.sda.doubleTee.model.*;
@@ -10,6 +11,7 @@ import com.sda.doubleTee.repository.TimeTableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.util.Arrays;
 import java.util.List;
 
@@ -55,8 +57,17 @@ public class TimeTableService {
     public TimeTable findRoomClash(TimeTableDto timeTableDto) {
         return timeTableRepository.findByRoomIdAndStartTimeGreaterThanEqualAndStartTimeLessThanEqual(timeTableDto.getRoomId(),timeTableDto.getStartTime(),timeTableDto.getEndTime());
     }
-
+    //test
     public List<TimeTable> test() {
         return timeTableRepository.findByTeacher_Id(Long.valueOf(2));
     }
+
+    public List<TimeTable> findByDay(String day) {
+        return timeTableRepository.findByDay(day);
+    }
+
+    public void deleteTimeTable(Long id) {
+        timeTableRepository.deleteById(id);
+    }
+
 }

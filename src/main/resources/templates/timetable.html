@@ -3,21 +3,15 @@
     <head>
         <div th:replace="fragments/header::head"></div>
 
-        <title>Courses - doubleTee</title>
+        <title>View Timetable - doubleTee</title>
     </head>
     <body class="w-full">
         <div id="app" class="flex flex-col">
             <div class="content flex-1 min-h-[calc(100vh-45px)]">
                 <nav th:replace="fragments/navbar::navbar"></nav>
-                <div
-                    class="flex flex-col justify-center align-center w-3/5 m-auto"
-                >
-                    <div
-                        th:include="fragments/display-courses :: displayCourses"
-                        th:with="courses=${courses}"
-                    ></div>
-                </div>
+                <div th:include="fragments/display-timetable::displayTimeTable(${monday},${tuesday},${wednesday},${thursday},${friday},${saturday})"></div>
             </div>
+            <div class="h-20"></div>
             <footer th:replace="fragments/footer::footer"></footer>
         </div>
     </body>

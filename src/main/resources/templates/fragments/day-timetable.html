@@ -1,0 +1,69 @@
+<th:block th:fragment="dayTimeTable(day, timetables)">
+    <div class="flex flex-col justify-center align-center md:m-auto">
+        <h2
+            class="text-xl font-bold text-center mb-6 mt-20 uppercase tracking-[0.5rem] text-primary-500"
+            th:text="|${day}|"
+        >
+            Day
+        </h2>
+        <div class="overflow-scroll">
+            <table class="w-full text-sm text-center dark:text-gray-400">
+                <thead
+                    class="text-s text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+                >
+                    <tr>
+                        <th class="py-3 px-2 min-w-[200px] md:max-w-[25px]">
+                            Time
+                        </th>
+                        <th class="py-3 px-2 min-w-[200px]">Subject</th>
+                        <th class="py-3 px-2 min-w-[200px]">Teacher</th>
+                        <th class="py-3 px-2 min-w-[200px]">Room</th>
+                        <th class="py-3 px-2 max-w-[100px]">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="timetable : ${timetables}">
+                        <td
+                            class="py-3 px-2 min-w-[200px] md:max-w-[25px]"
+                            th:text="|${{timetable.startTime}} - ${{timetable.endTime}}|"
+                        >
+                            Time
+                        </td>
+                        <td
+                            class="py-3 px-2 min-w-[200px]"
+                            th:text="|${timetable.course.name}|"
+                        >
+                            Subject
+                        </td>
+                        <td
+                            class="py-3 px-2 min-w-[200px]"
+                            th:text="|${timetable.teacher.name}|"
+                        >
+                            Teacher
+                        </td>
+                        <td
+                            class="py-3 px-2 min-w-[200px]"
+                            th:text="|${timetable.room.name}|"
+                        >
+                            Room
+                        </td>
+                        <td class="py-4 px-6 max-w-[100px]" sec:authorize="hasRole('ADMIN')">
+                            <form
+                                th:action="@{/timetable/delete/{id}(id=${timetable.id})}"
+                                th:method="delete"
+                            >
+                                <button
+                                    type="submit"
+                                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                                >
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr />
+    </div>
+</th:block>
