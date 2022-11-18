@@ -1,30 +1,36 @@
-<th:block
-    th:fragment="displayTimeTable(monday, tuesday, wednesday, thursday, friday, saturday)"
->
+<th:block th:fragment="displayTimeTable(timeTables)">
     <div
         class="flex flex-col justify-center align-center w-5/6 md:w-3/5 m-auto"
     >
-        <div class="my-10 sm:mt-10">
-            <h1 class="text-2xl">Timetable</h1>
+        <div class="my-5 sm:mt-10">
+            <h1 class="text-3xl">Timetable</h1>
         </div>
-        <div
-            th:include="fragments/day-timetable::dayTimeTable('Monday', ${monday})"
-        />
-        <div
-            th:include="fragments/day-timetable::dayTimeTable('Tuesday', ${tuesday})"
-        />
-        <div
-            th:include="fragments/day-timetable::dayTimeTable('Wednesday', ${wednesday})"
-        />
-        <div
-            th:include="fragments/day-timetable::dayTimeTable('Thursday', ${thursday})"
-        />
-        <div
-            th:include="fragments/day-timetable::dayTimeTable('Friday', ${friday})"
-        />
-        <div
-            th:include="fragments/day-timetable::dayTimeTable('Saturday', ${saturday})"
-        />
+        <div th:if="${not #lists.isEmpty(timeTables)}">
+            <div
+                th:include="fragments/day-timetable::dayTimeTable('Monday', ${timeTables})"
+            />
+            <div
+                th:include="fragments/day-timetable::dayTimeTable('Tuesday', ${timeTables})"
+            />
+            <div
+                th:include="fragments/day-timetable::dayTimeTable('Wednesday', ${timeTables})"
+            />
+            <div
+                th:include="fragments/day-timetable::dayTimeTable('Thursday', ${timeTables})"
+            />
+            <div
+                th:include="fragments/day-timetable::dayTimeTable('Friday', ${timeTables})"
+            />
+            <div
+                th:include="fragments/day-timetable::dayTimeTable('Saturday', ${timeTables})"
+            />
+        </div>
+        <h1
+            th:unless="${not #lists.isEmpty(timeTables)}"
+            class="text-lg my-10 text-center"
+        >
+            You don't have any courses registered!
+        </h1>
     </div>
     <div
         th:if="${param.success}"

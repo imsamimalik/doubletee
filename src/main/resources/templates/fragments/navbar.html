@@ -94,6 +94,14 @@
                                     >Allocate Timetable</a
                                 >
                             </li>
+                             <li sec:authorize="hasRole('STUDENT') || hasRole('FACULTY')">
+                                <a
+                                    th:href="@{/my-timetable}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/my-timetable' ? 'md:text-blue-700':''}"
+                                    class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    >My TimeTable</a
+                                >
+                            </li>
                         </ul>
                     </div>
                 </li>

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -64,6 +65,23 @@ public class TimeTableService {
 
     public List<TimeTable> findByDay(String day) {
         return timeTableRepository.findByDay(day);
+    }
+
+    public  List<TimeTable> fetchAll() {
+        return timeTableRepository.findAll();
+    }
+
+    public List<TimeTable> getByCourseIds(List<Long> courses) {
+
+        List<TimeTable> timeTables = new ArrayList<>();;
+
+        for (Long course:courses) {
+            List<TimeTable> temp = timeTableRepository.findByCourse_Id(course);
+            for (TimeTable tt:temp) {
+            timeTables.add(tt);
+            }
+        }
+        return timeTables;
     }
 
     public void deleteTimeTable(Long id) {

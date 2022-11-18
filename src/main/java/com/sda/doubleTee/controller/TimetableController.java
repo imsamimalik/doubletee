@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.Time;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
@@ -126,20 +127,10 @@ public class TimetableController {
     @GetMapping("/timetable")
     public String viewTimetable(Model model) {
 
-        List<TimeTable> monday =  timeTableService.findByDay(Days.MONDAY.getDay());
-        List<TimeTable> tuesday =  timeTableService.findByDay(Days.TUESDAY.getDay());
-        List<TimeTable> wednesday =  timeTableService.findByDay(Days.WEDNESDAY.getDay());
-        List<TimeTable> thursday =  timeTableService.findByDay(Days.THURSDAY.getDay());
-        List<TimeTable> friday =  timeTableService.findByDay(Days.FRIDAY.getDay());
-        List<TimeTable> saturday =  timeTableService.findByDay(Days.SATURDAY.getDay());
-
-        model.addAttribute("monday", monday);
-        model.addAttribute("tuesday", tuesday);
-        model.addAttribute("wednesday", wednesday);
-        model.addAttribute("thursday", thursday);
-        model.addAttribute("friday", friday);
-        model.addAttribute("saturday", saturday);
-
+        List<TimeTable> timeTables =  timeTableService.fetchAll();
+        List<TimeTable> testTables = timeTableService.test();
+        model.addAttribute("timeTables", timeTables);
+        model.addAttribute("size", testTables.size());
         return "timetable";
     }
 
