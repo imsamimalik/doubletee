@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Book;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,11 +56,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> findAllUsers() {
+    public List<User> findAllUsers() {
         List<User> users = userRepository.findAll();
-        return users.stream()
-                .map((user) -> mapToUserDto(user))
-                .collect(Collectors.toList());
+        return users;
+//        return users.stream()
+//                .map((user) -> mapToUserDto(user))
+//                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+       User user = userRepository.findById(id).orElseThrow();
+       user.setRoles(null);
+       userRepository.deleteById(id);
     }
 
     private UserDto mapToUserDto(User user){
@@ -75,4 +84,5 @@ public class UserServiceImpl implements UserService {
         role.setName("ROLE_STUDENT");
         return roleRepository.save(role);
     }
+
 }

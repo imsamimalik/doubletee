@@ -34,4 +34,7 @@ public class Course {
 
     @OneToMany(mappedBy = "course")
     List<TimeTable> allocations;
+
+    @OneToMany(mappedBy = "course")
+    List<Registration> registration;
 }

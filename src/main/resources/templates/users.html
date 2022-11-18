@@ -33,6 +33,9 @@
                                         <th scope="col" class="py-3 px-6">
                                             Email
                                         </th>
+                                        <th scope="col" class="py-3 px-6">
+                                            Delete
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -50,6 +53,19 @@
                                             class="py-4 px-6"
                                         >
                                             Sliver
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <form
+                                                th:action="@{/users/delete/{id}(id=${user.id})}"
+                                                th:method="delete"
+                                            >
+                                                <button
+                                                    type="submit"
+                                                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                                                >
+                                                    Delete
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 </tbody>

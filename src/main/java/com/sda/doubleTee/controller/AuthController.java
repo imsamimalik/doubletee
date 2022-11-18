@@ -115,7 +115,7 @@ public class AuthController {
     public String users(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
-            List<UserDto> users = userService.findAllUsers();
+            List<User> users = userService.findAllUsers();
             model.addAttribute("users", users);
             return "users";
         }
@@ -155,6 +155,11 @@ public class AuthController {
             return "login";
         }
 
+        return "redirect:/";
+    }
+    @DeleteMapping("/users/delete/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
         return "redirect:/";
     }
 
