@@ -11,7 +11,7 @@
                     <th class="py-3 px-6">Employee ID</th>
                     <th class="py-3 px-6">Teacher Name</th>
                     <th class="py-3 px-6">Department</th>
-                    <th class="py-3 px-6">Delete</th>
+                    <th class="py-3 px-6" sec:authorize="hasRole('ADMIN')">Delete</th>
                 </tr>
             </thead>
             <tbody>

@@ -35,6 +35,8 @@ public class RegistrationService {
     public void saveRegistration(RegistrationDto registrationDto) {
         Registration registration  = new Registration();
         Course course = courseRepository.findById(registrationDto.getCourseId()).orElse(null);
+        course.setCapacity(course.getCapacity()-1);
+        courseRepository.save(course);
         registration.setCourse(course);
 
         User student = authService.getCurrentUser();

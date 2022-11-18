@@ -31,6 +31,9 @@ public class Course {
     @Column(nullable = false)
     private String section;
 
+    @Column(nullable = false)
+    private int capacity;
+
 
     @OneToMany(mappedBy = "course")
     List<TimeTable> allocations;

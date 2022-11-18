@@ -10,7 +10,7 @@
                 <tr>
                     <th scope="col" class="py-3 px-6">ID</th>
                     <th scope="col" class="py-3 px-6">Room Name</th>
-                    <th scope="col" class="py-3 px-6">Delete</th>
+                    <th scope="col" class="py-3 px-6" sec:authorize="hasRole('ADMIN')">Delete</th>
                 </tr>
             </thead>
             <tbody>

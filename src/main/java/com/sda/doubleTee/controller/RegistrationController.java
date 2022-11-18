@@ -4,7 +4,6 @@ import com.sda.doubleTee.dto.RegistrationDto;
 import com.sda.doubleTee.model.Course;
 import com.sda.doubleTee.model.Registration;
 import com.sda.doubleTee.model.TimeTable;
-import com.sda.doubleTee.model.User;
 import com.sda.doubleTee.repository.UserRepository;
 import com.sda.doubleTee.service.AuthService;
 import com.sda.doubleTee.service.CourseService;

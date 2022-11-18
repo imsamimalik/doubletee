@@ -25,6 +25,7 @@ public class CourseService {
         course.setCode(courseDto.getCode());
         course.setCreditHours(courseDto.getCreditHours());
         course.setSection(courseDto.getSection());
+        course.setCapacity(courseDto.getCapacity());
 
         courseRepository.save(course);
 
