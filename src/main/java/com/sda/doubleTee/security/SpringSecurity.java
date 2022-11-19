@@ -39,6 +39,7 @@ public class SpringSecurity {
                 .antMatchers("/courses/add").hasRole("ADMIN")
                 .antMatchers("/rooms/add").hasRole("ADMIN")
                 .antMatchers("/rooms/empty").hasAnyRole("ADMIN","FACULTY","STUDENT")
+                .antMatchers("/teachers/empty").hasAnyRole("ADMIN","FACULTY")
                 .antMatchers("/teachers/add").hasRole("ADMIN")
                 .antMatchers("/timetable/add").hasRole("ADMIN")
                 .antMatchers("/courses/register").hasRole("STUDENT")

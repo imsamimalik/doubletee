@@ -18,4 +18,6 @@ public interface TimeTableRepository extends JpaRepository<TimeTable, Long> {
 
     List<TimeTable> findByRoom_IdAndDay(Long id, String day);
 
+    List<TimeTable> findByTeacher_IdAndDay(Long id, String day);
+
 }

@@ -94,7 +94,9 @@
                                     >Allocate Timetable</a
                                 >
                             </li>
-                             <li sec:authorize="hasRole('STUDENT') || hasRole('FACULTY')">
+                            <li
+                                sec:authorize="hasRole('STUDENT') || hasRole('FACULTY')"
+                            >
                                 <a
                                     th:href="@{/my-timetable}"
                                     th:classappend="${#httpServletRequest.getRequestURI() == '/my-timetable' ? 'md:text-blue-700':''}"
@@ -270,6 +272,16 @@
                                     th:classappend="${#httpServletRequest.getRequestURI() == '/teachers/add' ? 'md:text-blue-700':''}"
                                     class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                     >Add teachers</a
+                                >
+                            </li>
+                            <li
+                                sec:authorize="hasRole('ADMIN') || hasRole('FACULTY')"
+                            >
+                                <a
+                                    th:href="@{/teachers/empty}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/teachers/empty' ? 'md:text-blue-700':''}"
+                                    class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    >Faculty Availability</a
                                 >
                             </li>
                         </ul>
