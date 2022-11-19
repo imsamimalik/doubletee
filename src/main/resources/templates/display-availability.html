@@ -13,7 +13,7 @@
                     class="flex flex-col justify-center align-center w-3/5 m-auto"
                 >
                     <div class="my-10 sm:mt-10">
-                        <h1 class="text-2xl font-bold">Faculty Availability</h1>
+                        <h1 class="text-2xl font-bold" th:text="|${title} Availability|">Availability</h1>
                     </div>
 
                     <div
@@ -30,8 +30,9 @@
                                     <tr class="bg-white hover:bg-gray-50">
                                         <th
                                             class="py-3 px-2 min-w-[200px] md:max-w-[25px]"
+                                            th:text="|${title}|"
                                         >
-                                            Teacher
+                                            Entity
                                         </th>
                                         <th class="py-3 px-2 min-w-[200px]">
                                             Start Time
@@ -48,7 +49,7 @@
                                     >
                                         <td
                                             class="py-3 px-2 min-w-[200px] md:max-w-[25px]"
-                                            th:text="|${teacher.name}|"
+                                            th:text="|${entity.name}|"
                                         >
                                             Room
                                         </td>

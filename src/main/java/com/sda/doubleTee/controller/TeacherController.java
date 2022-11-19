@@ -100,11 +100,12 @@ public class TeacherController {
         Teacher teacher = teacherService.findById(facultyAvailDto.getTeacherId());
         List<TimeSlot> slots =  timeTableService.getFacultyAvail(facultyAvailDto.getTeacherId(),facultyAvailDto.getDay());
 
-        model.addAttribute("teacher",teacher);
+        model.addAttribute("entity",teacher);
         model.addAttribute("slots",slots);
+        model.addAttribute("title","Faculty");
 
 
-        return "display-facultyAvail";
+        return "display-availability";
 
     }
 

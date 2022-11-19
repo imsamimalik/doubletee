@@ -100,11 +100,12 @@ public class RoomController {
         Room room = roomService.findById(emptyRoomDto.getRoomId());
         List<TimeSlot> slots =  timeTableService.getEmptyRooms(emptyRoomDto.getRoomId(),emptyRoomDto.getDay());
 
-        model.addAttribute("room",room);
+        model.addAttribute("entity",room);
         model.addAttribute("slots",slots);
+        model.addAttribute("title","Room");
 
 
-        return "display-emptyRooms";
+        return "display-availability";
 
     }
 
