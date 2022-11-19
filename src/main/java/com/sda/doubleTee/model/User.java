@@ -39,7 +39,7 @@ public class User {
     @Column(length = 255)
     private String postalAddress;
 
-    private String employeeId;
+    private Long employeeId;
     private String designation;
     @Column(length = 8)
     private String rollNumber;

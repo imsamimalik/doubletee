@@ -22,9 +22,6 @@ public class Teacher {
     private Long id;
 
     @Column(nullable = false)
-    private String employeeID;
-
-    @Column(nullable = false)
     private String name;
 
     private String department;

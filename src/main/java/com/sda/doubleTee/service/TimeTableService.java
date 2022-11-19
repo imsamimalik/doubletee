@@ -60,8 +60,8 @@ public class TimeTableService {
         return timeTableRepository.findByRoomIdAndStartTimeGreaterThanEqualAndStartTimeLessThanEqual(timeTableDto.getRoomId(),timeTableDto.getStartTime(),timeTableDto.getEndTime());
     }
     //test
-    public List<TimeTable> test() {
-        return timeTableRepository.findByTeacher_Id(Long.valueOf(2));
+    public List<TimeTable> findByTeacherId(Long id) {
+        return timeTableRepository.findByTeacher_Id(id);
     }
 
     public List<TimeTable> findByDay(String day) {
@@ -124,5 +124,8 @@ public class TimeTableService {
         return freeSlots;
 
     }
+
+
+
 
 }

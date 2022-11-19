@@ -32,7 +32,7 @@ public class TeacherController {
     @PostMapping("/teachers/add")
     public String addCourses(@Valid @ModelAttribute("addTeacher") AddTeacherDto addTeacherDto, BindingResult result, Model model) {
 
-        Teacher existingTeacher = teacherService.findById(addTeacherDto.getEmployeeID());
+        Teacher existingTeacher = teacherService.findById(addTeacherDto.getId());
 
         if(existingTeacher != null && existingTeacher.getId() != null){
             result.rejectValue("name", null,

@@ -17,17 +17,18 @@ public class TeacherService {
     @Autowired
     private TeacherRepository teacherRepository;
 
-    public Teacher findById(String id) {
-       return teacherRepository.findByEmployeeID(id);
+    public Teacher findById(Long id) {
+       return teacherRepository.findById(id).orElse(null);
     }
 
-    public void saveTeacher(AddTeacherDto roomDto) {
+    public void saveTeacher(AddTeacherDto teacherDto) {
 
-        Teacher room = new Teacher();
-        room.setName(roomDto.getName());
-        room.setEmployeeID(roomDto.getEmployeeID());
-        room.setDepartment(roomDto.getDepartment());
-        teacherRepository.save(room);
+        Teacher teacher = new Teacher();
+        teacher.setName(teacherDto.getName());
+        teacher.setId(teacher.getId());
+        teacher.setDepartment(teacherDto.getDepartment());
+
+        teacherRepository.save(teacher);
 
     }
 

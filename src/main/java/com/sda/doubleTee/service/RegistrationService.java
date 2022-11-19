@@ -36,19 +36,12 @@ public class RegistrationService {
     public boolean saveRegistration(RegistrationDto registrationDto) {
         Registration registration  = new Registration();
 
-        Authentication auth = authService.getAuth();
-
-        boolean hasStudentRole = auth.getAuthorities().stream()
-                .anyMatch(r -> r.getAuthority().equals("ROLE_STUDENT"));
-
         Course course = courseRepository.findById(registrationDto.getCourseId()).orElse(null);
 
         if(course.getCapacity()<=0) return  false;
 
-        if(hasStudentRole==true) {
             course.setCapacity(course.getCapacity()-1);
             courseRepository.save(course);
-        }
 
         registration.setCourse(course);
 
@@ -68,7 +61,7 @@ public class RegistrationService {
         return registrationRepository.findByStudent_Id(id);
     }
 
-    public List<Registration> fetchAllByEmail(String email) {
+    public List<Registration> fetchAllByStudentEmail(String email) {
         return registrationRepository.findByStudent_Email(email);
     }
 

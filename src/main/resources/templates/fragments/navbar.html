@@ -154,7 +154,7 @@
                                 >
                             </li>
 
-                            <li sec:authorize="hasRole('STUDENT') || hasRole('FACULTY')">
+                            <li sec:authorize="hasRole('STUDENT')">
                                 <a
                                     th:href="@{/courses/register}"
                                     th:classappend="${#httpServletRequest.getRequestURI() == '/courses/register' ? 'md:text-blue-700':''}"

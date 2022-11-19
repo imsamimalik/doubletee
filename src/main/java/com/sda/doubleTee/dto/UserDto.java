@@ -39,7 +39,7 @@ public class UserDto {
     @Column(length = 255)
     private String postalAddress;
 
-    private String employeeId;
+    private Long employeeId;
     private String designation;
     private String rollNumber;
 

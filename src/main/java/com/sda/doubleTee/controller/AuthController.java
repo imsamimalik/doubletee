@@ -1,8 +1,10 @@
 package com.sda.doubleTee.controller;
 
 import com.sda.doubleTee.dto.UserDto;
+import com.sda.doubleTee.model.Teacher;
 import com.sda.doubleTee.model.User;
 import com.sda.doubleTee.service.AuthService;
+import com.sda.doubleTee.service.TeacherService;
 import com.sda.doubleTee.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -29,6 +31,9 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    @Autowired
+    private TeacherService teacherService;
+
 
     @InitBinder
     public void initBinder(WebDataBinder binder){
@@ -50,7 +55,7 @@ public class AuthController {
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             UserDto user = new UserDto();
             user.setRole("ROLE_STUDENT");
-            model.addAttribute("title", "Student");
+            model.addAttribute("title", "student");
             model.addAttribute("user", user);
             return "register";
         }
@@ -67,7 +72,7 @@ public class AuthController {
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             UserDto user = new UserDto();
             user.setRole("ROLE_FACULTY");
-            model.addAttribute("title", "Faculty");
+            model.addAttribute("title", "faculty");
             model.addAttribute("user", user);
             return "register";
         }
@@ -84,7 +89,7 @@ public class AuthController {
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             UserDto user = new UserDto();
             user.setRole("ROLE_ADMIN");
-            model.addAttribute("title", "Admin");
+            model.addAttribute("title", "admin");
             model.addAttribute("user", user);
             return "register";
         }
@@ -102,15 +107,24 @@ public class AuthController {
         if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
             result.rejectValue("email", null,
                     "There is already an account registered with the same email");
+            return "redirect:/";
         }
+        Long teacherId = userDto.getEmployeeId();
+        if(teacherId!=null) {
+            Teacher teacher = teacherService.findById(teacherId);
+            if(teacher==null) {
+                return "redirect:/register/faculty?notfound";
+            }
+        }
+
 
         if(result.hasErrors()){
             model.addAttribute("user", userDto);
-            return "/register";
+            return "redirect:/";
         }
 
         userService.saveUser(userDto);
-        return "redirect:/register?success";
+        return "redirect:/register/student?success";
     }
 
     // handler method to handle list of users

@@ -38,9 +38,10 @@ public class SpringSecurity {
 //                .antMatchers("/").hasRole("ADMIN")
                 .antMatchers("/courses/add").hasRole("ADMIN")
                 .antMatchers("/rooms/add").hasRole("ADMIN")
+                .antMatchers("/rooms/empty").hasAnyRole("ADMIN","FACULTY","STUDENT")
                 .antMatchers("/teachers/add").hasRole("ADMIN")
                 .antMatchers("/timetable/add").hasRole("ADMIN")
-                .antMatchers("/courses/register").hasAnyRole("STUDENT","FACULTY")
+                .antMatchers("/courses/register").hasRole("STUDENT")
                 .antMatchers("/**/delete/").hasRole("ADMIN")
                 .and()
                 .formLogin(

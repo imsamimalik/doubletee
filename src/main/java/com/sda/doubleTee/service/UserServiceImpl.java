@@ -32,7 +32,6 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setName(userDto.getName());
         user.setEmail(userDto.getEmail());
-        // encrypt the password using spring security
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setBatch(userDto.getBatch());
         user.setDegree(userDto.getDegree());

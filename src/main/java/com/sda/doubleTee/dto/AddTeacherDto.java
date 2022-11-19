@@ -20,8 +20,6 @@ public class AddTeacherDto {
     @NotEmpty(message = "Name cannot be empty")
     private String name;
 
-    @NotNull
-    private String employeeID;
 
     private String department;
 

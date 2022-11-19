@@ -758,6 +758,34 @@ video {
   height: 1.5rem;
 }
 
+.h-\[99vh\] {
+  height: 99vh;
+}
+
+.h-\[98vh\] {
+  height: 98vh;
+}
+
+.h-\[95vh\] {
+  height: 95vh;
+}
+
+.h-\[90vh\] {
+  height: 90vh;
+}
+
+.h-\[89vh\] {
+  height: 89vh;
+}
+
+.h-\[88vh\] {
+  height: 88vh;
+}
+
+.h-\[87vh\] {
+  height: 87vh;
+}
+
 .min-h-\[calc\(100vh-45px\)\] {
   min-height: calc(100vh - 45px);
 }

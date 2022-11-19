@@ -4,7 +4,7 @@
         <div th:replace="fragments/header::head"></div>
         <title>Register - doubleTee</title>
     </head>
-    <body class="h-[80vh]">
+    <body class="h-[87vh]">
         <div id="app" class="flex flex-col">
             <div class="content flex-1 min-h-[calc(100vh-45px)]">
                 <nav th:replace="fragments/navbar::navbar"></nav>
@@ -15,7 +15,7 @@
                     <div>
                         <h1
                             class="text-xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight"
-                            th:text="|Register as ${title}|"
+                            th:text="|Register as ${#strings.capitalize(title)}|"
                         >
                             Register for doubleTee
                         </h1>
@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="flex flex-wrap">
                                     <div
-                                        th:if="${title}=='Student'"
+                                        th:if="${title}=='student'"
                                         class="w-full relative z-0 pb-6 group"
                                     >
                                         <input
@@ -87,7 +87,7 @@
 
                                     <div
                                         class="w-full relative z-0 pb-6 group"
-                                        th:if="${title}!='Student'"
+                                        th:if="${title}!='student'"
                                     >
                                         <input
                                             id="employeeId"
@@ -124,7 +124,7 @@
                                 <div class="flex flex-wrap">
                                     <div
                                         class="w-full md:w-1/2 relative z-0 pb-6 group"
-                                        th:if="${title}=='Student'"
+                                        th:if="${title}=='student'"
                                     >
                                         <input
                                             id="cgpa"
@@ -146,7 +146,7 @@
 
                                     <div
                                         class="w-full md:w-1/2 md:pl-3 relative z-0 pb-6 group"
-                                        th:if="${title}=='Student'"
+                                        th:if="${title}=='student'"
                                     >
                                         <input
                                             id="batch"
@@ -169,7 +169,7 @@
                                 <div class="flex flex-wrap">
                                     <div
                                         class="w-full md:w-1/2 relative z-0 pb-6 group"
-                                        th:if="${title}=='Student'"
+                                        th:if="${title}=='student'"
                                     >
                                         <input
                                             id="degree"
@@ -188,7 +188,7 @@
 
                                     <div
                                         class="w-full md:w-1/2 flex-1 relative z-0 pb-6 group"
-                                        th:classappend="${title == 'Student' ? 'md:pl-3':''}"
+                                        th:classappend="${title == 'student' ? 'md:pl-3':''}"
                                     >
                                         <input
                                             id="dob"
@@ -208,7 +208,7 @@
 
                                 <div
                                     class="relative z-0 pb-6 w-full group"
-                                    th:if="${title}!='Student'"
+                                    th:if="${title}!='student'"
                                 >
                                     <input
                                         id="designation"
@@ -343,52 +343,12 @@
                                 <span>
                                     Already registered?
                                     <a
-                                        th:href="@{/login}"
+                                        th:href="|/login/${title}|"
                                         class="text-primary-500"
                                         >Login here</a
                                     >
                                 </span>
                             </div>
-                            <p
-                                th:errors="*{name}"
-                                class="text-red-500"
-                                th:if="${#fields.hasErrors('name')}"
-                            ></p>
-                            <p
-                                th:errors="*{email}"
-                                class="text-red-500"
-                                th:if="${#fields.hasErrors('email')}"
-                            ></p>
-                            <p
-                                th:errors="*{password}"
-                                class="text-red-500"
-                                th:if="${#fields.hasErrors('password')}"
-                            ></p>
-                            <p
-                                th:errors="*{CGPA}"
-                                class="text-red-500"
-                                th:if="${#fields.hasErrors('CGPA')}"
-                            ></p>
-                            <p
-                                th:errors="*{batch}"
-                                class="text-red-500"
-                                th:if="${#fields.hasErrors('batch')}"
-                            ></p>
-                            <p
-                                th:errors="*{degree}"
-                                class="text-red-500"
-                                th:if="${#fields.hasErrors('degree')}"
-                            ></p>
-                            <p
-                                th:errors="*{DOB}"
-                                class="text-red-500"
-                                th:if="${#fields.hasErrors('DOB')}"
-                            ></p>
-                            <p
-                                th:errors="*{postalAddress}"
-                                class="text-red-500"
-                                th:if="${#fields.hasErrors('postalAddress')}"
-                            ></p>
                         </form>
 
                         <div
@@ -401,9 +361,21 @@
                                 >You have successfully registered our app!</span
                             >
                         </div>
+
+                        <div
+                            th:if="${param.notfound}"
+                            class="bg-primary-100 border border-primary-400 text-primary-600 px-4 py-3 rounded relative"
+                            role="alert"
+                        >
+                            <strong class="font-bold">Error! </strong>
+                            <span class="block sm:inline"
+                                >You have not been added by admin!</span
+                            >
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <footer th:replace="fragments/footer::footer"></footer>
     </body>
 </html>
