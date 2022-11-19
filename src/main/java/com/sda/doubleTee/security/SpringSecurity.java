@@ -35,26 +35,26 @@ public class SpringSecurity {
                 .authorizeRequests()
                 .antMatchers("/register/**").permitAll()
                 .antMatchers("/index").permitAll()
-                .antMatchers("/").hasRole("ADMIN")
+//                .antMatchers("/").hasRole("ADMIN")
                 .antMatchers("/courses/add").hasRole("ADMIN")
                 .antMatchers("/rooms/add").hasRole("ADMIN")
                 .antMatchers("/teachers/add").hasRole("ADMIN")
                 .antMatchers("/timetable/add").hasRole("ADMIN")
-                .antMatchers("/timetable/add").hasAnyRole("STUDENT","FACULTY")
+                .antMatchers("/courses/register").hasAnyRole("STUDENT","FACULTY")
                 .antMatchers("/**/delete/").hasRole("ADMIN")
                 .and()
                 .formLogin(
                         form -> form
                                 .loginPage("/login/student")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/")
+                                .defaultSuccessUrl("/my-timetable",true)
                                 .permitAll()
                 )
                 .formLogin(
                         form -> form
                                 .loginPage("/login/faculty")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/")
+                                .defaultSuccessUrl("/my-timetable",true)
                                 .permitAll()
                 )
                 .formLogin(

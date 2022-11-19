@@ -128,9 +128,8 @@ public class TimetableController {
     public String viewTimetable(Model model) {
 
         List<TimeTable> timeTables =  timeTableService.fetchAll();
-        List<TimeTable> testTables = timeTableService.test();
         model.addAttribute("timeTables", timeTables);
-        model.addAttribute("size", testTables.size());
+        model.addAttribute("title","University TimeTable");
         return "timetable";
     }
 

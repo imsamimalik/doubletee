@@ -4,6 +4,7 @@ import com.sda.doubleTee.dto.RegistrationDto;
 import com.sda.doubleTee.model.Course;
 import com.sda.doubleTee.model.Registration;
 import com.sda.doubleTee.model.TimeTable;
+import com.sda.doubleTee.model.User;
 import com.sda.doubleTee.repository.UserRepository;
 import com.sda.doubleTee.service.AuthService;
 import com.sda.doubleTee.service.CourseService;
@@ -55,16 +56,18 @@ public class RegistrationController {
     }
 
     @PostMapping("/courses/register")
-    public String saveRegistration(@Valid @ModelAttribute("registrationDto") RegistrationDto registrationDto, BindingResult result, Model model) {
+    public String saveRegistration(@Valid @ModelAttribute("registrationDto") RegistrationDto registrationDto, BindingResult result, Model model, Principal principal) {
 
-        Registration alreadyRegistered  = registrationService.findByCourseId(registrationDto.getCourseId());
+        String userEmail = principal.getName();
+        User user  = userRepository.findByEmail(userEmail);
+
+        Registration alreadyRegistered  = registrationService.findByCourseId(registrationDto.getCourseId(), user.getId());
 
         if(alreadyRegistered!=null && alreadyRegistered.getId()!=null) {
             result.rejectValue("courseId", null,
                     "You have already registered this course.");
 
             List<Course> courses = courseService.findAllCourses();
-            String userEmail = authService.getCurrentUser().getName();
             List<Registration> registrations = registrationService.fetchAllByEmail(userEmail);
 
             model.addAttribute("courses",courses);
@@ -75,7 +78,7 @@ public class RegistrationController {
 
         }
 
-        registrationService.saveRegistration(registrationDto);
+        if(registrationService.saveRegistration(registrationDto)==false) return "redirect:/courses/register?full";
 
         return "redirect:/courses/register?success";
     }
@@ -100,8 +103,7 @@ public class RegistrationController {
        List<TimeTable> studentTT =  timeTableService.getByCourseIds(courses);
 
         model.addAttribute("timeTables", studentTT);
-        model.addAttribute("courses",courses.size());
-
+        model.addAttribute("title","My TimeTable");
 
         return "timetable";
 

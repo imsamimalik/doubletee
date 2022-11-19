@@ -8,6 +8,7 @@ import com.sda.doubleTee.repository.CourseRepository;
 import com.sda.doubleTee.repository.RegistrationRepository;
 import com.sda.doubleTee.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,21 +29,34 @@ public class RegistrationService {
     @Autowired
     private UserRepository userRepository;
 
-    public Registration findByCourseId(Long id) {
-       return registrationRepository.findByCourseId(id).orElse(null);
+    public Registration findByCourseId(Long course, Long student) {
+       return registrationRepository.findByCourse_IdAndStudent_Id(course, student).orElse(null);
     }
 
-    public void saveRegistration(RegistrationDto registrationDto) {
+    public boolean saveRegistration(RegistrationDto registrationDto) {
         Registration registration  = new Registration();
+
+        Authentication auth = authService.getAuth();
+
+        boolean hasStudentRole = auth.getAuthorities().stream()
+                .anyMatch(r -> r.getAuthority().equals("ROLE_STUDENT"));
+
         Course course = courseRepository.findById(registrationDto.getCourseId()).orElse(null);
-        course.setCapacity(course.getCapacity()-1);
-        courseRepository.save(course);
+
+        if(course.getCapacity()<=0) return  false;
+
+        if(hasStudentRole==true) {
+            course.setCapacity(course.getCapacity()-1);
+            courseRepository.save(course);
+        }
+
         registration.setCourse(course);
 
         User student = authService.getCurrentUser();
         registration.setStudent(student);
 
         registrationRepository.save(registration);
+        return true;
 
     }
 
@@ -61,12 +75,26 @@ public class RegistrationService {
     public void deleteRegistration(Long id) {
         Registration registration =  registrationRepository.findById(id).orElse(null);
 
+        Authentication auth = authService.getAuth();
+
+        boolean hasStudentRole = auth.getAuthorities().stream()
+                .anyMatch(r -> r.getAuthority().equals("ROLE_STUDENT"));
+
+        Course course = courseRepository.findById(registration.getCourse().getId()).orElse(null);
+
+
         if(registration!=null) {
             String userEmail  = authService.getCurrentUser().getEmail();
             String ownerEmail = registration.getStudent().getEmail();
 
             if(userEmail==ownerEmail) {
                 registrationRepository.deleteById(id);
+
+                if(hasStudentRole==true) {
+                    course.setCapacity(course.getCapacity()+1);
+                    courseRepository.save(course);
+                }
+
             }
 
         }

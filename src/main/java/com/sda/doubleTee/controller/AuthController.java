@@ -2,6 +2,7 @@ package com.sda.doubleTee.controller;
 
 import com.sda.doubleTee.dto.UserDto;
 import com.sda.doubleTee.model.User;
+import com.sda.doubleTee.service.AuthService;
 import com.sda.doubleTee.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -25,13 +26,15 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AuthService authService;
+
 
     @InitBinder
     public void initBinder(WebDataBinder binder){
         binder.registerCustomEditor(Date.class,
                 new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true, 10));
     }
-
 
 
     @GetMapping("/register")
@@ -113,15 +116,18 @@ public class AuthController {
     // handler method to handle list of users
     @GetMapping("/")
     public String users(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null) {
+
+        Authentication auth = authService.getAuth();
+        boolean hasAdminRole = auth.getAuthorities().stream()
+                .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+
+        if(hasAdminRole) {
             List<User> users = userService.findAllUsers();
             model.addAttribute("users", users);
             return "users";
         }
-        return "redirect:/";
 
-
+        return "redirect:/my-timetable";
     }
 
     // handler method to handle login request
