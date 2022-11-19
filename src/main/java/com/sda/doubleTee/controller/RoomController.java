@@ -1,8 +1,16 @@
 package com.sda.doubleTee.controller;
 
+import com.sda.doubleTee.constants.Days;
+import com.sda.doubleTee.dao.TimeSlot;
 import com.sda.doubleTee.dto.AddRoomDto;
+import com.sda.doubleTee.dto.EmptyRoomDto;
+import com.sda.doubleTee.dto.TimeTableDto;
+import com.sda.doubleTee.model.Course;
 import com.sda.doubleTee.model.Room;
+import com.sda.doubleTee.model.Teacher;
+import com.sda.doubleTee.repository.TimeTableRepository;
 import com.sda.doubleTee.service.RoomService;
+import com.sda.doubleTee.service.TimeTableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -17,6 +26,9 @@ public class RoomController {
 
     @Autowired
     private RoomService roomService;
+
+    @Autowired
+    private TimeTableService timeTableService;
 
 
     @GetMapping("/rooms/add")
@@ -59,7 +71,6 @@ public class RoomController {
     public String displayRooms(Model model){
         List<Room> allRooms = roomService.findAllRooms();
         model.addAttribute("rooms",allRooms);
-
         return "rooms";
     }
 
@@ -69,4 +80,32 @@ public class RoomController {
         return "redirect:/rooms?success";
     }
 
+    @GetMapping("/rooms/empty")
+    public String viewEmptyRooms(Model model) {
+
+        EmptyRoomDto emptyRoomDto = new EmptyRoomDto();
+        List<Room> rooms = roomService.findAllRooms();
+        List<Enum> days = Arrays.asList(Days.values());
+
+        model.addAttribute("rooms", rooms);
+        model.addAttribute("days",days);
+        model.addAttribute("emptyRoomDto",emptyRoomDto);
+
+        return "empty-rooms";
     }
+
+    @PostMapping("/rooms/empty/get")
+    public String getEmptyRooms(@Valid @ModelAttribute("emptyRoomDto") EmptyRoomDto emptyRoomDto, BindingResult result, Model model) {
+
+        Room room = roomService.findById(emptyRoomDto.getRoomId());
+        List<TimeSlot> slots =  timeTableService.getEmptyRooms(emptyRoomDto.getRoomId(),emptyRoomDto.getDay());
+
+        model.addAttribute("room",room);
+        model.addAttribute("slots",slots);
+
+
+        return "display-emptyRooms";
+
+    }
+
+}

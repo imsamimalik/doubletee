@@ -213,6 +213,14 @@
                                     >Add Rooms</a
                                 >
                             </li>
+                            <li>
+                                <a
+                                    th:href="@{/rooms/empty}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/rooms/empty' ? 'md:text-blue-700':''}"
+                                    class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    >View Empty Rooms</a
+                                >
+                            </li>
                         </ul>
                     </div>
                 </li>

@@ -17,6 +17,12 @@
                         th:with="rooms=${rooms}"
                     ></div>
                 </div>
+
+                 <h1
+                    class="text-xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight"
+                    th:text="${slots}"
+                ></h1>
+
             </div>
             <footer th:replace="fragments/footer::footer"></footer>
         </div>

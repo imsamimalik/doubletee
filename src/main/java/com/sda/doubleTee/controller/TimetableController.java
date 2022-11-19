@@ -1,6 +1,7 @@
 package com.sda.doubleTee.controller;
 
 import com.sda.doubleTee.constants.Days;
+import com.sda.doubleTee.dao.TimeSlot;
 import com.sda.doubleTee.dto.TimeTableDto;
 import com.sda.doubleTee.model.Course;
 import com.sda.doubleTee.model.Room;
@@ -20,6 +21,7 @@ import javax.validation.Valid;
 import java.sql.Time;
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -128,6 +130,9 @@ public class TimetableController {
     public String viewTimetable(Model model) {
 
         List<TimeTable> timeTables =  timeTableService.fetchAll();
+
+        timeTables.sort(Comparator.comparing(TimeTable::getStartTime));
+
         model.addAttribute("timeTables", timeTables);
         model.addAttribute("title","University TimeTable");
         return "timetable";

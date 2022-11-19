@@ -118,6 +118,11 @@ public class AuthController {
     public String users(Model model){
 
         Authentication auth = authService.getAuth();
+
+        if (auth == null || auth instanceof AnonymousAuthenticationToken) {
+           return "redirect:/login/student";
+        }
+
         boolean hasAdminRole = auth.getAuthorities().stream()
                 .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
 

@@ -14,7 +14,7 @@
                 <thead
                     class="text-s text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
                 >
-                    <tr>
+                    <tr class="bg-white hover:bg-gray-50">
                         <th class="py-3 px-2 min-w-[200px] md:max-w-[25px]">
                             Time
                         </th>
@@ -31,6 +31,7 @@
                 </thead>
                 <tbody>
                     <tr
+                        class="bg-white hover:bg-gray-50"
                         th:each="timetable : ${timeTables}"
                         th:if="${timetable.getDay() == day}"
                     >
@@ -80,5 +81,4 @@
         </div>
         <hr />
     </div>
-   
 </th:block>
