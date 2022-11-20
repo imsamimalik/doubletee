@@ -1,18 +1,27 @@
 package com.sda.doubleTee.controller;
 
+import com.opencsv.CSVWriter;
+import com.opencsv.bean.StatefulBeanToCsv;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import com.sda.doubleTee.constants.Days;
+import com.sda.doubleTee.dao.CSVTT;
 import com.sda.doubleTee.dao.TimeSlot;
 import com.sda.doubleTee.dto.StudentAvailDto;
 import com.sda.doubleTee.dto.TimeTableDto;
 import com.sda.doubleTee.model.*;
 import com.sda.doubleTee.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.sql.Time;
 import java.time.Duration;
 import java.util.Arrays;
@@ -172,6 +181,30 @@ public class TimetableController {
 
         return "display-availability";
 
+    }
+
+    @GetMapping("/timetable/download")
+    public void downloadCSV(HttpServletResponse response) throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
+        String filename = "timetable.csv";
+
+        response.setContentType("text/csv");
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + filename + "\"");
+
+        //create a csv writer
+        StatefulBeanToCsv<CSVTT> writer = new StatefulBeanToCsvBuilder<CSVTT>(response.getWriter())
+                .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
+                .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
+                .withOrderedResults(false)
+                .build();
+
+        List<TimeTable> tt = timeTableService.fetchAll();
+        List<CSVTT> formattedTT = tt.stream().map(t->{
+            return new CSVTT(t.getId(), t.getCourse().getId(),t.getTeacher().getId(),t.getRoom().getId(),t.getStartTime(),t.getEndTime(),t.getDay());
+        }).toList();
+
+        //write to csv file
+        writer.write(formattedTT);
     }
 
 

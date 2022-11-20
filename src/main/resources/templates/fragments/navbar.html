@@ -114,6 +114,16 @@
                                     >Student Availability</a
                                 >
                             </li>
+                            <li
+                                sec:authorize="hasRole('ADMIN') || hasRole('FACULTY')"
+                            >
+                                <a
+                                    th:href="@{/timetable/download}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/timetable/download' ? 'md:text-blue-700':''}"
+                                    class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    >Download CSV</a
+                                >
+                            </li>
                         </ul>
                     </div>
                 </li>
