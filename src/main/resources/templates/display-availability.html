@@ -3,7 +3,7 @@
     <head>
         <div th:replace="fragments/header::head"></div>
 
-        <title>Faculty Availability - doubleTee</title>
+        <title th:text="|${#strings.capitalize(title)} Availability - doubleTee|"> Availability - doubleTee</title>
     </head>
     <body class="w-full">
         <div id="app" class="flex flex-col">
@@ -13,7 +13,7 @@
                     class="flex flex-col justify-center align-center w-3/5 m-auto"
                 >
                     <div class="my-10 sm:mt-10">
-                        <h1 class="text-2xl font-bold" th:text="|${title} Availability|">Availability</h1>
+                        <h1 class="text-2xl font-bold" th:text="|${#strings.capitalize(title)} Availability|">Availability</h1>
                     </div>
 
                     <div
@@ -74,12 +74,13 @@
                     <h1
                         th:unless="${not #lists.isEmpty(slots)}"
                         class="text-lg my-10 text-center"
+                        th:text="|No selected ${title}!|"
                     >
-                        No selected teacher!
+                        No selected entity!
                     </h1>
                     <div class="flex justify-center md:!mt-5">
                         <a
-                            href="/teachers/empty"
+                            th:href="|/${title}/empty|"
                             class="group relative text-lg flex w-full sm:w-1/4 justify-center rounded-md border border-transparent bg-primary-500 py-2 px-4 font-medium text-white hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                         >
                             Back

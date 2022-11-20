@@ -104,6 +104,16 @@
                                     >My TimeTable</a
                                 >
                             </li>
+                            <li
+                                sec:authorize="hasRole('ADMIN') || hasRole('FACULTY')"
+                            >
+                                <a
+                                    th:href="@{/student/empty}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/student/empty' ? 'md:text-blue-700':''}"
+                                    class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    >Student Availability</a
+                                >
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -217,8 +227,8 @@
                             </li>
                             <li>
                                 <a
-                                    th:href="@{/rooms/empty}"
-                                    th:classappend="${#httpServletRequest.getRequestURI() == '/rooms/empty' ? 'md:text-blue-700':''}"
+                                    th:href="@{/room/empty}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/room/empty' ? 'md:text-blue-700':''}"
                                     class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                     >View Empty Rooms</a
                                 >
@@ -278,8 +288,8 @@
                                 sec:authorize="hasRole('ADMIN') || hasRole('FACULTY')"
                             >
                                 <a
-                                    th:href="@{/teachers/empty}"
-                                    th:classappend="${#httpServletRequest.getRequestURI() == '/teachers/empty' ? 'md:text-blue-700':''}"
+                                    th:href="@{/faculty/empty}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/faculty/empty' ? 'md:text-blue-700':''}"
                                     class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                     >Faculty Availability</a
                                 >

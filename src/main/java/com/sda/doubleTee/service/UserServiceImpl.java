@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService {
         user.setPostalAddress(userDto.getPostalAddress());
         user.setEmployeeId(userDto.getEmployeeId());
         user.setDesignation(userDto.getDesignation());
+        user.setRollNumber(userDto.getRollNumber());
 
         Role role = roleRepository.findByName(userDto.getRole());
         if(role == null){
@@ -82,6 +83,10 @@ public class UserServiceImpl implements UserService {
         Role role = new Role();
         role.setName("ROLE_STUDENT");
         return roleRepository.save(role);
+    }
+
+    public User findByRollNo(String rollNo) {
+       return userRepository.findByRollNumber(rollNo);
     }
 
 }

@@ -80,7 +80,7 @@ public class TeacherController {
     }
 
 
-    @GetMapping("/teachers/empty")
+    @GetMapping("/faculty/empty")
     public String viewEmptyRooms(Model model) {
 
         FacultyAvailDto facultyAvailDto = new FacultyAvailDto();
@@ -94,7 +94,7 @@ public class TeacherController {
         return "faculty-availability";
     }
 
-    @PostMapping("/teachers/empty/get")
+    @PostMapping("/faculty/empty/get")
     public String getEmptyRooms(@Valid @ModelAttribute("facultyAvailDto") FacultyAvailDto facultyAvailDto, BindingResult result, Model model) {
 
         Teacher teacher = teacherService.findById(facultyAvailDto.getTeacherId());
@@ -102,7 +102,7 @@ public class TeacherController {
 
         model.addAttribute("entity",teacher);
         model.addAttribute("slots",slots);
-        model.addAttribute("title","Faculty");
+        model.addAttribute("title","faculty");
 
 
         return "display-availability";

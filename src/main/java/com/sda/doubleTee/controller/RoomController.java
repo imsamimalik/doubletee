@@ -80,7 +80,7 @@ public class RoomController {
         return "redirect:/rooms?success";
     }
 
-    @GetMapping("/rooms/empty")
+    @GetMapping("/room/empty")
     public String viewEmptyRooms(Model model) {
 
         EmptyRoomDto emptyRoomDto = new EmptyRoomDto();
@@ -94,7 +94,7 @@ public class RoomController {
         return "empty-rooms";
     }
 
-    @PostMapping("/rooms/empty/get")
+    @PostMapping("/room/empty/get")
     public String getEmptyRooms(@Valid @ModelAttribute("emptyRoomDto") EmptyRoomDto emptyRoomDto, BindingResult result, Model model) {
 
         Room room = roomService.findById(emptyRoomDto.getRoomId());
@@ -102,7 +102,7 @@ public class RoomController {
 
         model.addAttribute("entity",room);
         model.addAttribute("slots",slots);
-        model.addAttribute("title","Room");
+        model.addAttribute("title","room");
 
 
         return "display-availability";

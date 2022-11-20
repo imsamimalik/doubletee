@@ -2,15 +2,10 @@ package com.sda.doubleTee.controller;
 
 import com.sda.doubleTee.constants.Days;
 import com.sda.doubleTee.dao.TimeSlot;
+import com.sda.doubleTee.dto.StudentAvailDto;
 import com.sda.doubleTee.dto.TimeTableDto;
-import com.sda.doubleTee.model.Course;
-import com.sda.doubleTee.model.Room;
-import com.sda.doubleTee.model.Teacher;
-import com.sda.doubleTee.model.TimeTable;
-import com.sda.doubleTee.service.CourseService;
-import com.sda.doubleTee.service.RoomService;
-import com.sda.doubleTee.service.TeacherService;
-import com.sda.doubleTee.service.TimeTableService;
+import com.sda.doubleTee.model.*;
+import com.sda.doubleTee.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +31,11 @@ public class TimetableController {
     @Autowired
     TeacherService teacherService;
 
+    @Autowired
+    private UserServiceImpl userService;
+
+    @Autowired
+    private RegistrationService registrationService;
 
     @GetMapping("/timetable/add")
     public String allocateTimetable(Model model, String url){
@@ -143,5 +143,36 @@ public class TimetableController {
         timeTableService.deleteTimeTable(id);
         return "redirect:/timetable?success";
     }
+
+
+
+
+    @GetMapping("/student/empty")
+    public String viewStudentAvailability(Model model) {
+
+        StudentAvailDto studentAvailDto = new StudentAvailDto();
+        List<Enum> days = Arrays.asList(Days.values());
+
+        model.addAttribute("days",days);
+        model.addAttribute("studentAvailDto",studentAvailDto);
+
+        return "student-availability";
+    }
+
+    @PostMapping("/student/empty/get")
+    public String getStudentAvailability(@Valid @ModelAttribute("studentAvailDto") StudentAvailDto studentAvailDto, BindingResult result, Model model) {
+
+        User student = userService.findByRollNo(studentAvailDto.getRollNumber());
+        List<TimeSlot> slots = null;
+        if(student!=null) slots =  registrationService.getStudentAvailability(student,studentAvailDto.getDay());
+
+        model.addAttribute("entity",student);
+        model.addAttribute("slots",slots);
+        model.addAttribute("title","student");
+
+        return "display-availability";
+
+    }
+
 
 }
