@@ -34,6 +34,9 @@
                                             Email
                                         </th>
                                         <th scope="col" class="py-3 px-6">
+                                            Role
+                                        </th>
+                                        <th scope="col" class="py-3 px-6">
                                             Delete
                                         </th>
                                     </tr>
@@ -47,12 +50,18 @@
                                             th:text="${user.name}"
                                             scope="row"
                                             class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                                        ></td>
+                                        >name</td>
                                         <td
                                             th:text="${user.email}"
                                             class="py-4 px-6"
                                         >
-                                            Sliver
+                                            email
+                                        </td>
+                                        <td
+                                            th:text="${#strings.capitalize(#strings.toLowerCase(#strings.substringAfter(user.getRoles[0].name,'_')))}"
+                                            class="py-4 px-6"
+                                        >
+                                            role
                                         </td>
                                         <td class="py-4 px-6">
                                             <form

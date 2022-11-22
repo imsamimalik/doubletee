@@ -4,16 +4,13 @@ import com.sda.doubleTee.dto.UserDto;
 import com.sda.doubleTee.model.Role;
 import com.sda.doubleTee.model.User;
 import com.sda.doubleTee.repository.RoleRepository;
-import com.sda.doubleTee.repository.TimeTableRepository;
 import com.sda.doubleTee.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Book;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {

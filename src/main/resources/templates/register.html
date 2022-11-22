@@ -77,11 +77,13 @@
                                             th:field="*{rollNumber}"
                                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" "
+                                            th:required="${user.role}=='ROLE_STUDENT'"
+                                            pattern="[0-9]{2}[A-Z]-[0-9]{4}"
                                         />
                                         <label
                                             for="rollNumber"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                            >Roll Number</label
+                                            >Roll Number (20L-1234)</label
                                         >
                                     </div>
 
@@ -92,15 +94,16 @@
                                         <input
                                             id="employeeId"
                                             name="employeeId"
-                                            type="text"
+                                            type="number"
                                             th:field="*{employeeId}"
                                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" "
+                                            th:required="${user.role}!='ROLE_STUDENT'"
                                         />
                                         <label
                                             for="employeeId"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                            >Employee ID</label
+                                            >Employee Id</label
                                         >
                                     </div>
                                 </div>
@@ -136,6 +139,7 @@
                                             step=".01"
                                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" "
+                                            th:required="${user.role}=='ROLE_STUDENT'"
                                         />
                                         <label
                                             for="cgpa"
@@ -158,6 +162,7 @@
                                             th:field="*{batch}"
                                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" "
+                                            th:required="${user.role}=='ROLE_STUDENT'"
                                         />
                                         <label
                                             for="batch"
@@ -178,6 +183,7 @@
                                             th:field="*{degree}"
                                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" "
+                                            th:required="${user.role}!='ROLE_STUDENT'"
                                         />
                                         <label
                                             for="degree"
@@ -197,6 +203,9 @@
                                             th:field="*{DOB}"
                                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" "
+                                            required
+                                            min="1940-01-01"
+                                            max="2010-12-30"
                                         />
                                         <label
                                             for="dob"
@@ -217,6 +226,7 @@
                                         th:field="*{designation}"
                                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" "
+                                        th:required="${user.role}!='ROLE_STUDENT'"
                                     />
                                     <label
                                         for="designation"
@@ -364,12 +374,34 @@
 
                         <div
                             th:if="${param.notfound}"
-                            class="bg-primary-100 border border-primary-400 text-primary-600 px-4 py-3 rounded relative"
+                            class="bg-red-100 border border-red-400 text-red-600 px-4 py-3 rounded relative"
                             role="alert"
                         >
                             <strong class="font-bold">Error! </strong>
                             <span class="block sm:inline"
                                 >You have not been added by admin!</span
+                            >
+                        </div>
+
+                         <div
+                            th:if="${param.found}"
+                            class="bg-red-100 border border-red-400 text-red-600 px-4 py-3 rounded relative"
+                            role="alert"
+                        >
+                            <strong class="font-bold">Error! </strong>
+                            <span class="block sm:inline"
+                                >Only 1 person per employeeId allowed!</span
+                            >
+                        </div>
+
+                        <div
+                            th:if="${param.email}"
+                            class="bg-red-100 border border-red-400 text-red-600 px-4 py-3 rounded relative"
+                            role="alert"
+                        >
+                            <strong class="font-bold">Error! </strong>
+                            <span class="block sm:inline"
+                                >Email in use!</span
                             >
                         </div>
                     </div>

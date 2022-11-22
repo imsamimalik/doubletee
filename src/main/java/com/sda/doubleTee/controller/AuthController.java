@@ -1,5 +1,6 @@
 package com.sda.doubleTee.controller;
 
+import com.sda.doubleTee.constants.Roles;
 import com.sda.doubleTee.dto.UserDto;
 import com.sda.doubleTee.model.Teacher;
 import com.sda.doubleTee.model.User;
@@ -54,7 +55,7 @@ public class AuthController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             UserDto user = new UserDto();
-            user.setRole("ROLE_STUDENT");
+            user.setRole(Roles.STUDENT.getRole());
             model.addAttribute("title", "student");
             model.addAttribute("user", user);
             return "register";
@@ -71,7 +72,7 @@ public class AuthController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             UserDto user = new UserDto();
-            user.setRole("ROLE_FACULTY");
+            user.setRole(Roles.FACULTY.getRole());
             model.addAttribute("title", "faculty");
             model.addAttribute("user", user);
             return "register";
@@ -88,7 +89,7 @@ public class AuthController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             UserDto user = new UserDto();
-            user.setRole("ROLE_ADMIN");
+            user.setRole(Roles.ADMIN.getRole());
             model.addAttribute("title", "admin");
             model.addAttribute("user", user);
             return "register";
@@ -101,30 +102,35 @@ public class AuthController {
 
     // handler method to handle user registration form submit request
     @PostMapping("/register")
-    public String registration(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result, Model model){
+    public String registration(@Valid @ModelAttribute("user") UserDto userDto, Model model,BindingResult result){
         User existingUser = userService.findUserByEmail(userDto.getEmail());
 
         if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
             result.rejectValue("email", null,
                     "There is already an account registered with the same email");
-            return "redirect:/";
+            return redirectByRole("register",userDto.getRole().substring(5).toLowerCase(),"email");
         }
+
         Long teacherId = userDto.getEmployeeId();
-        if(teacherId!=null) {
+        if(teacherId!=null && userDto.getRole().equals(Roles.FACULTY.getRole())) {
             Teacher teacher = teacherService.findById(teacherId);
             if(teacher==null) {
-                return "redirect:/register/faculty?notfound";
+                return redirectByRole("register",userDto.getRole().substring(5).toLowerCase(),"notfound");
+            }else if(teacher!=null) {
+                return redirectByRole("register",userDto.getRole().substring(5).toLowerCase(),"found");
+
             }
         }
 
 
         if(result.hasErrors()){
             model.addAttribute("user", userDto);
-            return "redirect:/";
+            return redirectByRole("register",userDto.getRole().substring(5).toLowerCase(),"error");
         }
 
         userService.saveUser(userDto);
-        return "redirect:/register/student?success";
+        return redirectByRole("register",userDto.getRole().substring(5).toLowerCase(),"success");
+
     }
 
     // handler method to handle list of users
@@ -188,4 +194,8 @@ public class AuthController {
         return "redirect:/";
     }
 
+    private String redirectByRole(String path, String role, String message) {
+        return "redirect:/"+path+ "/" + role + "?" + message;
+    }
 }
+
