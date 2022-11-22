@@ -5,23 +5,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddTeacherDto {
+public class AddAdminDto {
 
-    @NotNull(message = "id cannot be empty")
+    @NotEmpty(message = "Id cannot be empty")
     private Long id;
 
-    @NotEmpty(message = "Name cannot be empty")
+    @NotEmpty(message = "name cannot be empty")
     private String name;
-
-
-    private String department;
 
 }

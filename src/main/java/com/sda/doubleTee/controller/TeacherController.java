@@ -5,10 +5,14 @@ import com.sda.doubleTee.dao.TimeSlot;
 import com.sda.doubleTee.dto.AddTeacherDto;
 import com.sda.doubleTee.dto.EmptyRoomDto;
 import com.sda.doubleTee.dto.FacultyAvailDto;
+import com.sda.doubleTee.model.Admin;
 import com.sda.doubleTee.model.Room;
 import com.sda.doubleTee.model.Teacher;
+import com.sda.doubleTee.model.User;
+import com.sda.doubleTee.service.AdminService;
 import com.sda.doubleTee.service.TeacherService;
 import com.sda.doubleTee.service.TimeTableService;
+import com.sda.doubleTee.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +32,11 @@ public class TeacherController {
     @Autowired
     private TimeTableService timeTableService;
 
+    @Autowired
+    private AdminService adminService;
+
+    @Autowired
+    private UserServiceImpl userService;
 
     @GetMapping("/teachers/add")
     public String showAddCourses(Model model){
@@ -43,14 +52,15 @@ public class TeacherController {
     public String addCourses(@Valid @ModelAttribute("addTeacher") AddTeacherDto addTeacherDto, BindingResult result, Model model) {
 
         Teacher existingTeacher = teacherService.findById(addTeacherDto.getId());
+        Admin existingAdmin = adminService.findById(addTeacherDto.getId());
+        User existingUser = userService.findByEmployeeId(addTeacherDto.getId());
 
-        if(existingTeacher != null && existingTeacher.getId() != null){
+        if((existingAdmin != null && existingAdmin.getId() != null) ||
+                (existingUser != null && existingUser.getId() != null) ||
+                (existingTeacher != null && existingTeacher.getId() != null)){
             result.rejectValue("name", null,
                     "This room has already been added.");
-            List<Teacher> allTeachers = teacherService.findAllTeachers();
-            model.addAttribute("addTeacher",addTeacherDto);
-            model.addAttribute("teachers",allTeachers);
-            return "add-teachers";
+            return "redirect:/teachers/add?duplicate";
         }
 
         if(result.hasErrors()){

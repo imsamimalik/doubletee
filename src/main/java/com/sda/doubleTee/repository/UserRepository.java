@@ -10,4 +10,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     void deleteById(Long id);
 
     User findByRollNumber(String rollNo);
+
+    User findByEmployeeId(Long id);
 }

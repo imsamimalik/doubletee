@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
         Role role = roleRepository.findByName(userDto.getRole());
         if(role == null){
-            role = checkRoleExist();
+            role = checkRoleExist(userDto.getRole());
         }
         user.setRoles(Arrays.asList(role));
         userRepository.save(user);
@@ -73,14 +73,18 @@ public class UserServiceImpl implements UserService {
         return userDto;
     }
 
-    private Role checkRoleExist(){
+    private Role checkRoleExist(String roleName){
         Role role = new Role();
-        role.setName("ROLE_STUDENT");
+        role.setName(roleName);
         return roleRepository.save(role);
     }
 
     public User findByRollNo(String rollNo) {
        return userRepository.findByRollNumber(rollNo);
+    }
+
+    public User findByEmployeeId(Long id) {
+        return userRepository.findByEmployeeId(id);
     }
 
 }

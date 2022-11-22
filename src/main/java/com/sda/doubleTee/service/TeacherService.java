@@ -24,9 +24,11 @@ public class TeacherService {
     public void saveTeacher(AddTeacherDto teacherDto) {
 
         Teacher teacher = new Teacher();
+        teacher.setId(teacherDto.getId());
         teacher.setName(teacherDto.getName());
-        teacher.setId(teacher.getId());
         teacher.setDepartment(teacherDto.getDepartment());
+
+        System.out.printf("UDDDDDDDDDDDDDD %d%n", teacher.getId());
 
         teacherRepository.save(teacher);
 
