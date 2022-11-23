@@ -3,8 +3,10 @@ package com.sda.doubleTee.controller;
 import com.sda.doubleTee.constants.Roles;
 import com.sda.doubleTee.dto.UserDto;
 import com.sda.doubleTee.model.Admin;
+import com.sda.doubleTee.model.Staff;
 import com.sda.doubleTee.model.Teacher;
 import com.sda.doubleTee.model.User;
+import com.sda.doubleTee.repository.StaffRepository;
 import com.sda.doubleTee.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -36,6 +38,9 @@ public class AuthController {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private StaffService staffService;
 
 
     @InitBinder
@@ -105,7 +110,6 @@ public class AuthController {
     // handler method to handle user registration form submit request
     @PostMapping("/register")
     public String registration(@Valid @ModelAttribute("user") UserDto userDto, Model model,BindingResult result){
-        Admin existingAdmin = adminService.findById(userDto.getEmployeeId());
         User existingUser =null;
         if(!userDto.getRole().equals(Roles.STUDENT.getRole())) {
             existingUser = userService.findByEmployeeId(userDto.getEmployeeId());
@@ -113,32 +117,19 @@ public class AuthController {
             existingUser = userService.findByRollNo(userDto.getRollNumber());
         }
 
-        Teacher existingTeacher = teacherService.findById(userDto.getEmployeeId());
 
-        if((existingAdmin != null && existingAdmin.getId() != null) ||
-                (existingUser != null && existingUser.getId() != null) ||
-                (existingTeacher != null && existingTeacher.getId() != null)){
+        if(existingUser != null){
             result.rejectValue("id", null,
                     "This id has already been added.");
             return redirectByRole("register",userDto.getRole().substring(5).toLowerCase(),"found");
         }
 
-        Long employeeId = userDto.getEmployeeId();
-        if(employeeId!=null && userDto.getRole().equals(Roles.FACULTY.getRole())) {
-            Teacher teacher = teacherService.findById(employeeId);
-            if(teacher==null) {
-                return redirectByRole("register",userDto.getRole().substring(5).toLowerCase(),"notfound");
-            }else if(teacher!=null) {
-                return redirectByRole("register",userDto.getRole().substring(5).toLowerCase(),"found");
-            }
-        }
 
-        if(employeeId!=null && userDto.getRole().equals(Roles.ADMIN.getRole())) {
-            Admin admin = adminService.findById(employeeId);
-            if(admin==null) {
+        Long employeeId = userDto.getEmployeeId();
+        if(employeeId!=null) {
+            Staff existingStaff = staffService.findById(userDto.getEmployeeId());
+            if(existingStaff==null) {
                 return redirectByRole("register",userDto.getRole().substring(5).toLowerCase(),"notfound");
-            }else if(admin!=null) {
-                return redirectByRole("register",userDto.getRole().substring(5).toLowerCase(),"found");
             }
         }
 

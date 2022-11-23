@@ -2,7 +2,9 @@ package com.sda.doubleTee.service;
 
 import com.sda.doubleTee.dto.AddAdminDto;
 import com.sda.doubleTee.model.Admin;
+import com.sda.doubleTee.model.Staff;
 import com.sda.doubleTee.repository.AdminRepository;
+import com.sda.doubleTee.repository.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,9 @@ public class AdminService {
     @Autowired
     private AdminRepository adminRepository;
 
+    @Autowired
+    private StaffRepository staffRepository;
+
     public List<Admin> fetchAll() {
         return adminRepository.findAll();
     }
@@ -24,7 +29,9 @@ public class AdminService {
 
     public boolean saveAdmin(AddAdminDto addAdminDto) {
         Admin admin = new Admin();
-        admin.setId(addAdminDto.getId());
+        Staff staff = new Staff();
+        Staff newStaff = staffRepository.save(staff);
+        admin.setId(newStaff.getId());
         admin.setName(addAdminDto.getName());
         adminRepository.save(admin);
         return true;
@@ -32,5 +39,6 @@ public class AdminService {
 
     public void deleteAdmin(Long id) {
         adminRepository.deleteById(id);
+        staffRepository.deleteById(id);
     }
 }

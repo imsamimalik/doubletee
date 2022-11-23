@@ -1,0 +1,1 @@
+insert into admins values(123,'Sami Malik')

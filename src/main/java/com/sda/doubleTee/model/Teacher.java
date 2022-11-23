@@ -17,9 +17,7 @@ import java.util.List;
 @Table(name = "teachers")
 public class Teacher {
 
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @Column(nullable = false)
@@ -27,6 +25,6 @@ public class Teacher {
 
     private String department;
 
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
     List<TimeTable> allocations;
 }

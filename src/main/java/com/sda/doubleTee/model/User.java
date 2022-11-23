@@ -40,6 +40,7 @@ public class User {
     private String postalAddress;
 
     private Long employeeId;
+
     private String designation;
     @Column(length = 8)
     private String rollNumber;

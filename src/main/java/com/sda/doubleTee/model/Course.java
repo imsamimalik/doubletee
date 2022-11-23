@@ -35,9 +35,9 @@ public class Course {
     private int capacity;
 
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     List<TimeTable> allocations;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     List<Registration> registration;
 }
