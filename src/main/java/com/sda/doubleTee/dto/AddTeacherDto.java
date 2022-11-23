@@ -15,9 +15,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class AddTeacherDto {
 
-    @NotNull(message = "id cannot be empty")
-    private Long id;
-
     @NotEmpty(message = "Name cannot be empty")
     private String name;
 

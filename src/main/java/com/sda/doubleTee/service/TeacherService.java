@@ -34,9 +34,6 @@ public class TeacherService {
         teacher.setId(newStaff.getId());
         teacher.setName(teacherDto.getName());
         teacher.setDepartment(teacherDto.getDepartment());
-
-        System.out.printf("UDDDDDDDDDDDDDD %d%n", teacher.getId());
-
         teacherRepository.save(teacher);
 
     }

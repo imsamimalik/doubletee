@@ -1,5 +1,6 @@
 package com.sda.doubleTee.service;
 
+import com.sda.doubleTee.constants.Roles;
 import com.sda.doubleTee.dao.TimeSlot;
 import com.sda.doubleTee.dto.RegistrationDto;
 import com.sda.doubleTee.model.Course;
@@ -46,9 +47,9 @@ public class RegistrationService {
 
         Course course = courseRepository.findById(registrationDto.getCourseId()).orElse(null);
 
-        if(course.getCapacity()<=0) return  false;
+        if(course.getSeats()<=0) return  false;
 
-            course.setCapacity(course.getCapacity()-1);
+            course.setSeats(course.getSeats()-1);
             courseRepository.save(course);
 
         registration.setCourse(course);
@@ -79,7 +80,7 @@ public class RegistrationService {
         Authentication auth = authService.getAuth();
 
         boolean hasStudentRole = auth.getAuthorities().stream()
-                .anyMatch(r -> r.getAuthority().equals("ROLE_STUDENT"));
+                .anyMatch(r -> r.getAuthority().equals(Roles.STUDENT.getRole()));
 
         Course course = courseRepository.findById(registration.getCourse().getId()).orElse(null);
 
@@ -92,7 +93,7 @@ public class RegistrationService {
                 registrationRepository.deleteById(id);
 
                 if(hasStudentRole==true) {
-                    course.setCapacity(course.getCapacity()+1);
+                    course.setSeats(course.getSeats()+1);
                     courseRepository.save(course);
                 }
 

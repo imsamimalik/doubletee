@@ -51,18 +51,6 @@ public class TeacherController {
     @PostMapping("/teachers/add")
     public String addCourses(@Valid @ModelAttribute("addTeacher") AddTeacherDto addTeacherDto, BindingResult result, Model model) {
 
-        Teacher existingTeacher = teacherService.findById(addTeacherDto.getId());
-        Admin existingAdmin = adminService.findById(addTeacherDto.getId());
-        User existingUser = userService.findByEmployeeId(addTeacherDto.getId());
-
-        if((existingAdmin != null && existingAdmin.getId() != null) ||
-                (existingUser != null && existingUser.getId() != null) ||
-                (existingTeacher != null && existingTeacher.getId() != null)){
-            result.rejectValue("name", null,
-                    "This room has already been added.");
-            return "redirect:/teachers/add?duplicate";
-        }
-
         if(result.hasErrors()){
             List<Teacher> allTeachers = teacherService.findAllTeachers();
             model.addAttribute("addCourse",addTeacherDto);

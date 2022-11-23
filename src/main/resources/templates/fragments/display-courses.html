@@ -15,7 +15,7 @@
                     <th scope="col" class="py-3 px-6">Course Name</th>
                     <th scope="col" class="py-3 px-6">Credit Hours</th>
                     <th scope="col" class="py-3 px-6">Section</th>
-                    <th scope="col" class="py-3 px-6">Capacity</th>
+                    <th scope="col" class="py-3 px-6">Seats Left</th>
                     <th
                         scope="col"
                         class="py-3 px-6"
@@ -43,12 +43,12 @@
                     ></td>
                     <td th:text="${course.section}" class="py-4 px-6"></td>
                     <td
-                        th:if="${course.capacity}>0"
-                        th:text="${course.capacity}"
+                        th:if="${course.seats}>0"
+                        th:text="${course.seats}"
                         class="py-4 px-6"
                     ></td>
                     <td
-                        th:unless="${course.capacity}>0"
+                        th:unless="${course.seats}>0"
                         th:text="FULL"
                         class="py-4 px-6 text-red-400 font-bold"
                     ></td>

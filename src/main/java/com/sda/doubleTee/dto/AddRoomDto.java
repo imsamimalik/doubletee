@@ -18,4 +18,6 @@ public class AddRoomDto {
     @NotEmpty(message = "Name cannot be empty")
     private String name;
 
+    private int capacity;
+
 }

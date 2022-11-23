@@ -13,9 +13,6 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 public class AddAdminDto {
 
-    @NotEmpty(message = "Id cannot be empty")
-    private Long id;
-
     @NotEmpty(message = "name cannot be empty")
     private String name;
 

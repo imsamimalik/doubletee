@@ -75,17 +75,6 @@ public class TimetableController {
             result.rejectValue("teacherId", null,
                     "This teacher is not free at the given time.");
 
-            List<Course> courses = courseService.findAllCourses();
-            List<Room> rooms = roomService.findAllRooms();
-            List<Teacher> teachers = teacherService.findAllTeachers();
-            List<Enum> days = Arrays.asList(Days.values());
-
-            model.addAttribute("courses", courses);
-            model.addAttribute("rooms", rooms);
-            model.addAttribute("teachers", teachers);
-            model.addAttribute("timetableDto",timeTableDto);
-            model.addAttribute("days",days);
-
             return "redirect:/timetable/add?teacherClash";
 
         }
@@ -93,39 +82,21 @@ public class TimetableController {
         if(roomClash != null && roomClash.getRoom().getId() != null){
             result.rejectValue("teacherId", null,
                     "This room is not free at the given time.");
-
-            List<Course> courses = courseService.findAllCourses();
-            List<Room> rooms = roomService.findAllRooms();
-            List<Teacher> teachers = teacherService.findAllTeachers();
-            List<Enum> days = Arrays.asList(Days.values());
-
-
-            model.addAttribute("courses", courses);
-            model.addAttribute("rooms", rooms);
-            model.addAttribute("teachers", teachers);
-            model.addAttribute("timetableDto",timeTableDto);
-            model.addAttribute("days",days);
-
             return "redirect:/timetable/add?roomClash";
         }
+        Course course = courseService.findById(timeTableDto.getCourseId());
+        Room room = roomService.findById(timeTableDto.getRoomId());
+
+        if(course.getMaxSeats() > room.getCapacity()) {
+            return "redirect:/timetable/add?space";
+        }
+
         Duration duration = Duration.between(timeTableDto.getStartTime(),timeTableDto.getEndTime());
         long diff = duration.toMinutes();
 
         if(diff<=0) {
             result.rejectValue("startTime", null,
                     "The time entered is invalid");
-
-            List<Course> courses = courseService.findAllCourses();
-            List<Room> rooms = roomService.findAllRooms();
-            List<Teacher> teachers = teacherService.findAllTeachers();
-            List<Enum> days = Arrays.asList(Days.values());
-
-
-            model.addAttribute("courses", courses);
-            model.addAttribute("rooms", rooms);
-            model.addAttribute("teachers", teachers);
-            model.addAttribute("timetableDto",timeTableDto);
-            model.addAttribute("days",days);
 
             return "redirect:/timetable/add?invalidtime";
         }

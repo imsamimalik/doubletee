@@ -21,6 +21,9 @@ public class Room {
 
     private String name;
 
+    @Column(name="capacity",nullable = false)
+    private int capacity;
+
     @OneToMany(mappedBy = "room")
     List<TimeTable> allocations;
 

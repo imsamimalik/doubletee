@@ -32,7 +32,10 @@ public class Course {
     private String section;
 
     @Column(nullable = false)
-    private int capacity;
+    private int seats;
+
+    @Column(nullable = false)
+    private int maxSeats;
 
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
