@@ -8,10 +8,10 @@
                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
             >
                 <tr class="bg-white hover:bg-gray-50">
-                    <th scope="col" class="py-3 px-6">Id</th>
-                    <th scope="col" class="py-3 px-6">Room Name</th>
-                    <th scope="col" class="py-3 px-6">Room Capacity</th>
-                    <th scope="col" class="py-3 px-6" sec:authorize="hasRole('ADMIN')">Delete</th>
+                    <th scope="col" class="py-3 px-6 text-center">Id</th>
+                    <th scope="col" class="py-3 px-6 text-center">Room Name</th>
+                    <th scope="col" class="py-3 px-6 text-center">Room Capacity</th>
+                    <th scope="col" class="py-3 px-6 text-center" sec:authorize="hasRole('ADMIN')">Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,11 +22,11 @@
                     <td
                         th:text="${room.id}"
                         scope="row"
-                        class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        class="py-4 px-6 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     ></td>
-                    <td th:text="${room.name}" class="py-4 px-6"></td>
-                     <td th:text="${room.capacity}" class="py-4 px-6"></td>
-                    <td class="py-4 px-6" sec:authorize="hasRole('ADMIN')">
+                    <td th:text="${room.name}" class="py-4 px-6 text-center"></td>
+                     <td th:text="${room.capacity}" class="py-4 px-6 text-center"></td>
+                    <td class="py-4 px-6 text-center" sec:authorize="hasRole('ADMIN')">
                         <form
                             th:action="@{/rooms/delete/{id}(id=${room.id})}"
                             th:method="delete"

@@ -27,14 +27,14 @@
                                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
                                 >
                                     <tr>
-                                        <th scope="col" class="py-3 px-6">
+                                        <th scope="col" class="py-3 px-6 text-center">
                                             Employee Id
                                         </th>
 
-                                        <th scope="col" class="py-3 px-6">
+                                        <th scope="col" class="py-3 px-6 text-center">
                                             Name
                                         </th>
-                                        <th scope="col" class="py-3 px-6">
+                                        <th scope="col" class="py-3 px-6 text-center">
                                             Delete
                                         </th>
                                     </tr>
@@ -47,18 +47,18 @@
                                         <td
                                             th:text="${admin.id}"
                                             scope="row"
-                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                            class="py-4 px-6 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                         >
                                             id
                                         </td>
                                         <td
                                             th:text="${admin.name}"
-                                            class="py-4 px-6"
+                                            class="py-4 px-6 text-center"
                                         >
                                             name
                                         </td>
 
-                                        <td class="py-4 px-6">
+                                        <td class="py-4 px-6 text-center">
                                             <form
                                                 th:action="@{/admins/delete/{id}(id=${admin.id})}"
                                                 th:method="delete"

@@ -232,7 +232,7 @@ public class TimetableController {
     }
 
 
-    @PostMapping("/timetable/edit/{id}")
+    @GetMapping("/timetable/edit/{id}")
     public String editTimetable(@PathVariable Long id, Model model){
 
         List<Course> courses = courseService.findAllCourses();

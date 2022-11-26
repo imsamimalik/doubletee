@@ -9,9 +9,9 @@
                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
             >
                 <tr>
-                    <th scope="col" class="py-3 px-6">Code</th>
-                    <th scope="col" class="py-3 px-6">Course</th>
-                    <th scope="col" class="py-3 px-6">Delete</th>
+                    <th scope="col" class="py-3 px-6 text-center">Code</th>
+                    <th scope="col" class="py-3 px-6 text-center">Course</th>
+                    <th scope="col" class="py-3 px-6 text-center">Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,14 +22,14 @@
                     <td
                         th:text="|${registration.getCourse().getCode()}|"
                         scope="row"
-                        class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        class="py-4 px-6 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     ></td>
                     <td
                         th:text="|${registration.getCourse().getName()} (${registration.getCourse().getSection()})|"
                         scope="row"
-                        class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        class="py-4 px-6 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     ></td>
-                    <td class="py-4 px-6">
+                    <td class="py-4 px-6 text-center">
                         <form
                             th:action="@{/delete/registration/{id}(id=${registration.id})}"
                             th:method="delete"

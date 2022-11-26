@@ -35,6 +35,11 @@ public class TimeTableService {
     public void addToTimeTable(TimeTableDto timeTableDto) {
 
         TimeTable allocation  = new TimeTable();
+        saveTimeTable(timeTableDto,allocation);
+    }
+
+    private void saveTimeTable(TimeTableDto timeTableDto, TimeTable allocation) {
+
         allocation.setStartTime(timeTableDto.getStartTime());
         allocation.setEndTime(timeTableDto.getEndTime());
         allocation.setDay(timeTableDto.getDay());
@@ -53,20 +58,7 @@ public class TimeTableService {
 
     public void updateTimeTable(TimeTableDto timeTableDto, Long id) {
         TimeTable allocation = timeTableRepository.findById(id).get();
-        allocation.setStartTime(timeTableDto.getStartTime());
-        allocation.setEndTime(timeTableDto.getEndTime());
-        allocation.setDay(timeTableDto.getDay());
-
-        Course course = courseRepository.findById(timeTableDto.getCourseId()).orElse(null);
-        allocation.setCourse(course);
-
-        Room room = roomRepository.findById(timeTableDto.getRoomId()).orElse(null);
-        allocation.setRoom(room);
-
-        Teacher teacher = teacherRepository.findById(timeTableDto.getTeacherId()).orElse(null);
-        allocation.setTeacher(teacher);
-
-        timeTableRepository.save(allocation);
+        saveTimeTable(timeTableDto,allocation);
     }
 
     public List<TimeTable> findAllAllocations() {

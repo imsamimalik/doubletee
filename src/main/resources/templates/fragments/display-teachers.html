@@ -8,10 +8,10 @@
                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
             >
                 <tr>
-                    <th class="py-3 px-6">Employee ID</th>
-                    <th class="py-3 px-6">Teacher Name</th>
-                    <th class="py-3 px-6">Department</th>
-                    <th class="py-3 px-6" sec:authorize="hasRole('ADMIN')">Delete</th>
+                    <th class="py-3 px-6 text-center">Employee ID</th>
+                    <th class="py-3 px-6 text-center">Teacher Name</th>
+                    <th class="py-3 px-6 text-center">Department</th>
+                    <th class="py-3 px-6 text-center" sec:authorize="hasRole('ADMIN')">Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,11 +22,11 @@
                     <td
                         th:text="${teacher.id}"
                         scope="row"
-                        class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        class="py-4 px-6 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     ></td>
-                    <td th:text="${teacher.name}" class="py-4 px-6"></td>
-                    <td th:text="${teacher.department}" class="py-4 px-6"></td>
-                    <td class="py-4 px-6" sec:authorize="hasRole('ADMIN')">
+                    <td th:text="${teacher.name}" class="py-4 px-6 text-center"></td>
+                    <td th:text="${teacher.department}" class="py-4 px-6 text-center"></td>
+                    <td class="py-4 px-6 text-center" sec:authorize="hasRole('ADMIN')">
                         <form
                             th:action="@{/teachers/delete/{id}(id=${teacher.id})}"
                             th:method="delete"
