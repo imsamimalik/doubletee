@@ -1,5 +1,13 @@
 package com.sda.doubleTee.service;
 
+import java.util.Arrays;
+import java.util.List;
+
+import com.sda.doubleTee.constants.Roles;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.sda.doubleTee.dto.UserDto;
 import com.sda.doubleTee.model.Role;
 import com.sda.doubleTee.model.Staff;
@@ -7,12 +15,6 @@ import com.sda.doubleTee.model.User;
 import com.sda.doubleTee.repository.RoleRepository;
 import com.sda.doubleTee.repository.StaffRepository;
 import com.sda.doubleTee.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -39,9 +41,7 @@ public class UserServiceImpl implements UserService {
         user.setCGPA(userDto.getCGPA());
         user.setDOB(userDto.getDOB());
         user.setPostalAddress(userDto.getPostalAddress());
-        Staff staff = new Staff();
-        Staff newStaff = staffRepository.save(staff);
-        user.setEmployeeId(newStaff.getId());
+        user.setEmployeeId(userDto.getEmployeeId());
         user.setDesignation(userDto.getDesignation());
         user.setRollNumber(userDto.getRollNumber());
 
@@ -71,13 +71,6 @@ public class UserServiceImpl implements UserService {
        userRepository.deleteById(id);
     }
 
-    private UserDto mapToUserDto(User user){
-        UserDto userDto = new UserDto();
-        String[] str = user.getName().split(" ");
-        userDto.setName(str[0]);
-        userDto.setEmail(user.getEmail());
-        return userDto;
-    }
 
     private Role checkRoleExist(String roleName){
         Role role = new Role();

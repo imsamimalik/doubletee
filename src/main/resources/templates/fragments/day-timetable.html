@@ -21,6 +21,7 @@
                         <th class="py-3 px-2 min-w-[200px]">Subject</th>
                         <th class="py-3 px-2 min-w-[200px]">Teacher</th>
                         <th class="py-3 px-2 min-w-[200px]">Room</th>
+                        <th class="py-3 px-2">Edit</th>
                         <th
                             class="py-3 px-2 max-w-[100px]"
                             sec:authorize="hasRole('ADMIN')"
@@ -38,26 +39,46 @@
                         <td
                             class="py-3 px-2 min-w-[200px] md:max-w-[25px]"
                             th:text="|${{timetable.startTime}} - ${{timetable.endTime}}|"
+                            th:title="|${{timetable.startTime}} - ${{timetable.endTime}}|"
                         >
                             Time
                         </td>
                         <td
-                            class="py-3 px-2 min-w-[200px]"
-                            th:text="|${timetable.course.name}|"
+                            class="py-3 px-2 min-w-[200px] text-ellipsis overflow-hidden"
+                            th:text="|${timetable.course.name} (${timetable.course.section})|"
+                            th:title="|${timetable.course.name} (${timetable.course.section})|"
                         >
                             Subject
                         </td>
                         <td
-                            class="py-3 px-2 min-w-[200px]"
+                            class="py-3 px-2 min-w-[200px] text-ellipsis overflow-hidden"
                             th:text="|${timetable.teacher.name}|"
+                            th:title="|${timetable.teacher.name}|"
                         >
                             Teacher
                         </td>
                         <td
-                            class="py-3 px-2 min-w-[200px]"
+                            class="py-3 px-2 min-w-[200px] text-ellipsis overflow-hidden"
                             th:text="|${timetable.room.name}|"
+                            th:title="|${timetable.room.name}|"
                         >
                             Room
+                        </td>
+                        <td
+                            class="py-4 px-6"
+                            sec:authorize="hasRole('ADMIN')"
+                        >
+                            <form
+                                th:action="@{/timetable/edit/{id}(id=${timetable.id})}"
+                                th:method="post"
+                            >
+                                <button
+                                    type="submit"
+                                    class="bg-primary-500 hover:bg-primary-700 text-white font-bold py-1 px-2 rounded"
+                                >
+                                    Edit
+                                </button>
+                            </form>
                         </td>
                         <td
                             class="py-4 px-6 max-w-[100px]"

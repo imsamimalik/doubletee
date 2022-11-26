@@ -1,17 +1,17 @@
 package com.sda.doubleTee.service;
 
-import com.sda.doubleTee.dto.AddRoomDto;
-import com.sda.doubleTee.dto.AddTeacherDto;
-import com.sda.doubleTee.model.Room;
-import com.sda.doubleTee.model.Staff;
-import com.sda.doubleTee.model.Teacher;
-import com.sda.doubleTee.repository.RoomRepository;
-import com.sda.doubleTee.repository.StaffRepository;
-import com.sda.doubleTee.repository.TeacherRepository;
+import java.util.List;
+
+import com.sda.doubleTee.model.User;
+import com.sda.doubleTee.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.sda.doubleTee.dto.AddTeacherDto;
+import com.sda.doubleTee.model.Staff;
+import com.sda.doubleTee.model.Teacher;
+import com.sda.doubleTee.repository.StaffRepository;
+import com.sda.doubleTee.repository.TeacherRepository;
 
 @Service
 public class TeacherService {
@@ -21,6 +21,9 @@ public class TeacherService {
 
     @Autowired
     private StaffRepository staffRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public Teacher findById(Long id) {
        return teacherRepository.findById(id).orElse(null);
@@ -43,6 +46,8 @@ public class TeacherService {
     }
 
     public void deleteTeacher(Long id) {
+        User teacher = userRepository.findByEmployeeId(id);
+        userRepository.deleteById(teacher.getId());
         teacherRepository.deleteById(id);
         staffRepository.deleteById(id);
     }

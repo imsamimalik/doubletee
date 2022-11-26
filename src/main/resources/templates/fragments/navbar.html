@@ -104,6 +104,14 @@
                                     >My TimeTable</a
                                 >
                             </li>
+                             <li>
+                                <a
+                                    th:href="@{/timetable/personalized}"
+                                    th:classappend="${#httpServletRequest.getRequestURI().contains('/timetable/personalized') ? 'md:text-blue-700':''}"
+                                    class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    >Personalized TT</a
+                                >
+                            </li>
                             <li
                                 sec:authorize="hasRole('ADMIN') || hasRole('FACULTY')"
                             >

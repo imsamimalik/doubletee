@@ -1,27 +1,27 @@
 package com.sda.doubleTee.controller;
 
-import com.sda.doubleTee.constants.Days;
-import com.sda.doubleTee.dao.TimeSlot;
-import com.sda.doubleTee.dto.AddTeacherDto;
-import com.sda.doubleTee.dto.EmptyRoomDto;
-import com.sda.doubleTee.dto.FacultyAvailDto;
-import com.sda.doubleTee.model.Admin;
-import com.sda.doubleTee.model.Room;
-import com.sda.doubleTee.model.Teacher;
-import com.sda.doubleTee.model.User;
-import com.sda.doubleTee.service.AdminService;
-import com.sda.doubleTee.service.TeacherService;
-import com.sda.doubleTee.service.TimeTableService;
-import com.sda.doubleTee.service.UserServiceImpl;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.List;
+import com.sda.doubleTee.constants.Days;
+import com.sda.doubleTee.dto.TimeSlot;
+import com.sda.doubleTee.dto.AddTeacherDto;
+import com.sda.doubleTee.dto.FacultyAvailDto;
+import com.sda.doubleTee.model.Teacher;
+import com.sda.doubleTee.service.TeacherService;
+import com.sda.doubleTee.service.TimeTableService;
 
 @Controller
 public class TeacherController {
@@ -32,11 +32,6 @@ public class TeacherController {
     @Autowired
     private TimeTableService timeTableService;
 
-    @Autowired
-    private AdminService adminService;
-
-    @Autowired
-    private UserServiceImpl userService;
 
     @GetMapping("/teachers/add")
     public String showAddCourses(Model model){
@@ -74,7 +69,7 @@ public class TeacherController {
     @DeleteMapping("/teachers/delete/{id}")
     public String deleteTeacher(@PathVariable Long id) {
         teacherService.deleteTeacher(id);
-        return "redirect:/teachers?success";
+        return "redirect:/teachers/add?success";
     }
 
 
@@ -83,7 +78,7 @@ public class TeacherController {
 
         FacultyAvailDto facultyAvailDto = new FacultyAvailDto();
         List<Teacher> teachers = teacherService.findAllTeachers();
-        List<Enum> days = Arrays.asList(Days.values());
+        List<Days> days = Arrays.asList(Days.values());
 
         model.addAttribute("teachers", teachers);
         model.addAttribute("days",days);

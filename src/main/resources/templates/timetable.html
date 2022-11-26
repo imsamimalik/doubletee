@@ -9,7 +9,7 @@
         <div id="app" class="flex flex-col">
             <div class="content flex-1 min-h-[calc(100vh-45px)]">
                 <nav th:replace="fragments/navbar::navbar"></nav>
-                <div th:include="fragments/display-timetable::displayTimeTable(${timeTables},${title})"></div>
+                <div th:include="fragments/display-timetable::displayTimeTable(${timeTables},${title},'false')"></div>
             </div>
             <div class="h-20"></div>
             <footer th:replace="fragments/footer::footer"></footer>

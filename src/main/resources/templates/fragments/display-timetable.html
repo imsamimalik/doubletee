@@ -1,8 +1,9 @@
-<th:block th:fragment="displayTimeTable(timeTables,title)">
+<th:block th:fragment="displayTimeTable(timeTables,title, full)">
     <div
-        class="flex flex-col justify-center align-center w-5/6 md:w-3/5 m-auto"
+        class="flex flex-col justify-center align-center m-auto"
+        th:classappend="${full=='true'? 'w-5/6 md:w-5/6':'w-5/6 md:w-3/5'}"
     >
-        <div class="my-5 sm:mt-10">
+        <div th:if="${not #strings.isEmpty(title)}" class="my-5 sm:mt-10">
             <h1 class="text-3xl" th:text="|${title}|">Timetable</h1>
         </div>
         <div th:if="${not #lists.isEmpty(timeTables)}">
@@ -27,7 +28,7 @@
         </div>
         <h1
             th:unless="${not #lists.isEmpty(timeTables)}"
-            class="text-lg my-10 text-center"
+            class="text-lg my-10 text-center font-mono"
         >
             You don't have any courses registered!
         </h1>
@@ -50,6 +51,6 @@
                 clip-rule="evenodd"
             ></path>
         </svg>
-        <span class="font-medium">Deleted successfully!</span>
+        <span class="font-medium">Operation Successful!</span>
     </div>
 </th:block>

@@ -1,17 +1,15 @@
 package com.sda.doubleTee.controller;
 
-import com.opencsv.CSVWriter;
-import com.opencsv.bean.StatefulBeanToCsv;
-import com.opencsv.bean.StatefulBeanToCsvBuilder;
-import com.opencsv.exceptions.CsvDataTypeMismatchException;
-import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
-import com.sda.doubleTee.constants.Days;
-import com.sda.doubleTee.dao.CSVTT;
-import com.sda.doubleTee.dao.TimeSlot;
-import com.sda.doubleTee.dto.StudentAvailDto;
-import com.sda.doubleTee.dto.TimeTableDto;
-import com.sda.doubleTee.model.*;
-import com.sda.doubleTee.service.*;
+import java.io.IOException;
+import java.time.Duration;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+
+import com.sda.doubleTee.dto.PersonalizedTTDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
@@ -19,14 +17,27 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import java.io.IOException;
-import java.sql.Time;
-import java.time.Duration;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import com.opencsv.CSVWriter;
+import com.opencsv.bean.StatefulBeanToCsv;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+import com.sda.doubleTee.constants.Days;
+import com.sda.doubleTee.dto.CSVTT;
+import com.sda.doubleTee.dto.TimeSlot;
+import com.sda.doubleTee.dto.StudentAvailDto;
+import com.sda.doubleTee.dto.TimeTableDto;
+import com.sda.doubleTee.model.Course;
+import com.sda.doubleTee.model.Room;
+import com.sda.doubleTee.model.Teacher;
+import com.sda.doubleTee.model.TimeTable;
+import com.sda.doubleTee.model.User;
+import com.sda.doubleTee.service.CourseService;
+import com.sda.doubleTee.service.RegistrationService;
+import com.sda.doubleTee.service.RoomService;
+import com.sda.doubleTee.service.TeacherService;
+import com.sda.doubleTee.service.TimeTableService;
+import com.sda.doubleTee.service.UserServiceImpl;
 
 @Controller
 public class TimetableController {
@@ -47,12 +58,12 @@ public class TimetableController {
     private RegistrationService registrationService;
 
     @GetMapping("/timetable/add")
-    public String allocateTimetable(Model model, String url){
+    public String allocateTimetable(Model model){
 
         List<Course> courses = courseService.findAllCourses();
         List<Room> rooms = roomService.findAllRooms();
         List<Teacher> teachers = teacherService.findAllTeachers();
-        List<Enum> days = Arrays.asList(Days.values());
+        List<Days> days = Arrays.asList(Days.values());
 
         TimeTableDto timeTableDto = new TimeTableDto();
 
@@ -61,6 +72,7 @@ public class TimetableController {
         model.addAttribute("teachers", teachers);
         model.addAttribute("timetableDto",timeTableDto);
         model.addAttribute("days",days);
+        model.addAttribute("title","Allocate TimeTable");
 
         return "/allocate-timetable";
     }
@@ -131,7 +143,7 @@ public class TimetableController {
     public String viewStudentAvailability(Model model) {
 
         StudentAvailDto studentAvailDto = new StudentAvailDto();
-        List<Enum> days = Arrays.asList(Days.values());
+        List<Days> days = Arrays.asList(Days.values());
 
         model.addAttribute("days",days);
         model.addAttribute("studentAvailDto",studentAvailDto);
@@ -178,5 +190,118 @@ public class TimetableController {
         writer.write(formattedTT);
     }
 
+    @GetMapping("/timetable/personalized")
+    public String viewPersonalizedTimetable(Model model) {
 
-}
+        PersonalizedTTDto personalizedTTDto = new PersonalizedTTDto();
+
+        List<Course> tempCourses = courseService.findAllCourses();
+
+        List<String> courses = tempCourses.stream().map(c->c.getName()).distinct().toList();
+
+
+        model.addAttribute("courses", courses);
+        model.addAttribute("personalizedTTDto", personalizedTTDto);
+        return "personalized-timetable";
+    }
+
+
+    @PostMapping("/timetable/personalized/get")
+    public String calcPersonalizedTT(@Valid @ModelAttribute("personalizedTTDto") PersonalizedTTDto personalizedTTDto, BindingResult result, Model model) {
+
+        List<String> courses = personalizedTTDto.getSubjects().stream()
+                .filter(str -> str!=null).distinct()
+                .collect(Collectors.toList());
+
+        List<List<TimeTable>> timetables = timeTableService.makeSuitableTables(courses);
+
+        List<Integer> count = new ArrayList<>(courses.size());
+       timetables.stream().forEach(tempTables -> {
+            List<String> days = new ArrayList<>();
+           tempTables.stream().forEach(tt -> days.add(tt.getDay()));
+           count.add(new HashSet<String>(days).size());
+       }
+
+       );
+
+
+        model.addAttribute("timetables", timetables);
+        model.addAttribute("count",count);
+        return "view-personalized-tt";
+
+    }
+
+
+    @PostMapping("/timetable/edit/{id}")
+    public String editTimetable(@PathVariable Long id, Model model){
+
+        List<Course> courses = courseService.findAllCourses();
+        List<Room> rooms = roomService.findAllRooms();
+        List<Teacher> teachers = teacherService.findAllTeachers();
+        List<Days> days = Arrays.asList(Days.values());
+
+        TimeTable temp = timeTableService.findById(id);
+
+        TimeTableDto timeTableDto = new TimeTableDto();
+        timeTableDto.setCourseId(temp.getCourse().getId());
+        timeTableDto.setTeacherId(temp.getTeacher().getId());
+        timeTableDto.setRoomId(temp.getRoom().getId());
+        timeTableDto.setStartTime(temp.getStartTime());
+        timeTableDto.setEndTime(temp.getEndTime());
+        timeTableDto.setDay(temp.getDay());
+
+        model.addAttribute("courses", courses);
+        model.addAttribute("rooms", rooms);
+        model.addAttribute("teachers", teachers);
+        model.addAttribute("timetableDto",timeTableDto);
+        model.addAttribute("days",days);
+        model.addAttribute("id",temp.getId());
+        model.addAttribute("title","Edit TimeTable");
+
+        return "/allocate-timetable";
+    }
+
+    @PutMapping("/timetable/edit/save/{id}")
+    public String updateTimetable(@PathVariable Long id, @Valid @ModelAttribute("timetableDto") TimeTableDto timeTableDto, BindingResult result) {
+
+        TimeTable teacherClash = timeTableService.findTeacherClash(timeTableDto);
+        TimeTable roomClash = timeTableService.findRoomClash(timeTableDto);
+
+        if(teacherClash != null && teacherClash.getTeacher().getId() != null){
+            result.rejectValue("teacherId", null,
+                    "This teacher is not free at the given time.");
+
+            return "redirect:/timetable/edit/"+id+"?teacherClash";
+
+        }
+
+        if(roomClash != null && roomClash.getRoom().getId() != null){
+            result.rejectValue("teacherId", null,
+                    "This room is not free at the given time.");
+            return "redirect:/timetable/edit/"+id+"?roomClash";
+
+        }
+        Course course = courseService.findById(timeTableDto.getCourseId());
+        Room room = roomService.findById(timeTableDto.getRoomId());
+
+        if(course.getMaxSeats() > room.getCapacity()) {
+            return "redirect:/timetable/edit/"+id+"?space";
+        }
+
+        Duration duration = Duration.between(timeTableDto.getStartTime(),timeTableDto.getEndTime());
+        long diff = duration.toMinutes();
+
+        if(diff<=0) {
+            result.rejectValue("startTime", null,
+                    "The time entered is invalid");
+            return "redirect:/timetable/edit/"+id+"?invalidtime";
+        }
+
+        timeTableService.updateTimeTable(timeTableDto, id);
+
+        return "redirect:/timetable?success";
+
+    }
+
+
+    }

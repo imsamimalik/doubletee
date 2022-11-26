@@ -1,25 +1,27 @@
 package com.sda.doubleTee.controller;
 
-import com.sda.doubleTee.constants.Days;
-import com.sda.doubleTee.dao.TimeSlot;
-import com.sda.doubleTee.dto.AddRoomDto;
-import com.sda.doubleTee.dto.EmptyRoomDto;
-import com.sda.doubleTee.dto.TimeTableDto;
-import com.sda.doubleTee.model.Course;
-import com.sda.doubleTee.model.Room;
-import com.sda.doubleTee.model.Teacher;
-import com.sda.doubleTee.repository.TimeTableRepository;
-import com.sda.doubleTee.service.RoomService;
-import com.sda.doubleTee.service.TimeTableService;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.List;
+import com.sda.doubleTee.constants.Days;
+import com.sda.doubleTee.dto.TimeSlot;
+import com.sda.doubleTee.dto.AddRoomDto;
+import com.sda.doubleTee.dto.EmptyRoomDto;
+import com.sda.doubleTee.model.Room;
+import com.sda.doubleTee.service.RoomService;
+import com.sda.doubleTee.service.TimeTableService;
 
 @Controller
 public class RoomController {
@@ -77,7 +79,7 @@ public class RoomController {
     @DeleteMapping("/rooms/delete/{id}")
     public String deleteRoom(@PathVariable Long id) {
         roomService.deleteRoom(id);
-        return "redirect:/rooms?success";
+        return "redirect:/rooms/add?success";
     }
 
     @GetMapping("/room/empty")
@@ -85,7 +87,7 @@ public class RoomController {
 
         EmptyRoomDto emptyRoomDto = new EmptyRoomDto();
         List<Room> rooms = roomService.findAllRooms();
-        List<Enum> days = Arrays.asList(Days.values());
+        List<Days> days = Arrays.asList(Days.values());
 
         model.addAttribute("rooms", rooms);
         model.addAttribute("days",days);

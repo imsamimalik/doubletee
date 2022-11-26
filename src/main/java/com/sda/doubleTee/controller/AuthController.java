@@ -1,13 +1,11 @@
 package com.sda.doubleTee.controller;
 
-import com.sda.doubleTee.constants.Roles;
-import com.sda.doubleTee.dto.UserDto;
-import com.sda.doubleTee.model.Admin;
-import com.sda.doubleTee.model.Staff;
-import com.sda.doubleTee.model.Teacher;
-import com.sda.doubleTee.model.User;
-import com.sda.doubleTee.repository.StaffRepository;
-import com.sda.doubleTee.service.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -17,12 +15,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.validation.Valid;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import com.sda.doubleTee.constants.Roles;
+import com.sda.doubleTee.dto.UserDto;
+import com.sda.doubleTee.model.Staff;
+import com.sda.doubleTee.model.User;
+import com.sda.doubleTee.service.AuthService;
+import com.sda.doubleTee.service.StaffService;
+import com.sda.doubleTee.service.UserServiceImpl;
 
 @Controller
 public class AuthController {
@@ -33,11 +39,6 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @Autowired
-    private TeacherService teacherService;
-
-    @Autowired
-    private AdminService adminService;
 
     @Autowired
     private StaffService staffService;

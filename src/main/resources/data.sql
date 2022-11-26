@@ -1,1 +1,1 @@
-insert into admins values(123,'Sami Malik')
+insert into admins values(1,'Sami Malik')

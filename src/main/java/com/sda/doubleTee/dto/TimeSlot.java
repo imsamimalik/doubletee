@@ -1,4 +1,4 @@
-package com.sda.doubleTee.dao;
+package com.sda.doubleTee.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

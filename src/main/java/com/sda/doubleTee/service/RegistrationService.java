@@ -1,7 +1,16 @@
 package com.sda.doubleTee.service;
 
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
+
 import com.sda.doubleTee.constants.Roles;
-import com.sda.doubleTee.dao.TimeSlot;
+import com.sda.doubleTee.dto.TimeSlot;
 import com.sda.doubleTee.dto.RegistrationDto;
 import com.sda.doubleTee.model.Course;
 import com.sda.doubleTee.model.Registration;
@@ -9,16 +18,6 @@ import com.sda.doubleTee.model.TimeTable;
 import com.sda.doubleTee.model.User;
 import com.sda.doubleTee.repository.CourseRepository;
 import com.sda.doubleTee.repository.RegistrationRepository;
-import com.sda.doubleTee.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RegistrationService {
@@ -32,8 +31,6 @@ public class RegistrationService {
     @Autowired
     private AuthService authService;
 
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private TimeTableService timeTableService;

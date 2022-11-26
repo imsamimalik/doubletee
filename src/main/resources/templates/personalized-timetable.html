@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <div th:replace="fragments/header::head"></div>
+
+        <title>Personalized TimeTable - doubleTee</title>
+    </head>
+    <body class="w-full">
+        <div id="app" class="flex flex-col">
+            <div class="content flex-1 min-h-[calc(100vh-45px)]">
+                <nav th:replace="fragments/navbar::navbar"></nav>
+                <div
+                    class="flex flex-col justify-center align-center w-3/5 m-auto"
+                >
+                    <div class="my-10 sm:mt-10">
+                        <h1 class="text-2xl">Personalized TimeTable</h1>
+                        <p class="text-xs">Select at least 1 subject.</p>
+                    </div>
+
+                    <div class="w-full">
+                        <form
+                            class="mt-8"
+                            method="POST"
+                            role="form"
+                            th:action="@{/timetable/personalized/get}"
+                            th:object="${personalizedTTDto}"
+                        >
+                            <div class="flex flex-wrap gap-y-10 justify-center w-full">
+                                <th:block
+                                    th:each="subject,iterStat : ${personalizedTTDto.subjects}"
+                                >
+                                    <div
+                                        class="w-full md:w-1/4 relative z-0  pb-6 group px-4"
+                                    >
+                                        <label for="day" th:text="|Select subject ${iterStat.index+1}:|"></label>
+                                        <select
+                                            class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
+                                            id="day"
+                                            th:field="${personalizedTTDto.subjects[__${iterStat.index}__]}"
+                                        >
+                                            <option value="">
+                                                Select subject
+                                            </option>
+                                            <option
+                                                th:each="course : ${courses}"
+                                                th:value="${course}"
+                                                th:text="${course}"
+                                            ></option>
+                                        </select>
+                                    </div>
+                                </th:block>
+                            </div>
+
+                            <div class="flex justify-center my-20">
+                                <button
+                                    type="submit"
+                                    class="relative flex w-full sm:w-1/4 justify-center rounded-md border border-transparent bg-primary-500 py-2 px-4 text-sm font-medium text-white hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                                >
+                                    Get
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div
+                    th:if="${param.success}"
+                    class="flex fixed bottom-1 left-1 sm:bottom-8 sm:left-8 p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg"
+                    role="alert"
+                >
+                    <svg
+                        aria-hidden="true"
+                        class="flex-shrink-0 w-5 h-5 mr-2 text-green-700 dark:text-green-800"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                            clip-rule="evenodd"
+                        ></path>
+                    </svg>
+                    <span class="font-medium">Course added successfully!</span>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="fragments/footer::footer"></footer>
+    </body>
+</html>
