@@ -39,6 +39,10 @@ public class RegistrationService {
        return registrationRepository.findByCourse_IdAndStudent_Id(course, student).orElse(null);
     }
 
+    public Registration findByCourseName(String course, Long student) {
+        return registrationRepository.findByCourse_NameAndStudentId(course, student).orElse(null);
+    }
+
     public boolean saveRegistration(RegistrationDto registrationDto) {
         Registration registration  = new Registration();
 
@@ -63,7 +67,7 @@ public class RegistrationService {
         return registrationRepository.findAll();
     }
 
-    public List<Registration> fetchAllById(Long id) {
+    public List<Registration> fetchAllByStudentId(Long id) {
         return registrationRepository.findByStudent_Id(id);
     }
 

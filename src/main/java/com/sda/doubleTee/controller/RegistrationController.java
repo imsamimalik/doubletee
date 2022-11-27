@@ -57,22 +57,25 @@ public class RegistrationController {
         String userEmail = principal.getName();
         User user  = userService.findUserByEmail(userEmail);
 
-        Registration alreadyRegistered  = registrationService.findByCourseId(registrationDto.getCourseId(), user.getId());
+        Course course = courseService.findById(registrationDto.getCourseId());
+
+        Registration alreadyRegistered  = registrationService.findByCourseName(course.getName(), user.getId());
 
         if(alreadyRegistered!=null && alreadyRegistered.getId()!=null) {
             result.rejectValue("courseId", null,
-                    "You have already registered this course.");
-
-            List<Course> courses = courseService.findAllCourses();
-            List<Registration> registrations = registrationService.fetchAllByStudentEmail(userEmail);
-
-            model.addAttribute("courses",courses);
-            model.addAttribute("registrationDto",registrationDto);
-            model.addAttribute("registrations",registrations);
+                    "You have already registered this subject.");
 
             return "redirect:/courses/register?duplicate";
 
         }
+
+
+        List<Registration> allRegistrations = registrationService.fetchAllByStudentId(user.getId());
+
+        if(allRegistrations.size()>=7) {
+            return "redirect:/courses/register?max";
+        }
+
 
         if(registrationService.saveRegistration(registrationDto)==false) return "redirect:/courses/register?full";
 

@@ -22,5 +22,7 @@ public interface TimeTableRepository extends JpaRepository<TimeTable, Long> {
 
     List<TimeTable> findByTeacher_IdAndDay(Long id, String day);
 
+    Long countByCourse_IdAndDay(Long id, String day);
+
 
 }

@@ -2,20 +2,27 @@ package com.sda.doubleTee.controller;
 
 import java.io.IOException;
 import java.time.Duration;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import com.sda.doubleTee.dto.PersonalizedTTDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.StatefulBeanToCsv;
@@ -24,8 +31,9 @@ import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import com.sda.doubleTee.constants.Days;
 import com.sda.doubleTee.dto.CSVTT;
-import com.sda.doubleTee.dto.TimeSlot;
+import com.sda.doubleTee.dto.PersonalizedTTDto;
 import com.sda.doubleTee.dto.StudentAvailDto;
+import com.sda.doubleTee.dto.TimeSlot;
 import com.sda.doubleTee.dto.TimeTableDto;
 import com.sda.doubleTee.model.Course;
 import com.sda.doubleTee.model.Room;
@@ -111,6 +119,15 @@ public class TimetableController {
                     "The time entered is invalid");
 
             return "redirect:/timetable/add?invalidtime";
+        }
+
+        Long alreadyTaughtForDay = timeTableService.taughtForDay(timeTableDto.getCourseId(),timeTableDto.getDay());
+
+        if(alreadyTaughtForDay>0) {
+            result.rejectValue("courseId", null,
+                    "This course is already being taught for the day.");
+
+            return "redirect:/timetable/add?doneTaught";
         }
 
         timeTableService.addToTimeTable(timeTableDto);

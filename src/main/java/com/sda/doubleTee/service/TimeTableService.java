@@ -207,7 +207,9 @@ public class TimeTableService {
     }
 
 
-
+    public Long taughtForDay(Long courseId, String day) {
+        return timeTableRepository.countByCourse_IdAndDay(courseId,day);
+    }
 
 
 }
