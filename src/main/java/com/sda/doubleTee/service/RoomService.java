@@ -25,6 +25,7 @@ public class RoomService {
         if(!name.isEmpty()) {
             Room room = new Room();
             room.setName(roomDto.getName());
+            room.setCapacity(roomDto.getCapacity());
             roomRepository.save(room);
         }
 

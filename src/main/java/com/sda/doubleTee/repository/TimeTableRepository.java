@@ -9,8 +9,8 @@ import com.sda.doubleTee.model.TimeTable;
 
 public interface TimeTableRepository extends JpaRepository<TimeTable, Long> {
 
-    TimeTable findByRoomIdAndDayAndStartTimeGreaterThanEqualAndStartTimeLessThanEqual(Long roomId, String day, LocalTime startTime, LocalTime endTime);
-    TimeTable findByTeacherIdAndDayAndStartTimeGreaterThanEqualAndStartTimeLessThanEqual(Long teacherId, String day, LocalTime startTime, LocalTime endTime);
+    Long countByRoomIdAndDayAndStartTimeGreaterThanEqualAndStartTimeLessThanEqualOrRoomIdAndDayAndStartTimeLessThanAndEndTimeLessThan(Long roomId1, String day1, LocalTime startTime1, LocalTime endTime1, Long roomId2, String day2, LocalTime startTime2, LocalTime endTime2);
+    Long countByTeacherIdAndDayAndStartTimeGreaterThanEqualAndStartTimeLessThanEqualOrTeacherIdAndDayAndStartTimeLessThanAndEndTimeLessThan(Long teacherId1, String day1, LocalTime startTime1, LocalTime endTime1, Long teacherId2, String day2, LocalTime startTime2, LocalTime endTime2);
     List<TimeTable> findByTeacher_Id(Long id);
     List<TimeTable> findByDay(String day);
 
@@ -21,5 +21,6 @@ public interface TimeTableRepository extends JpaRepository<TimeTable, Long> {
     List<TimeTable> findByRoom_IdAndDay(Long id, String day);
 
     List<TimeTable> findByTeacher_IdAndDay(Long id, String day);
+
 
 }

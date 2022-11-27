@@ -4,7 +4,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,14 +64,13 @@ public class TimeTableService {
         return timeTableRepository.findAll();
     }
 
-    public TimeTable findTeacherClash(TimeTableDto timeTableDto) {
-        return timeTableRepository.findByTeacherIdAndDayAndStartTimeGreaterThanEqualAndStartTimeLessThanEqual(timeTableDto.getTeacherId(), timeTableDto.getDay(), timeTableDto.getStartTime(),timeTableDto.getEndTime());
+    public Long findTeacherClash(TimeTableDto timeTableDto) {
+        return timeTableRepository.countByTeacherIdAndDayAndStartTimeGreaterThanEqualAndStartTimeLessThanEqualOrTeacherIdAndDayAndStartTimeLessThanAndEndTimeLessThan(timeTableDto.getTeacherId(), timeTableDto.getDay(), timeTableDto.getStartTime(),timeTableDto.getEndTime(), timeTableDto.getTeacherId(), timeTableDto.getDay(), timeTableDto.getStartTime(),timeTableDto.getEndTime());
     }
 
-    public TimeTable findRoomClash(TimeTableDto timeTableDto) {
-        return timeTableRepository.findByRoomIdAndDayAndStartTimeGreaterThanEqualAndStartTimeLessThanEqual(timeTableDto.getRoomId(), timeTableDto.getDay(), timeTableDto.getStartTime(),timeTableDto.getEndTime());
+    public Long findRoomClash(TimeTableDto timeTableDto) {
+        return timeTableRepository.countByRoomIdAndDayAndStartTimeGreaterThanEqualAndStartTimeLessThanEqualOrRoomIdAndDayAndStartTimeLessThanAndEndTimeLessThan(timeTableDto.getRoomId(), timeTableDto.getDay(), timeTableDto.getStartTime(),timeTableDto.getEndTime(), timeTableDto.getRoomId(), timeTableDto.getDay(), timeTableDto.getStartTime(),timeTableDto.getEndTime());
     }
-    //test
     public List<TimeTable> findByTeacherId(Long id) {
         return timeTableRepository.findByTeacher_Id(id);
     }

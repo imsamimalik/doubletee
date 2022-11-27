@@ -80,10 +80,10 @@ public class TimetableController {
     @PostMapping("/timetable/add")
     public String saveAllocationToTT(@Valid @ModelAttribute("timetableDto") TimeTableDto timeTableDto, BindingResult result, Model model) {
 
-        TimeTable teacherClash = timeTableService.findTeacherClash(timeTableDto);
-        TimeTable roomClash = timeTableService.findRoomClash(timeTableDto);
+        Long teacherClash = timeTableService.findTeacherClash(timeTableDto);
+        Long roomClash = timeTableService.findRoomClash(timeTableDto);
 
-        if(teacherClash != null && teacherClash.getTeacher().getId() != null){
+        if(teacherClash > 0){
             result.rejectValue("teacherId", null,
                     "This teacher is not free at the given time.");
 
@@ -91,7 +91,7 @@ public class TimetableController {
 
         }
 
-        if(roomClash != null && roomClash.getRoom().getId() != null){
+        if(roomClash > 0){
             result.rejectValue("teacherId", null,
                     "This room is not free at the given time.");
             return "redirect:/timetable/add?roomClash";
@@ -264,10 +264,10 @@ public class TimetableController {
     @PutMapping("/timetable/edit/save/{id}")
     public String updateTimetable(@PathVariable Long id, @Valid @ModelAttribute("timetableDto") TimeTableDto timeTableDto, BindingResult result) {
 
-        TimeTable teacherClash = timeTableService.findTeacherClash(timeTableDto);
-        TimeTable roomClash = timeTableService.findRoomClash(timeTableDto);
+        Long teacherClash = timeTableService.findTeacherClash(timeTableDto);
+        Long roomClash = timeTableService.findRoomClash(timeTableDto);
 
-        if(teacherClash != null && teacherClash.getTeacher().getId() != null){
+        if(teacherClash > 0){
             result.rejectValue("teacherId", null,
                     "This teacher is not free at the given time.");
 
@@ -275,7 +275,7 @@ public class TimetableController {
 
         }
 
-        if(roomClash != null && roomClash.getRoom().getId() != null){
+        if(roomClash > 0){
             result.rejectValue("teacherId", null,
                     "This room is not free at the given time.");
             return "redirect:/timetable/edit/"+id+"?roomClash";
