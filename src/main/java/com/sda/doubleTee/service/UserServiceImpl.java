@@ -3,17 +3,14 @@ package com.sda.doubleTee.service;
 import java.util.Arrays;
 import java.util.List;
 
-import com.sda.doubleTee.constants.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sda.doubleTee.dto.UserDto;
 import com.sda.doubleTee.model.Role;
-import com.sda.doubleTee.model.Staff;
 import com.sda.doubleTee.model.User;
 import com.sda.doubleTee.repository.RoleRepository;
-import com.sda.doubleTee.repository.StaffRepository;
 import com.sda.doubleTee.repository.UserRepository;
 
 @Service
@@ -25,9 +22,6 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private StaffRepository staffRepository;
 
     @Override
     public void saveUser(UserDto userDto) {
