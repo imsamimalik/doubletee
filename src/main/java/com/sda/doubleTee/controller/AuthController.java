@@ -62,7 +62,11 @@ public class AuthController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "redirect:/register/student";
+            UserDto user = new UserDto();
+            user.setRole(Roles.STUDENT.getRole());
+            model.addAttribute("title", "student");
+            model.addAttribute("user", user);
+            return "register";
         }
 
         return "redirect:/";
@@ -75,7 +79,11 @@ public class AuthController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "redirect:/register/faculty";
+            UserDto user = new UserDto();
+            user.setRole(Roles.FACULTY.getRole());
+            model.addAttribute("title", "faculty");
+            model.addAttribute("user", user);
+            return "register";
         }
 
         return "redirect:/";
@@ -92,7 +100,7 @@ public class AuthController {
             user.setRole(Roles.ADMIN.getRole());
             model.addAttribute("title", "admin");
             model.addAttribute("user", user);
-            return "redirect:/register/admin";
+            return "register";
         }
 
         return "redirect:/";
@@ -144,7 +152,7 @@ public class AuthController {
         Authentication auth = authService.getAuth();
 
         if (auth == null || auth instanceof AnonymousAuthenticationToken) {
-           return "redirect:/login/student";
+            return "redirect:/login/student";
         }
 
         boolean hasAdminRole = auth.getAuthorities().stream()
@@ -188,7 +196,6 @@ public class AuthController {
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("title", "admin");
             return "login";
-
         }
 
         return "redirect:/";
@@ -203,4 +210,3 @@ public class AuthController {
         return "redirect:/"+path+ "/" + role + "?" + message;
     }
 }
-
