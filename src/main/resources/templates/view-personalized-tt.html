@@ -32,7 +32,7 @@
                                     th:classappend="${iStat.first?'rounded-t-xl':iStat.last?'rounded-b-xl':''}"
                                     th:data-accordion-target="|#accordion-body-${iStat.index}|"
                                     aria-expanded="true"
-                                    aria-controls="|accordion-body-${iStat.index}|"
+                                    th:aria-controls="|accordion-body-${iStat.index}|"
                                 >
                                     <span
                                         th:text="|Option ${iStat.index+1} (${count[iStat.index]} day timetable)|"
@@ -56,7 +56,7 @@
                             <div
                                 th:id="|accordion-body-${iStat.index}|"
                                 class="hidden"
-                                aria-labelledby="|accordion-heading-${iStat.index}|"
+                                th:aria-labelledby="|accordion-heading-${iStat.index}|"
                             >
                                 <div
                                     th:include="fragments/display-timetable::displayTimeTable(${timetable},'','true')"

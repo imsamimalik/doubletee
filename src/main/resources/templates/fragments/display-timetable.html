@@ -1,7 +1,7 @@
 <th:block th:fragment="displayTimeTable(timeTables,title, full)">
     <div
         class="flex flex-col justify-center align-center m-auto"
-        th:classappend="${full=='true'? 'w-3/4 md:w-7/8':'w-5/6 md:w-3/5'}"
+        th:classappend="${full=='true'? 'w-3/4 md:w-11/12':'w-5/6 md:w-3/5'}"
     >
         <div th:if="${not #strings.isEmpty(title)}" class="my-5 sm:mt-10">
             <h1 class="text-3xl" th:text="|${title}|">Timetable</h1>
