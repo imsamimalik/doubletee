@@ -40,9 +40,7 @@
                                 <div
                                     class="w-full md:w-1/4 relative z-0 pb-6 group"
                                 >
-                                <label for="course"
-                                        >Select course:</label
-                                    >
+                                    <label for="course">Select course:</label>
                                     <select
                                         class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                                         th:field="*{courseId}"
@@ -61,9 +59,7 @@
                                 <div
                                     class="w-full md:w-1/4 md:pl-3 relative z-0 pb-6 group"
                                 >
-                                <label for="teacher"
-                                        >Select teacher:</label
-                                    >
+                                    <label for="teacher">Select teacher:</label>
                                     <select
                                         class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                                         th:field="*{teacherId}"
@@ -83,9 +79,7 @@
                                 <div
                                     class="w-full md:w-1/4 relative z-0 pb-6 group"
                                 >
-                                <label for="room"
-                                        >Select room:</label
-                                    >
+                                    <label for="room">Select room:</label>
                                     <select
                                         class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                                         th:field="*{roomId}"
@@ -290,7 +284,9 @@
                             clip-rule="evenodd"
                         ></path>
                     </svg>
-                    <span class="font-medium">Course already been allocated for the day!</span>
+                    <span class="font-medium"
+                        >Course already been allocated for the day!</span
+                    >
                 </div>
             </div>
             <footer th:replace="fragments/footer::footer"></footer>

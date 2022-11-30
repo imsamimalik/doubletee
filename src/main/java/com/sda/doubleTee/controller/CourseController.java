@@ -36,17 +36,11 @@ public class CourseController {
         if(existingCourse != null && existingCourse.getId() != null){
             result.rejectValue("section", null,
                     "This course code has already been registered for the specific section");
-            List<Course> allCourses = courseService.findAllCourses();
-            model.addAttribute("addCourse",addCourseDto);
-            model.addAttribute("courses",allCourses);
-            return "add-courses";
+            return "redirect:/courses/add?error";
         }
 
         if(result.hasErrors()){
-            List<Course> allCourses = courseService.findAllCourses();
-            model.addAttribute("addCourse",addCourseDto);
-            model.addAttribute("courses",allCourses);
-            return "add-courses";
+            return "redirect:/courses/add?error";
         }
 
         courseService.saveCourse(addCourseDto);

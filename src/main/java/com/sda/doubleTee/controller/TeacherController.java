@@ -47,10 +47,7 @@ public class TeacherController {
     public String addCourses(@Valid @ModelAttribute("addTeacher") AddTeacherDto addTeacherDto, BindingResult result, Model model) {
 
         if(result.hasErrors()){
-            List<Teacher> allTeachers = teacherService.findAllTeachers();
-            model.addAttribute("addCourse",addTeacherDto);
-            model.addAttribute("teachers",allTeachers);
-            return "add-teachers";
+            return "redirect:/teachers/add?error";
         }
 
         teacherService.saveTeacher(addTeacherDto);
@@ -73,7 +70,7 @@ public class TeacherController {
     }
 
 
-    @GetMapping("/faculty/empty")
+    @GetMapping("/teacher/empty")
     public String viewEmptyRooms(Model model) {
 
         FacultyAvailDto facultyAvailDto = new FacultyAvailDto();
@@ -87,7 +84,7 @@ public class TeacherController {
         return "faculty-availability";
     }
 
-    @PostMapping("/faculty/empty/get")
+    @PostMapping("/teacher/empty/get")
     public String getEmptyRooms(@Valid @ModelAttribute("facultyAvailDto") FacultyAvailDto facultyAvailDto, BindingResult result, Model model) {
 
         Teacher teacher = teacherService.findById(facultyAvailDto.getTeacherId());

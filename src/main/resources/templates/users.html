@@ -10,7 +10,7 @@
             <div class="content flex-1 min-h-[calc(100vh-45px)]">
                 <nav th:replace="fragments/navbar::navbar"></nav>
                 <div
-                    class="flex flex-col justify-center align-center w-2/5 m-auto"
+                    class="flex flex-col justify-center mt-10 align-center w-4/5 md:w-2/5 m-auto"
                 >
                     <div class="">
                         <div class="mb-5">
@@ -21,10 +21,10 @@
                             class="overflow-x-auto relative shadow-md sm:rounded-lg"
                         >
                             <table
-                                class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+                                class="w-full text-sm text-left text-gray-500"
                             >
                                 <thead
-                                    class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+                                    class="text-xs text-gray-700 uppercase bg-gray-50"
                                 >
                                     <tr>
                                         <th scope="col" class="py-3 px-6">
@@ -50,7 +50,9 @@
                                             th:text="${user.name}"
                                             scope="row"
                                             class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                                        >name</td>
+                                        >
+                                            name
+                                        </td>
                                         <td
                                             th:text="${user.email}"
                                             class="py-4 px-6"

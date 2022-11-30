@@ -25,14 +25,19 @@
                             th:action="@{/timetable/personalized/get}"
                             th:object="${personalizedTTDto}"
                         >
-                            <div class="flex flex-wrap gap-y-10 justify-center w-full">
+                            <div
+                                class="flex flex-wrap gap-y-10 justify-center w-full"
+                            >
                                 <th:block
                                     th:each="subject,iterStat : ${personalizedTTDto.subjects}"
                                 >
                                     <div
-                                        class="w-full md:w-1/4 relative z-0  pb-6 group px-4"
+                                        class="w-full md:w-1/4 relative z-0 pb-6 group px-4"
                                     >
-                                        <label for="day" th:text="|Select subject ${iterStat.index+1}:|"></label>
+                                        <label
+                                            for="day"
+                                            th:text="|Select subject ${iterStat.index+1}:|"
+                                        ></label>
                                         <select
                                             class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                                             id="day"

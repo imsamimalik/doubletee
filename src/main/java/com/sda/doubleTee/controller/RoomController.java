@@ -51,17 +51,11 @@ public class RoomController {
         if(existingRoom != null && existingRoom.getId() != null){
             result.rejectValue("name", null,
                     "This room has already been added.");
-            List<Room> allRooms = roomService.findAllRooms();
-            model.addAttribute("addRoom",addRoomDto);
-            model.addAttribute("rooms",allRooms);
-            return "add-rooms";
+            return "redirect:/rooms/add?duplicate";
         }
 
         if(result.hasErrors()){
-            List<Room> allRooms = roomService.findAllRooms();
-            model.addAttribute("addCourse",addRoomDto);
-            model.addAttribute("courses",allRooms);
-            return "add-rooms";
+            return "redirect:/rooms/add?error";
         }
 
         roomService.saveRoom(addRoomDto);

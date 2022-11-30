@@ -21,7 +21,7 @@
                             class="mt-8 space-y-6"
                             method="POST"
                             role="form"
-                            th:action="@{/faculty/empty/get}"
+                            th:action="@{/teacher/empty/get}"
                             th:object="${facultyAvailDto}"
                         >
                             <div class="flex flex-wrap justify-evenly w-full">
@@ -75,9 +75,7 @@
                             </div>
                         </form>
                     </div>
-
                 </div>
-				
             </div>
             <footer th:replace="fragments/footer::footer"></footer>
         </div>

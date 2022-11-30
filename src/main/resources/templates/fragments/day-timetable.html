@@ -15,13 +15,24 @@
                     class="text-s text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
                 >
                     <tr class="bg-white hover:bg-gray-50">
-                        <th class="py-3 px-2 text-center min-w-[200px] md:max-w-[25px]">
+                        <th
+                            class="py-3 px-2 text-center min-w-[200px] md:max-w-[25px]"
+                        >
                             Time
                         </th>
-                        <th class="py-3 px-2 text-center min-w-[200px]">Subject</th>
-                        <th class="py-3 px-2 text-center min-w-[200px]">Teacher</th>
-                        <th class="py-3 px-2 text-center min-w-[200px]">Room</th>
-                        <th class="py-3 px-2 text-center" sec:authorize="hasRole('ADMIN')">
+                        <th class="py-3 px-2 text-center min-w-[200px]">
+                            Subject
+                        </th>
+                        <th class="py-3 px-2 text-center min-w-[200px]">
+                            Teacher
+                        </th>
+                        <th class="py-3 px-2 text-center min-w-[200px]">
+                            Room
+                        </th>
+                        <th
+                            class="py-3 px-2 text-center"
+                            sec:authorize="hasRole('ADMIN')"
+                        >
                             Edit
                         </th>
                         <th
@@ -66,7 +77,10 @@
                         >
                             Room
                         </td>
-                        <td class="py-4 px-6 text-center" sec:authorize="hasRole('ADMIN')">
+                        <td
+                            class="py-4 px-6 text-center"
+                            sec:authorize="hasRole('ADMIN')"
+                        >
                             <form
                                 th:action="@{/timetable/edit/{id}(id=${timetable.id})}"
                                 th:method="get"

@@ -62,11 +62,7 @@ public class AuthController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            UserDto user = new UserDto();
-            user.setRole(Roles.STUDENT.getRole());
-            model.addAttribute("title", "student");
-            model.addAttribute("user", user);
-            return "register";
+            return "redirect:/register/student";
         }
 
         return "redirect:/";
@@ -79,11 +75,7 @@ public class AuthController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            UserDto user = new UserDto();
-            user.setRole(Roles.FACULTY.getRole());
-            model.addAttribute("title", "faculty");
-            model.addAttribute("user", user);
-            return "register";
+            return "redirect:/register/faculty";
         }
 
         return "redirect:/";
@@ -100,7 +92,7 @@ public class AuthController {
             user.setRole(Roles.ADMIN.getRole());
             model.addAttribute("title", "admin");
             model.addAttribute("user", user);
-            return "register";
+            return "redirect:/register/admin";
         }
 
         return "redirect:/";
@@ -196,6 +188,7 @@ public class AuthController {
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("title", "admin");
             return "login";
+
         }
 
         return "redirect:/";

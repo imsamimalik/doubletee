@@ -37,10 +37,9 @@ public class AdminController {
     }
 
     @PostMapping("/admins")
-    public String addCourses(@Valid @ModelAttribute("addAdminDto") AddAdminDto addAdminDto, BindingResult result, Model model) {
+    public String addCourses(@Valid @ModelAttribute("addAdminDto") AddAdminDto addAdminDto, BindingResult result) {
 
         if(result.hasErrors())  return "redirect:/admins";
-
 
         adminService.saveAdmin(addAdminDto);
 
