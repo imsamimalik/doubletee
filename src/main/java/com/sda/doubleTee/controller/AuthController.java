@@ -111,6 +111,11 @@ public class AuthController {
     // handler method to handle user registration form submit request
     @PostMapping("/register")
     public String registration(@Valid @ModelAttribute("user") UserDto userDto, Model model,BindingResult result){
+
+        if(!userDto.getPassword().equals(userDto.getConfirmPassword())) {
+            return redirectByRole("register",userDto.getRole().substring(5).toLowerCase(),"mismatch");
+        }
+
         User existingUser =null;
         if(!userDto.getRole().equals(Roles.STUDENT.getRole())) {
             existingUser = userService.findByEmployeeId(userDto.getEmployeeId());

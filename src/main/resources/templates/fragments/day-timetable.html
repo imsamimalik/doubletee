@@ -1,4 +1,4 @@
-<th:block th:fragment="dayTimeTable(day, timeTables)">
+<th:block th:fragment="dayTimeTable(day, timeTables, full)">
     <div
         th:if="${not #lists.isEmpty(timeTables)}"
         class="flex flex-col justify-center align-center md:m-auto"
@@ -30,12 +30,14 @@
                             Room
                         </th>
                         <th
+                            th:if="${full}=='false'"
                             class="py-3 px-2 text-center"
                             sec:authorize="hasRole('ADMIN')"
                         >
                             Edit
                         </th>
                         <th
+                            th:if="${full}=='false'"
                             class="py-3 px-2 text-center max-w-[100px]"
                             sec:authorize="hasRole('ADMIN')"
                         >
@@ -79,6 +81,7 @@
                         </td>
                         <td
                             class="py-4 px-6 text-center"
+                            th:if="${full}=='false'"
                             sec:authorize="hasRole('ADMIN')"
                         >
                             <form
@@ -95,6 +98,7 @@
                         </td>
                         <td
                             class="py-4 px-6 text-center max-w-[100px]"
+                            th:if="${full}=='false'"
                             sec:authorize="hasRole('ADMIN')"
                         >
                             <form

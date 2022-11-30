@@ -8,22 +8,22 @@
         </div>
         <div th:if="${not #lists.isEmpty(timeTables)}">
             <div
-                th:include="fragments/day-timetable::dayTimeTable('Monday', ${timeTables})"
+                th:include="fragments/day-timetable::dayTimeTable('Monday', ${timeTables}, ${full})"
             />
             <div
-                th:include="fragments/day-timetable::dayTimeTable('Tuesday', ${timeTables})"
+                th:include="fragments/day-timetable::dayTimeTable('Tuesday', ${timeTables}, ${full})"
             />
             <div
-                th:include="fragments/day-timetable::dayTimeTable('Wednesday', ${timeTables})"
+                th:include="fragments/day-timetable::dayTimeTable('Wednesday', ${timeTables}, ${full})"
             />
             <div
-                th:include="fragments/day-timetable::dayTimeTable('Thursday', ${timeTables})"
+                th:include="fragments/day-timetable::dayTimeTable('Thursday', ${timeTables}, ${full})"
             />
             <div
-                th:include="fragments/day-timetable::dayTimeTable('Friday', ${timeTables})"
+                th:include="fragments/day-timetable::dayTimeTable('Friday', ${timeTables}, ${full})"
             />
             <div
-                th:include="fragments/day-timetable::dayTimeTable('Saturday', ${timeTables})"
+                th:include="fragments/day-timetable::dayTimeTable('Saturday', ${timeTables}, ${full})"
             />
         </div>
         <h1

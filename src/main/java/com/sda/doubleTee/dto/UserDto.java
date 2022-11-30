@@ -30,6 +30,9 @@ public class UserDto {
     @NotEmpty(message = "Password cannot be empty")
     private String password;
 
+    @NotEmpty(message = "Confirm Password cannot be empty")
+    private String confirmPassword;
+
     private Float CGPA;
     private int batch;
     private String degree;
