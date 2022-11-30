@@ -80,4 +80,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmployeeId(id);
     }
 
+    private UserDto mapToUserDto(User user){
+        UserDto userDto = new UserDto();
+        String[] str = user.getName().split(" ");
+        userDto.setName(str[0]);
+        userDto.setEmail(user.getEmail());
+        return userDto;
+    }
+
+
 }
