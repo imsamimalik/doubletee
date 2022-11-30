@@ -11,14 +11,20 @@
                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
             >
                 <tr class="bg-white hover:bg-gray-50">
-                    <th scope="col" class="py-3 px-6">Code</th>
-                    <th scope="col" class="py-3 px-6">Course Name</th>
-                    <th scope="col" class="py-3 px-6">Credit Hours</th>
-                    <th scope="col" class="py-3 px-6">Section</th>
-                    <th scope="col" class="py-3 px-6">Capacity</th>
+                    <th scope="col" class="py-3 px-6 text-center">Code</th>
+                    <th scope="col" class="py-3 px-6 text-center">
+                        Course Name
+                    </th>
+                    <th scope="col" class="py-3 px-6 text-center">
+                        Credit Hours
+                    </th>
+                    <th scope="col" class="py-3 px-6 text-center">Section</th>
+                    <th scope="col" class="py-3 px-6 text-center">
+                        Seats Left
+                    </th>
                     <th
                         scope="col"
-                        class="py-3 px-6"
+                        class="py-3 px-6 text-center"
                         sec:authorize="hasRole('ADMIN')"
                     >
                         Delete
@@ -27,33 +33,41 @@
             </thead>
             <tbody>
                 <tr
-                    class="bg-white hover:bg-gray-50"
                     th:each="course : ${courses}"
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                 >
                     <td
                         th:text="${course.code}"
                         scope="row"
-                        class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        class="py-4 px-6 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     ></td>
-                    <td th:text="${course.name}" class="py-4 px-6"></td>
+                    <td
+                        th:text="${course.name}"
+                        class="py-4 px-6 text-center"
+                    ></td>
                     <td
                         th:text="${course.creditHours}"
                         scope="row"
-                        class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                    ></td>
-                    <td th:text="${course.section}" class="py-4 px-6"></td>
-                    <td
-                        th:if="${course.capacity}>0"
-                        th:text="${course.capacity}"
-                        class="py-4 px-6"
+                        class="py-4 px-6 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     ></td>
                     <td
-                        th:unless="${course.capacity}>0"
+                        th:text="${course.section}"
+                        class="py-4 px-6 text-center"
+                    ></td>
+                    <td
+                        th:if="${course.seats}>0"
+                        th:text="${course.seats}"
+                        class="py-4 px-6 text-center"
+                    ></td>
+                    <td
+                        th:unless="${course.seats}>0"
                         th:text="FULL"
-                        class="py-4 px-6 text-red-400 font-bold"
+                        class="py-4 px-6 text-center text-red-400 font-bold"
                     ></td>
-                    <td class="py-4 px-6" sec:authorize="hasRole('ADMIN')">
+                    <td
+                        class="py-4 px-6 text-center"
+                        sec:authorize="hasRole('ADMIN')"
+                    >
                         <form
                             th:action="@{/courses/delete/{id}(id=${course.id})}"
                             th:method="delete"

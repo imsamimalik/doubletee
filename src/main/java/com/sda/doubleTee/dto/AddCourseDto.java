@@ -28,7 +28,7 @@ public class AddCourseDto {
     @NotEmpty(message = "Section cannot be empty")
     private String section;
 
-    @NotEmpty(message = "Capacity cannot be empty")
-    private int capacity;
+    @NotEmpty(message = "Seats cannot be empty")
+    private int maxSeats;
 
 }

@@ -1,18 +1,25 @@
 package com.sda.doubleTee.service;
 
-import com.sda.doubleTee.dto.RegistrationDto;
-import com.sda.doubleTee.model.Course;
-import com.sda.doubleTee.model.Registration;
-import com.sda.doubleTee.model.User;
-import com.sda.doubleTee.repository.CourseRepository;
-import com.sda.doubleTee.repository.RegistrationRepository;
-import com.sda.doubleTee.repository.UserRepository;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.sda.doubleTee.constants.Roles;
+import com.sda.doubleTee.dto.TimeSlot;
+import com.sda.doubleTee.dto.RegistrationDto;
+import com.sda.doubleTee.model.Course;
+import com.sda.doubleTee.model.Registration;
+import com.sda.doubleTee.model.TimeTable;
+import com.sda.doubleTee.model.User;
+import com.sda.doubleTee.repository.CourseRepository;
+import com.sda.doubleTee.repository.RegistrationRepository;
+
+import static java.time.temporal.ChronoUnit.MINUTES;
 
 @Service
 public class RegistrationService {
@@ -26,29 +33,27 @@ public class RegistrationService {
     @Autowired
     private AuthService authService;
 
+
     @Autowired
-    private UserRepository userRepository;
+    private TimeTableService timeTableService;
 
     public Registration findByCourseId(Long course, Long student) {
        return registrationRepository.findByCourse_IdAndStudent_Id(course, student).orElse(null);
     }
 
+    public Registration findByCourseName(String course, Long student) {
+        return registrationRepository.findByCourse_NameAndStudentId(course, student).orElse(null);
+    }
+
     public boolean saveRegistration(RegistrationDto registrationDto) {
         Registration registration  = new Registration();
 
-        Authentication auth = authService.getAuth();
-
-        boolean hasStudentRole = auth.getAuthorities().stream()
-                .anyMatch(r -> r.getAuthority().equals("ROLE_STUDENT"));
-
         Course course = courseRepository.findById(registrationDto.getCourseId()).orElse(null);
 
-        if(course.getCapacity()<=0) return  false;
+        if(course.getSeats()<=0) return  false;
 
-        if(hasStudentRole==true) {
-            course.setCapacity(course.getCapacity()-1);
+            course.setSeats(course.getSeats()-1);
             courseRepository.save(course);
-        }
 
         registration.setCourse(course);
 
@@ -64,11 +69,11 @@ public class RegistrationService {
         return registrationRepository.findAll();
     }
 
-    public List<Registration> fetchAllById(Long id) {
+    public List<Registration> fetchAllByStudentId(Long id) {
         return registrationRepository.findByStudent_Id(id);
     }
 
-    public List<Registration> fetchAllByEmail(String email) {
+    public List<Registration> fetchAllByStudentEmail(String email) {
         return registrationRepository.findByStudent_Email(email);
     }
 
@@ -78,7 +83,7 @@ public class RegistrationService {
         Authentication auth = authService.getAuth();
 
         boolean hasStudentRole = auth.getAuthorities().stream()
-                .anyMatch(r -> r.getAuthority().equals("ROLE_STUDENT"));
+                .anyMatch(r -> r.getAuthority().equals(Roles.STUDENT.getRole()));
 
         Course course = courseRepository.findById(registration.getCourse().getId()).orElse(null);
 
@@ -91,7 +96,7 @@ public class RegistrationService {
                 registrationRepository.deleteById(id);
 
                 if(hasStudentRole==true) {
-                    course.setCapacity(course.getCapacity()+1);
+                    course.setSeats(course.getSeats()+1);
                     courseRepository.save(course);
                 }
 
@@ -100,5 +105,51 @@ public class RegistrationService {
         }
 
     }
+
+    public List<TimeSlot> getStudentAvailability(User student, String day) {
+        List<Registration> registrations =  registrationRepository.findByStudent_Id(student.getId());
+
+        List<Long> courses = registrations.stream().map(r -> r.getCourse()).map(c->c.getId()).toList();
+
+        List<TimeTable> allocations = timeTableService.getByCourseIds(courses);
+
+
+        List<TimeSlot> slots = new ArrayList<>(allocations.stream().map(t -> {
+            return new TimeSlot(t.getStartTime(), t.getEndTime());
+        }).toList());
+
+        slots.sort(Comparator.comparing(TimeSlot::getStartTime));
+
+        List<TimeSlot> freeSlots = new ArrayList<TimeSlot>();
+        LocalTime start = LocalTime.of(8,0,0);
+        LocalTime end = LocalTime.of(21,0,0);
+
+        if(slots.size()==0) {
+            freeSlots.add(new TimeSlot(start,end));
+            return freeSlots;
+        }
+
+        for (int i = 0; i<slots.size(); i++) {
+            TimeSlot slot  = slots.get(i);
+
+            if(i==0 && !start.equals(slot)) {
+                if(MINUTES.between(start,slot.getStartTime())>10) {
+                    freeSlots.add(new TimeSlot(start,slot.getStartTime()));
+                }
+            }
+            else if(!slots.get(i-1).getEndTime().equals(slot.getStartTime())){
+                if(MINUTES.between(slots.get(i-1).getEndTime(),slot.getStartTime())>10) {
+                    freeSlots.add(new TimeSlot(slots.get(i-1).getEndTime(), slot.getStartTime()));
+                }
+            }
+        }
+
+
+        freeSlots.add(new TimeSlot(slots.get(slots.size()-1).getEndTime(),end));
+
+        return freeSlots;
+
+    }
+
 
 }

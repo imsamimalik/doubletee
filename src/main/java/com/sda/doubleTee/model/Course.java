@@ -32,12 +32,15 @@ public class Course {
     private String section;
 
     @Column(nullable = false)
-    private int capacity;
+    private int seats;
+
+    @Column(nullable = false)
+    private int maxSeats;
 
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     List<TimeTable> allocations;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     List<Registration> registration;
 }

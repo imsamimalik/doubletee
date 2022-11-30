@@ -4,7 +4,7 @@
         <div th:replace="fragments/header::head"></div>
         <title>Register - doubleTee</title>
     </head>
-    <body class="h-[80vh]">
+    <body class="h-[87vh]">
         <div id="app" class="flex flex-col">
             <div class="content flex-1 min-h-[calc(100vh-45px)]">
                 <nav th:replace="fragments/navbar::navbar"></nav>
@@ -15,7 +15,7 @@
                     <div>
                         <h1
                             class="text-xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight"
-                            th:text="|Register as ${title}|"
+                            th:text="|Register as ${#strings.capitalize(title)}|"
                         >
                             Register for doubleTee
                         </h1>
@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="flex flex-wrap">
                                     <div
-                                        th:if="${title}=='Student'"
+                                        th:if="${title}=='student'"
                                         class="w-full relative z-0 pb-6 group"
                                     >
                                         <input
@@ -77,30 +77,33 @@
                                             th:field="*{rollNumber}"
                                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" "
+                                            th:required="${user.role}=='ROLE_STUDENT'"
+                                            pattern="[0-9]{2}[A-Z]-[0-9]{4}"
                                         />
                                         <label
                                             for="rollNumber"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                            >Roll Number</label
+                                            >Roll Number (20L-1234)</label
                                         >
                                     </div>
 
                                     <div
                                         class="w-full relative z-0 pb-6 group"
-                                        th:if="${title}!='Student'"
+                                        th:if="${title}!='student'"
                                     >
                                         <input
                                             id="employeeId"
                                             name="employeeId"
-                                            type="text"
+                                            type="number"
                                             th:field="*{employeeId}"
                                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" "
+                                            th:required="${user.role}!='ROLE_STUDENT'"
                                         />
                                         <label
                                             for="employeeId"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                            >Employee ID</label
+                                            >Employee Id</label
                                         >
                                     </div>
                                 </div>
@@ -124,7 +127,7 @@
                                 <div class="flex flex-wrap">
                                     <div
                                         class="w-full md:w-1/2 relative z-0 pb-6 group"
-                                        th:if="${title}=='Student'"
+                                        th:if="${title}=='student'"
                                     >
                                         <input
                                             id="cgpa"
@@ -136,6 +139,7 @@
                                             step=".01"
                                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" "
+                                            th:required="${user.role}=='ROLE_STUDENT'"
                                         />
                                         <label
                                             for="cgpa"
@@ -146,7 +150,7 @@
 
                                     <div
                                         class="w-full md:w-1/2 md:pl-3 relative z-0 pb-6 group"
-                                        th:if="${title}=='Student'"
+                                        th:if="${title}=='student'"
                                     >
                                         <input
                                             id="batch"
@@ -158,6 +162,7 @@
                                             th:field="*{batch}"
                                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" "
+                                            th:required="${user.role}=='ROLE_STUDENT'"
                                         />
                                         <label
                                             for="batch"
@@ -169,7 +174,7 @@
                                 <div class="flex flex-wrap">
                                     <div
                                         class="w-full md:w-1/2 relative z-0 pb-6 group"
-                                        th:if="${title}=='Student'"
+                                        th:if="${title}=='student'"
                                     >
                                         <input
                                             id="degree"
@@ -178,6 +183,7 @@
                                             th:field="*{degree}"
                                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" "
+                                            th:required="${user.role}!='ROLE_STUDENT'"
                                         />
                                         <label
                                             for="degree"
@@ -188,7 +194,7 @@
 
                                     <div
                                         class="w-full md:w-1/2 flex-1 relative z-0 pb-6 group"
-                                        th:classappend="${title == 'Student' ? 'md:pl-3':''}"
+                                        th:classappend="${title == 'student' ? 'md:pl-3':''}"
                                     >
                                         <input
                                             id="dob"
@@ -197,6 +203,9 @@
                                             th:field="*{DOB}"
                                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" "
+                                            required
+                                            min="1940-01-01"
+                                            max="2010-12-30"
                                         />
                                         <label
                                             for="dob"
@@ -208,7 +217,7 @@
 
                                 <div
                                     class="relative z-0 pb-6 w-full group"
-                                    th:if="${title}!='Student'"
+                                    th:if="${title}!='student'"
                                 >
                                     <input
                                         id="designation"
@@ -217,6 +226,7 @@
                                         th:field="*{designation}"
                                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" "
+                                        th:required="${user.role}!='ROLE_STUDENT'"
                                     />
                                     <label
                                         for="designation"
@@ -343,52 +353,12 @@
                                 <span>
                                     Already registered?
                                     <a
-                                        th:href="@{/login}"
+                                        th:href="|/login/${title}|"
                                         class="text-primary-500"
                                         >Login here</a
                                     >
                                 </span>
                             </div>
-                            <p
-                                th:errors="*{name}"
-                                class="text-red-500"
-                                th:if="${#fields.hasErrors('name')}"
-                            ></p>
-                            <p
-                                th:errors="*{email}"
-                                class="text-red-500"
-                                th:if="${#fields.hasErrors('email')}"
-                            ></p>
-                            <p
-                                th:errors="*{password}"
-                                class="text-red-500"
-                                th:if="${#fields.hasErrors('password')}"
-                            ></p>
-                            <p
-                                th:errors="*{CGPA}"
-                                class="text-red-500"
-                                th:if="${#fields.hasErrors('CGPA')}"
-                            ></p>
-                            <p
-                                th:errors="*{batch}"
-                                class="text-red-500"
-                                th:if="${#fields.hasErrors('batch')}"
-                            ></p>
-                            <p
-                                th:errors="*{degree}"
-                                class="text-red-500"
-                                th:if="${#fields.hasErrors('degree')}"
-                            ></p>
-                            <p
-                                th:errors="*{DOB}"
-                                class="text-red-500"
-                                th:if="${#fields.hasErrors('DOB')}"
-                            ></p>
-                            <p
-                                th:errors="*{postalAddress}"
-                                class="text-red-500"
-                                th:if="${#fields.hasErrors('postalAddress')}"
-                            ></p>
                         </form>
 
                         <div
@@ -398,12 +368,45 @@
                         >
                             <strong class="font-bold">Success! </strong>
                             <span class="block sm:inline"
-                                >You have successfully registered our app!</span
+                                >You have successfully registered to our
+                                app!</span
                             >
+                        </div>
+
+                        <div
+                            th:if="${param.notfound}"
+                            class="bg-red-100 border border-red-400 text-red-600 px-4 py-3 rounded relative"
+                            role="alert"
+                        >
+                            <strong class="font-bold">Error! </strong>
+                            <span class="block sm:inline"
+                                >You have not been added by admin!</span
+                            >
+                        </div>
+
+                        <div
+                            th:if="${param.found}"
+                            class="bg-red-100 border border-red-400 text-red-600 px-4 py-3 rounded relative"
+                            role="alert"
+                        >
+                            <strong class="font-bold">Error! </strong>
+                            <span class="block sm:inline"
+                                >Only 1 person per Id allowed!</span
+                            >
+                        </div>
+
+                        <div
+                            th:if="${param.email}"
+                            class="bg-red-100 border border-red-400 text-red-600 px-4 py-3 rounded relative"
+                            role="alert"
+                        >
+                            <strong class="font-bold">Error! </strong>
+                            <span class="block sm:inline">Email in use!</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <footer th:replace="fragments/footer::footer"></footer>
     </body>
 </html>

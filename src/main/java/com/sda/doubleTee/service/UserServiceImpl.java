@@ -1,19 +1,17 @@
 package com.sda.doubleTee.service;
 
-import com.sda.doubleTee.dto.UserDto;
-import com.sda.doubleTee.model.Role;
-import com.sda.doubleTee.model.User;
-import com.sda.doubleTee.repository.RoleRepository;
-import com.sda.doubleTee.repository.TimeTableRepository;
-import com.sda.doubleTee.repository.UserRepository;
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Book;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.sda.doubleTee.dto.UserDto;
+import com.sda.doubleTee.model.Role;
+import com.sda.doubleTee.model.User;
+import com.sda.doubleTee.repository.RoleRepository;
+import com.sda.doubleTee.repository.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -25,14 +23,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
     @Override
     public void saveUser(UserDto userDto) {
         
         User user = new User();
         user.setName(userDto.getName());
         user.setEmail(userDto.getEmail());
-        // encrypt the password using spring security
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setBatch(userDto.getBatch());
         user.setDegree(userDto.getDegree());
@@ -41,10 +37,11 @@ public class UserServiceImpl implements UserService {
         user.setPostalAddress(userDto.getPostalAddress());
         user.setEmployeeId(userDto.getEmployeeId());
         user.setDesignation(userDto.getDesignation());
+        user.setRollNumber(userDto.getRollNumber());
 
         Role role = roleRepository.findByName(userDto.getRole());
         if(role == null){
-            role = checkRoleExist();
+            role = checkRoleExist(userDto.getRole());
         }
         user.setRoles(Arrays.asList(role));
         userRepository.save(user);
@@ -59,9 +56,6 @@ public class UserServiceImpl implements UserService {
     public List<User> findAllUsers() {
         List<User> users = userRepository.findAll();
         return users;
-//        return users.stream()
-//                .map((user) -> mapToUserDto(user))
-//                .collect(Collectors.toList());
     }
 
     @Override
@@ -69,6 +63,21 @@ public class UserServiceImpl implements UserService {
        User user = userRepository.findById(id).orElseThrow();
        user.setRoles(null);
        userRepository.deleteById(id);
+    }
+
+
+    private Role checkRoleExist(String roleName){
+        Role role = new Role();
+        role.setName(roleName);
+        return roleRepository.save(role);
+    }
+
+    public User findByRollNo(String rollNo) {
+       return userRepository.findByRollNumber(rollNo);
+    }
+
+    public User findByEmployeeId(Long id) {
+        return userRepository.findByEmployeeId(id);
     }
 
     private UserDto mapToUserDto(User user){
@@ -79,10 +88,5 @@ public class UserServiceImpl implements UserService {
         return userDto;
     }
 
-    private Role checkRoleExist(){
-        Role role = new Role();
-        role.setName("ROLE_STUDENT");
-        return roleRepository.save(role);
-    }
 
 }

@@ -3,7 +3,11 @@
     <head>
         <div th:replace="fragments/header::head"></div>
 
-        <title>Empty Rooms - doubleTee</title>
+        <title
+            th:text="|${#strings.capitalize(title)} Availability - doubleTee|"
+        >
+            Availability - doubleTee
+        </title>
     </head>
     <body class="w-full">
         <div id="app" class="flex flex-col">
@@ -13,7 +17,12 @@
                     class="flex flex-col justify-center align-center w-3/5 m-auto"
                 >
                     <div class="my-10 sm:mt-10">
-                        <h1 class="text-2xl font-bold">Empty Rooms</h1>
+                        <h1
+                            class="text-2xl font-bold"
+                            th:text="|${#strings.capitalize(title)} Availability|"
+                        >
+                            Availability
+                        </h1>
                     </div>
 
                     <div
@@ -29,14 +38,19 @@
                                 >
                                     <tr class="bg-white hover:bg-gray-50">
                                         <th
-                                            class="py-3 px-2 min-w-[200px] md:max-w-[25px]"
+                                            class="py-3 px-2 text-center min-w-[200px] md:max-w-[25px]"
+                                            th:text="|${title}|"
                                         >
-                                            Room
+                                            Entity
                                         </th>
-                                        <th class="py-3 px-2 min-w-[200px]">
+                                        <th
+                                            class="py-3 px-2 text-center min-w-[200px]"
+                                        >
                                             Start Time
                                         </th>
-                                        <th class="py-3 px-2 min-w-[200px]">
+                                        <th
+                                            class="py-3 px-2 text-center min-w-[200px]"
+                                        >
                                             End Time
                                         </th>
                                     </tr>
@@ -47,19 +61,19 @@
                                         th:each="slot : ${slots}"
                                     >
                                         <td
-                                            class="py-3 px-2 min-w-[200px] md:max-w-[25px]"
-                                            th:text="|${room.name}|"
+                                            class="py-3 px-2 text-center min-w-[200px] md:max-w-[25px]"
+                                            th:text="|${entity.name}|"
                                         >
                                             Room
                                         </td>
                                         <td
-                                            class="py-3 px-2 min-w-[200px]"
+                                            class="py-3 px-2 text-center min-w-[200px]"
                                             th:text="|${{slot.startTime}}|"
                                         >
                                             Start Time
                                         </td>
                                         <td
-                                            class="py-3 px-2 min-w-[200px]"
+                                            class="py-3 px-2 text-center min-w-[200px]"
                                             th:text="|${{slot.endTime}}|"
                                         >
                                             End Time
@@ -72,13 +86,14 @@
                     </div>
                     <h1
                         th:unless="${not #lists.isEmpty(slots)}"
-                        class="text-lg my-10 text-center"
+                        class="text-lg my-10 text-center font-mono"
+                        th:text="|No selected ${title}!|"
                     >
-                        No selected rooms!
+                        No selected entity!
                     </h1>
                     <div class="flex justify-center md:!mt-5">
                         <a
-                            href="/rooms/empty"
+                            th:href="|/${title}/empty|"
                             class="group relative text-lg flex w-full sm:w-1/4 justify-center rounded-md border border-transparent bg-primary-500 py-2 px-4 font-medium text-white hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                         >
                             Back

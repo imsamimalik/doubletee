@@ -1,7 +1,6 @@
 package com.sda.doubleTee.service;
 
 import com.sda.doubleTee.model.User;
-import com.sda.doubleTee.repository.TimeTableRepository;
 import com.sda.doubleTee.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

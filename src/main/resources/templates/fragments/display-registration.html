@@ -2,16 +2,16 @@
     <div class="overflow-x-auto my-10 relative shadow-md sm:rounded-lg">
         <h1 class="text-2xl my-10 font-bold">Current Registrations</h1>
         <table
-        class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
-        th:if="${not #lists.isEmpty(registrations)}"
+            class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+            th:if="${not #lists.isEmpty(registrations)}"
         >
             <thead
                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
             >
                 <tr>
-                    <th scope="col" class="py-3 px-6">Code</th>
-                    <th scope="col" class="py-3 px-6">Course</th>
-                    <th scope="col" class="py-3 px-6">Delete</th>
+                    <th scope="col" class="py-3 px-6 text-center">Code</th>
+                    <th scope="col" class="py-3 px-6 text-center">Course</th>
+                    <th scope="col" class="py-3 px-6 text-center">Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,14 +22,14 @@
                     <td
                         th:text="|${registration.getCourse().getCode()}|"
                         scope="row"
-                        class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        class="py-4 px-6 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     ></td>
                     <td
                         th:text="|${registration.getCourse().getName()} (${registration.getCourse().getSection()})|"
                         scope="row"
-                        class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        class="py-4 px-6 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     ></td>
-                    <td class="py-4 px-6">
+                    <td class="py-4 px-6 text-center">
                         <form
                             th:action="@{/delete/registration/{id}(id=${registration.id})}"
                             th:method="delete"
@@ -47,7 +47,7 @@
         </table>
         <h1
             th:unless="${not #lists.isEmpty(registrations)}"
-            class="text-lg my-10 text-center"
+            class="text-lg my-10 text-center font-mono"
         >
             You don't have any courses registered!
         </h1>

@@ -4,21 +4,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.filter.GenericFilterBean;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
 @Configuration
 @EnableWebSecurity
 public class SpringSecurity {
@@ -34,14 +23,18 @@ public class SpringSecurity {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/register/**").permitAll()
-                .antMatchers("/index").permitAll()
 //                .antMatchers("/").hasRole("ADMIN")
                 .antMatchers("/courses/add").hasRole("ADMIN")
                 .antMatchers("/rooms/add").hasRole("ADMIN")
+                .antMatchers("/rooms/empty").hasAnyRole("ADMIN","FACULTY","STUDENT")
+                .antMatchers("/teachers/empty").hasAnyRole("ADMIN","FACULTY")
                 .antMatchers("/teachers/add").hasRole("ADMIN")
                 .antMatchers("/timetable/add").hasRole("ADMIN")
-                .antMatchers("/courses/register").hasAnyRole("STUDENT","FACULTY")
+                .antMatchers("/timetable/download").hasAnyRole("ADMIN","FACULTY")
+                .antMatchers("/courses/register").hasRole("STUDENT")
                 .antMatchers("/**/delete/").hasRole("ADMIN")
+                .antMatchers("/**/edit/**").hasRole("ADMIN")
+                .antMatchers("/admins").hasRole("ADMIN")
                 .and()
                 .formLogin(
                         form -> form

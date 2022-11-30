@@ -18,17 +18,13 @@ import java.util.List;
 public class Teacher {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
-    private String employeeID;
 
     @Column(nullable = false)
     private String name;
 
     private String department;
 
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
     List<TimeTable> allocations;
 }

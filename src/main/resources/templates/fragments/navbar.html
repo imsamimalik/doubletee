@@ -35,13 +35,13 @@
         </button>
         <div class="hidden w-full md:block md:w-auto" id="navbar-default">
             <ul
-                class="flex flex-col p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
+                class="flex flex-col items-center p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
             >
                 <li>
                     <a
                         th:href="@{/}"
-                        th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'md:text-blue-700':''}"
-                        class="block py-2 pr-4 pl-3 text-gray-700 bg-blue-700 rounded md:bg-transparent md:p-0 dark:text-white"
+                        th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'text-primary-700':''}"
+                        class="block py-2 pr-4 pl-3 md:hover:text-primary-500 text-gray-700 rounded md:bg-transparent md:p-0 dark:text-white"
                         aria-current="page"
                         >Home</a
                     >
@@ -51,8 +51,8 @@
                     <button
                         id="dropdownNavbarLink11"
                         data-dropdown-toggle="dropdownNavbar11"
-                        th:classappend="${#httpServletRequest.getRequestURI().contains('/timetable') == true ? 'md:text-blue-700':''}"
-                        class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+                        th:classappend="${#httpServletRequest.getRequestURI().contains('/timetable') == true ? 'text-primary-700':''}"
+                        class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary-500 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
                     >
                         TimeTable
                         <svg
@@ -81,7 +81,7 @@
                             <li>
                                 <a
                                     th:href="@{/timetable}"
-                                    th:classappend="${#httpServletRequest.getRequestURI() == '/timetable' ? 'md:text-blue-700':''}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/timetable' ? 'text-primary-700':''}"
                                     class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                     >University Timetable</a
                                 >
@@ -89,17 +89,47 @@
                             <li sec:authorize="hasRole('ADMIN')">
                                 <a
                                     th:href="@{/timetable/add}"
-                                    th:classappend="${#httpServletRequest.getRequestURI() == '/timetable/add' ? 'md:text-blue-700':''}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/timetable/add' ? 'text-primary-700':''}"
                                     class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                     >Allocate Timetable</a
                                 >
                             </li>
-                             <li sec:authorize="hasRole('STUDENT') || hasRole('FACULTY')">
+                            <li
+                                sec:authorize="hasRole('STUDENT') || hasRole('FACULTY')"
+                            >
                                 <a
                                     th:href="@{/my-timetable}"
-                                    th:classappend="${#httpServletRequest.getRequestURI() == '/my-timetable' ? 'md:text-blue-700':''}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/my-timetable' ? 'text-primary-700':''}"
                                     class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                     >My TimeTable</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    th:href="@{/timetable/personalized}"
+                                    th:classappend="${#httpServletRequest.getRequestURI().contains('/timetable/personalized') ? 'text-primary-700':''}"
+                                    class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    >Personalized TT</a
+                                >
+                            </li>
+                            <li
+                                sec:authorize="hasRole('ADMIN') || hasRole('FACULTY')"
+                            >
+                                <a
+                                    th:href="@{/student/empty}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/student/empty' ? 'text-primary-700':''}"
+                                    class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    >Student Availability</a
+                                >
+                            </li>
+                            <li
+                                sec:authorize="hasRole('ADMIN') || hasRole('FACULTY')"
+                            >
+                                <a
+                                    th:href="@{/timetable/download}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/timetable/download' ? 'text-primary-700':''}"
+                                    class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    >Download CSV</a
                                 >
                             </li>
                         </ul>
@@ -110,8 +140,8 @@
                     <button
                         id="dropdownNavbarLink1"
                         data-dropdown-toggle="dropdownNavbar1"
-                        th:classappend="${#httpServletRequest.getRequestURI().contains('/courses') == true ? 'md:text-blue-700':''}"
-                        class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+                        th:classappend="${#httpServletRequest.getRequestURI().contains('/courses') == true ? 'text-primary-700':''}"
+                        class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary-500 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
                     >
                         Courses
                         <svg
@@ -140,7 +170,7 @@
                             <li>
                                 <a
                                     th:href="@{/courses}"
-                                    th:classappend="${#httpServletRequest.getRequestURI() == '/courses' ? 'md:text-blue-700':''}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/courses' ? 'text-primary-700':''}"
                                     class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                     >View Courses</a
                                 >
@@ -148,16 +178,16 @@
                             <li sec:authorize="hasRole('ADMIN')">
                                 <a
                                     th:href="@{/courses/add}"
-                                    th:classappend="${#httpServletRequest.getRequestURI() == '/courses/add' ? 'md:text-blue-700':''}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/courses/add' ? 'text-primary-700':''}"
                                     class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                     >Add Courses</a
                                 >
                             </li>
 
-                            <li sec:authorize="hasRole('STUDENT') || hasRole('FACULTY')">
+                            <li sec:authorize="hasRole('STUDENT')">
                                 <a
                                     th:href="@{/courses/register}"
-                                    th:classappend="${#httpServletRequest.getRequestURI() == '/courses/register' ? 'md:text-blue-700':''}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/courses/register' ? 'text-primary-700':''}"
                                     class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                     >Register Courses</a
                                 >
@@ -170,8 +200,8 @@
                     <button
                         id="dropdownNavbarLink2"
                         data-dropdown-toggle="dropdownNavbar2"
-                        th:classappend="${#httpServletRequest.getRequestURI().contains('/rooms') == true ? 'md:text-blue-700':''}"
-                        class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+                        th:classappend="${#httpServletRequest.getRequestURI().contains('/room') == true ? 'text-primary-700':''}"
+                        class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary-500 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
                     >
                         Rooms
                         <svg
@@ -200,7 +230,7 @@
                             <li>
                                 <a
                                     th:href="@{/rooms}"
-                                    th:classappend="${#httpServletRequest.getRequestURI() == '/rooms' ? 'md:text-blue-700':''}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/rooms' ? 'text-primary-700':''}"
                                     class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                     >View Rooms</a
                                 >
@@ -208,17 +238,17 @@
                             <li sec:authorize="hasRole('ADMIN')">
                                 <a
                                     th:href="@{/rooms/add}"
-                                    th:classappend="${#httpServletRequest.getRequestURI() == '/rooms/add' ? 'md:text-blue-700':''}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/rooms/add' ? 'text-primary-700':''}"
                                     class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                     >Add Rooms</a
                                 >
                             </li>
                             <li>
                                 <a
-                                    th:href="@{/rooms/empty}"
-                                    th:classappend="${#httpServletRequest.getRequestURI() == '/rooms/empty' ? 'md:text-blue-700':''}"
+                                    th:href="@{/room/empty}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/room/empty' ? 'text-primary-700':''}"
                                     class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                    >View Empty Rooms</a
+                                    >Rooms Availability</a
                                 >
                             </li>
                         </ul>
@@ -229,8 +259,8 @@
                     <button
                         id="dropdownNavbarLink3"
                         data-dropdown-toggle="dropdownNavbar3"
-                        th:classappend="${#httpServletRequest.getRequestURI().contains('/teachers') == true ? 'md:text-blue-700':''}"
-                        class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+                        th:classappend="${#httpServletRequest.getRequestURI().contains('/teacher') == true ? 'text-primary-700':''}"
+                        class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary-500 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
                     >
                         Teachers
                         <svg
@@ -259,7 +289,7 @@
                             <li>
                                 <a
                                     th:href="@{/teachers}"
-                                    th:classappend="${#httpServletRequest.getRequestURI() == '/teachers' ? 'md:text-blue-700':''}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/teachers' ? 'text-primary-700':''}"
                                     class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                     >View teachers</a
                                 >
@@ -267,19 +297,38 @@
                             <li sec:authorize="hasRole('ADMIN')">
                                 <a
                                     th:href="@{/teachers/add}"
-                                    th:classappend="${#httpServletRequest.getRequestURI() == '/teachers/add' ? 'md:text-blue-700':''}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/teachers/add' ? 'text-primary-700':''}"
                                     class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                     >Add teachers</a
+                                >
+                            </li>
+                            <li
+                                sec:authorize="hasRole('ADMIN') || hasRole('FACULTY')"
+                            >
+                                <a
+                                    th:href="@{/teacher/empty}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/teacher/empty' ? 'text-primary-700':''}"
+                                    class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    >Faculty Availability</a
                                 >
                             </li>
                         </ul>
                     </div>
                 </li>
 
+                <li sec:authorize="hasRole('ADMIN')">
+                    <a
+                        th:href="@{/admins}"
+                        th:classappend="${#httpServletRequest.getRequestURI() == '/admins' ? 'text-primary-700':''}"
+                        class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary-500 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                        >Admins</a
+                    >
+                </li>
+
                 <li sec:authorize="isAuthenticated()">
                     <a
                         th:href="@{/logout}"
-                        class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                        class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary-500 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                         >Logout</a
                     >
                 </li>
@@ -287,8 +336,8 @@
                     <button
                         id="dropdownNavbarLink00"
                         data-dropdown-toggle="dropdownNavbar00"
-                        th:classappend="${#httpServletRequest.getRequestURI().contains('/login/') == true ? 'md:text-blue-700':''}"
-                        class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+                        th:classappend="${#httpServletRequest.getRequestURI().contains('/login/') == true ? 'text-primary-700':''}"
+                        class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary-500 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
                     >
                         Login
                         <svg
@@ -317,7 +366,7 @@
                             <li>
                                 <a
                                     th:href="@{/login/student}"
-                                    th:classappend="${#httpServletRequest.getRequestURI() == '/login/student' ? 'md:text-blue-700':''}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/login/student' ? 'text-primary-700':''}"
                                     class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                     >Student
                                 </a>
@@ -325,7 +374,7 @@
                             <li>
                                 <a
                                     th:href="@{/login/faculty}"
-                                    th:classappend="${#httpServletRequest.getRequestURI() == '/login/faculty' ? 'md:text-blue-700':''}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/login/faculty' ? 'text-primary-700':''}"
                                     class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                     >Faculty</a
                                 >
@@ -333,7 +382,7 @@
                             <li>
                                 <a
                                     th:href="@{/login/admin}"
-                                    th:classappend="${#httpServletRequest.getRequestURI() == '/login/admin' ? 'md:text-blue-700':''}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/login/admin' ? 'text-primary-700':''}"
                                     class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                     >Admin</a
                                 >
@@ -346,8 +395,8 @@
                     <button
                         id="dropdownNavbarLink0"
                         data-dropdown-toggle="dropdownNavbar0"
-                        th:classappend="${#httpServletRequest.getRequestURI().contains('/register/') == true ? 'md:text-blue-700':''}"
-                        class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+                        th:classappend="${#httpServletRequest.getRequestURI().contains('/register/') == true ? 'text-primary-700':''}"
+                        class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary-500 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
                     >
                         Register
                         <svg
@@ -376,7 +425,7 @@
                             <li>
                                 <a
                                     th:href="@{/register/student}"
-                                    th:classappend="${#httpServletRequest.getRequestURI() == '/register/student' ? 'md:text-blue-700':''}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/register/student' ? 'text-primary-700':''}"
                                     class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                     >Student
                                 </a>
@@ -384,7 +433,7 @@
                             <li>
                                 <a
                                     th:href="@{/register/faculty}"
-                                    th:classappend="${#httpServletRequest.getRequestURI() == '/register/faculty' ? 'md:text-blue-700':''}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/register/faculty' ? 'text-primary-700':''}"
                                     class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                     >Faculty</a
                                 >
@@ -392,7 +441,7 @@
                             <li>
                                 <a
                                     th:href="@{/register/admin}"
-                                    th:classappend="${#httpServletRequest.getRequestURI() == '/register/admin' ? 'md:text-blue-700':''}"
+                                    th:classappend="${#httpServletRequest.getRequestURI() == '/register/admin' ? 'text-primary-700':''}"
                                     class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                     >Admin</a
                                 >
@@ -400,6 +449,22 @@
                         </ul>
                     </div>
                 </li>
+                <!-- <li class="w-[30px]" sec:authorize="isAuthenticated()">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="ionicon"
+                        viewBox="0 0 512 512"
+                        fill="#4db9ff"
+                    >
+                        <title>Person Circle</title>
+                        <path
+                            d="M258.9 48C141.92 46.42 46.42 141.92 48 258.9c1.56 112.19 92.91 203.54 205.1 205.1 117 1.6 212.48-93.9 210.88-210.88C462.44 140.91 371.09 49.56 258.9 48zm126.42 327.25a4 4 0 01-6.14-.32 124.27 124.27 0 00-32.35-29.59C321.37 329 289.11 320 256 320s-65.37 9-90.83 25.34a124.24 124.24 0 00-32.35 29.58 4 4 0 01-6.14.32A175.32 175.32 0 0180 259c-1.63-97.31 78.22-178.76 175.57-179S432 158.81 432 256a175.32 175.32 0 01-46.68 119.25z"
+                        />
+                        <path
+                            d="M256 144c-19.72 0-37.55 7.39-50.22 20.82s-19 32-17.57 51.93C191.11 256 221.52 288 256 288s64.83-32 67.79-71.24c1.48-19.74-4.8-38.14-17.68-51.82C293.39 151.44 275.59 144 256 144z"
+                        />
+                    </svg>
+                </li> -->
             </ul>
         </div>
     </div>

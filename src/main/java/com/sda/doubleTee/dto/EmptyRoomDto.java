@@ -1,12 +1,11 @@
 package com.sda.doubleTee.dto;
 
-import com.sda.doubleTee.constants.Days;
+import javax.validation.constraints.NotEmpty;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter

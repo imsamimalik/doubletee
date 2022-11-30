@@ -3,7 +3,9 @@
     <head>
         <div th:replace="fragments/header::head"></div>
 
-        <title>Allocate Timetable - doubleTee</title>
+        <title th:text="|${title} - doubleTee|">
+            Allocate Timetable - doubleTee
+        </title>
     </head>
     <body class="w-full">
         <div id="app" class="flex flex-col">
@@ -13,15 +15,18 @@
                     class="flex flex-col justify-center align-center w-3/5 m-auto"
                 >
                     <div class="my-10 sm:mt-10">
-                        <h1 class="text-2xl">Allocate Timetable</h1>
+                        <h1 class="text-2xl" th:text="|${title}|">
+                            Allocate Timetable
+                        </h1>
                     </div>
 
                     <div class="w-full space-y-8">
+                        <!-- method="POST" -->
                         <form
                             class="mt-8 space-y-6"
-                            method="POST"
+                            th:method="${#strings.contains(title,'Edit') ? 'PUT' : 'POST'}"
                             role="form"
-                            th:action="@{/timetable/add}"
+                            th:action="${#strings.contains(title,'Edit')} ? |/timetable/edit/save/${id}|:@{/timetable/add}"
                             th:object="${timetableDto}"
                         >
                             <input
@@ -35,9 +40,11 @@
                                 <div
                                     class="w-full md:w-1/4 relative z-0 pb-6 group"
                                 >
+                                    <label for="course">Select course:</label>
                                     <select
                                         class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                                         th:field="*{courseId}"
+                                        id="course"
                                         required
                                     >
                                         <option value="">Select Course</option>
@@ -52,9 +59,11 @@
                                 <div
                                     class="w-full md:w-1/4 md:pl-3 relative z-0 pb-6 group"
                                 >
+                                    <label for="teacher">Select teacher:</label>
                                     <select
                                         class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                                         th:field="*{teacherId}"
+                                        id="teacher"
                                         required
                                     >
                                         <option value="">Select Teacher</option>
@@ -70,9 +79,11 @@
                                 <div
                                     class="w-full md:w-1/4 relative z-0 pb-6 group"
                                 >
+                                    <label for="room">Select room:</label>
                                     <select
                                         class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                                         th:field="*{roomId}"
+                                        id="room"
                                         required
                                     >
                                         <option value="">Select Room</option>
@@ -142,6 +153,7 @@
                             <div class="flex justify-center md:!mt-20">
                                 <button
                                     type="submit"
+                                    th:text="${#strings.contains(title,'Edit')?'Update':'Add'}"
                                     class="group relative text-lg flex w-full sm:w-1/4 justify-center rounded-md border border-transparent bg-primary-500 py-2 px-4 font-medium text-white hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                                 >
                                     Add
@@ -232,6 +244,49 @@
                         ></path>
                     </svg>
                     <span class="font-medium">Invalid Time!</span>
+                </div>
+
+                <div
+                    th:if="${param.space}"
+                    class="flex fixed bottom-1 left-1 sm:bottom-8 sm:left-8 p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg"
+                    role="alert"
+                >
+                    <svg
+                        aria-hidden="true"
+                        class="flex-shrink-0 w-5 h-5 mr-2 text-red-700 dark:text-red-800"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                            clip-rule="evenodd"
+                        ></path>
+                    </svg>
+                    <span class="font-medium">Not enough room space!</span>
+                </div>
+                <div
+                    th:if="${param.doneTaught}"
+                    class="flex fixed bottom-1 left-1 sm:bottom-8 sm:left-8 p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg"
+                    role="alert"
+                >
+                    <svg
+                        aria-hidden="true"
+                        class="flex-shrink-0 w-5 h-5 mr-2 text-red-700 dark:text-red-800"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                            clip-rule="evenodd"
+                        ></path>
+                    </svg>
+                    <span class="font-medium"
+                        >Course already been allocated for the day!</span
+                    >
                 </div>
             </div>
             <footer th:replace="fragments/footer::footer"></footer>
