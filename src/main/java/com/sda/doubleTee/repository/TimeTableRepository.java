@@ -9,18 +9,15 @@ import com.sda.doubleTee.model.TimeTable;
 
 public interface TimeTableRepository extends JpaRepository<TimeTable, Long> {
 
-    Long countByRoomIdAndDayAndStartTimeGreaterThanEqualAndStartTimeLessThanEqualOrRoomIdAndDayAndStartTimeLessThanAndEndTimeLessThan(Long roomId1, String day1, LocalTime startTime1, LocalTime endTime1, Long roomId2, String day2, LocalTime startTime2, LocalTime endTime2);
-    Long countByTeacherIdAndDayAndStartTimeGreaterThanEqualAndStartTimeLessThanEqualOrTeacherIdAndDayAndStartTimeLessThanAndEndTimeLessThan(Long teacherId1, String day1, LocalTime startTime1, LocalTime endTime1, Long teacherId2, String day2, LocalTime startTime2, LocalTime endTime2);
+    List<TimeTable> findByRoomIdAndDay(Long roomId, String day);
+    List<TimeTable> findByTeacherIdAndDay(Long teacherId, String day);
+
     List<TimeTable> findByTeacher_Id(Long id);
     List<TimeTable> findByDay(String day);
 
     List<TimeTable> findByCourse_Id(Long id);
 
     List<TimeTable> findByCourse_Name(String name);
-
-    List<TimeTable> findByRoom_IdAndDay(Long id, String day);
-
-    List<TimeTable> findByTeacher_IdAndDay(Long id, String day);
 
     Long countByCourse_IdAndDay(Long id, String day);
 

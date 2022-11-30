@@ -18,6 +18,7 @@ import com.sda.doubleTee.repository.CourseRepository;
 import com.sda.doubleTee.repository.RoomRepository;
 import com.sda.doubleTee.repository.TeacherRepository;
 import com.sda.doubleTee.repository.TimeTableRepository;
+import static java.time.temporal.ChronoUnit.MINUTES;
 
 @Service
 public class TimeTableService {
@@ -64,13 +65,30 @@ public class TimeTableService {
         return timeTableRepository.findAll();
     }
 
-    public Long findTeacherClash(TimeTableDto timeTableDto) {
-        return timeTableRepository.countByTeacherIdAndDayAndStartTimeGreaterThanEqualAndStartTimeLessThanEqualOrTeacherIdAndDayAndStartTimeLessThanAndEndTimeLessThan(timeTableDto.getTeacherId(), timeTableDto.getDay(), timeTableDto.getStartTime(),timeTableDto.getEndTime(), timeTableDto.getTeacherId(), timeTableDto.getDay(), timeTableDto.getStartTime(),timeTableDto.getEndTime());
+    public boolean findTeacherClash(TimeTableDto timeTableDto,Long id) {
+        List<TimeTable> timeTables =  timeTableRepository.findByTeacherIdAndDay(timeTableDto.getTeacherId(), timeTableDto.getDay());
+
+        if(id!=null) {
+            for (int i = 0; i < timeTables.size(); i++) {
+                if(timeTables.get(i).getId()==id) timeTables.remove(timeTables.get(i));
+            }
+        }
+
+        return checkClash(timeTables,timeTableDto.getStartTime(),timeTableDto.getEndTime());
     }
 
-    public Long findRoomClash(TimeTableDto timeTableDto) {
-        return timeTableRepository.countByRoomIdAndDayAndStartTimeGreaterThanEqualAndStartTimeLessThanEqualOrRoomIdAndDayAndStartTimeLessThanAndEndTimeLessThan(timeTableDto.getRoomId(), timeTableDto.getDay(), timeTableDto.getStartTime(),timeTableDto.getEndTime(), timeTableDto.getRoomId(), timeTableDto.getDay(), timeTableDto.getStartTime(),timeTableDto.getEndTime());
+    public boolean findRoomClash(TimeTableDto timeTableDto, Long id) {
+        List<TimeTable> timeTables =  timeTableRepository.findByRoomIdAndDay(timeTableDto.getRoomId(), timeTableDto.getDay());
+
+        if(id!=null) {
+            for (int i = 0; i < timeTables.size(); i++) {
+                if(timeTables.get(i).getId()==id) timeTables.remove(timeTables.get(i));
+            }
+        }
+
+        return checkClash(timeTables,timeTableDto.getStartTime(),timeTableDto.getEndTime());
     }
+
     public List<TimeTable> findByTeacherId(Long id) {
         return timeTableRepository.findByTeacher_Id(id);
     }
@@ -121,28 +139,33 @@ public class TimeTableService {
             TimeSlot slot  = slots.get(i);
 
             if(i==0 && !start.equals(slot)) {
-                freeSlots.add(new TimeSlot(start,slot.getStartTime()));
+                if(MINUTES.between(start,slot.getStartTime()) >10 ) {
+                    freeSlots.add(new TimeSlot(start,slot.getStartTime()));
+                }
             }
             else if(!slots.get(i-1).getEndTime().equals(slot.getStartTime())){
-                freeSlots.add(new TimeSlot(slots.get(i-1).getEndTime(), slot.getStartTime()));
+                if(MINUTES.between(slots.get(i-1).getEndTime(),slot.getStartTime()) > 10) {
+                    freeSlots.add(new TimeSlot(slots.get(i-1).getEndTime(), slot.getStartTime()));
+                }
             }
         }
 
-
-        freeSlots.add(new TimeSlot(slots.get(slots.size()-1).getEndTime(),end));
+        if(MINUTES.between(slots.get(slots.size()-1).getEndTime(), end) > 10) {
+            freeSlots.add(new TimeSlot(slots.get(slots.size()-1).getEndTime(),end));
+        }
 
         return freeSlots;
     }
 
     public List<TimeSlot> getEmptyRooms(Long roomId,String day) {
-        List<TimeTable> allocations =  timeTableRepository.findByRoom_IdAndDay(roomId, day);
+        List<TimeTable> allocations =  timeTableRepository.findByRoomIdAndDay(roomId, day);
         return retrieveTimeTable(allocations);
 
     }
 
 
     public List<TimeSlot> getFacultyAvail(Long roomId,String day) {
-        List<TimeTable> allocations =  timeTableRepository.findByTeacher_IdAndDay(roomId, day);
+        List<TimeTable> allocations =  timeTableRepository.findByTeacherIdAndDay(roomId, day);
         return retrieveTimeTable(allocations);
     }
 
@@ -209,6 +232,21 @@ public class TimeTableService {
 
     public Long taughtForDay(Long courseId, String day) {
         return timeTableRepository.countByCourse_IdAndDay(courseId,day);
+    }
+
+    private boolean checkClash(List<TimeTable> timeTables, LocalTime start, LocalTime end) {
+        for (TimeTable temp: timeTables) {
+            if(overlap(temp.getStartTime(),temp.getEndTime(), start,end)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean overlap (LocalTime startA, LocalTime endA, LocalTime startB, LocalTime endB)
+    {
+        return (endB == null || startA == null || !startA.isAfter(endB))
+                && (endA == null || startB == null || !endA.isBefore(startB));
     }
 
 

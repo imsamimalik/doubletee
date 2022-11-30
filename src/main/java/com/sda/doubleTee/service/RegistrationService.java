@@ -19,6 +19,8 @@ import com.sda.doubleTee.model.User;
 import com.sda.doubleTee.repository.CourseRepository;
 import com.sda.doubleTee.repository.RegistrationRepository;
 
+import static java.time.temporal.ChronoUnit.MINUTES;
+
 @Service
 public class RegistrationService {
 
@@ -131,10 +133,14 @@ public class RegistrationService {
             TimeSlot slot  = slots.get(i);
 
             if(i==0 && !start.equals(slot)) {
-                freeSlots.add(new TimeSlot(start,slot.getStartTime()));
+                if(MINUTES.between(start,slot.getStartTime())>10) {
+                    freeSlots.add(new TimeSlot(start,slot.getStartTime()));
+                }
             }
             else if(!slots.get(i-1).getEndTime().equals(slot.getStartTime())){
-                freeSlots.add(new TimeSlot(slots.get(i-1).getEndTime(), slot.getStartTime()));
+                if(MINUTES.between(slots.get(i-1).getEndTime(),slot.getStartTime())>10) {
+                    freeSlots.add(new TimeSlot(slots.get(i-1).getEndTime(), slot.getStartTime()));
+                }
             }
         }
 
