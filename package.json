@@ -1,9 +1,0 @@
-{
-  "name": "doubletee",
-  "scripts": {
-    "watch": "npx tailwindcss -i styles/input.css -o ./src/main/resources/static/css/main.css --watch"
-  },
-  "dependencies": {
-    "tailwindcss": "^3.1.8"
-  }
-}

@@ -72,6 +72,9 @@ public class RoomController {
 
     @DeleteMapping("/rooms/delete/{id}")
     public String deleteRoom(@PathVariable Long id) {
+        if(timeTableService.isRoomAllocated(id)){
+            return "redirect:/rooms?notempty";
+        }
         roomService.deleteRoom(id);
         return "redirect:/rooms/add?success";
     }

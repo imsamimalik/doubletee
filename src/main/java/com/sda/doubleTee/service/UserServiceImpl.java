@@ -3,6 +3,8 @@ package com.sda.doubleTee.service;
 import java.util.Arrays;
 import java.util.List;
 
+import com.sda.doubleTee.model.Registration;
+import com.sda.doubleTee.repository.RegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RegistrationService registrationService;
 
     @Override
     public void saveUser(UserDto userDto) {
@@ -61,6 +66,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long id) {
        User user = userRepository.findById(id).orElseThrow();
+       if(user.getRollNumber()!=null) {
+           List<Registration> registrations = user.getRegistration();
+           for (Registration reg:registrations) {
+                registrationService.deleteRegistration(reg.getId());
+           }
+       }
        user.setRoles(null);
        userRepository.deleteById(id);
     }

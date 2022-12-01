@@ -80,27 +80,12 @@ public class RegistrationService {
     public void deleteRegistration(Long id) {
         Registration registration =  registrationRepository.findById(id).orElse(null);
 
-        Authentication auth = authService.getAuth();
-
-        boolean hasStudentRole = auth.getAuthorities().stream()
-                .anyMatch(r -> r.getAuthority().equals(Roles.STUDENT.getRole()));
-
         Course course = courseRepository.findById(registration.getCourse().getId()).orElse(null);
 
-
         if(registration!=null) {
-            String userEmail  = authService.getCurrentUser().getEmail();
-            String ownerEmail = registration.getStudent().getEmail();
-
-            if(userEmail==ownerEmail) {
                 registrationRepository.deleteById(id);
-
-                if(hasStudentRole==true) {
-                    course.setSeats(course.getSeats()+1);
-                    courseRepository.save(course);
-                }
-
-            }
+                course.setSeats(course.getSeats()+1);
+                courseRepository.save(course);
 
         }
 

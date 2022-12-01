@@ -180,10 +180,34 @@ public class TimeTableService {
 
         for (String course : courses) {
             List<TimeTable> temp = timeTableRepository.findByCourse_Name(course);
+            for (int i = 0; i < temp.size(); i++) {
+                TimeTable tt = temp.get(i);
+                for (int j = i+1; j < temp.size(); j++) {
+                    TimeTable tt2 = temp.get(j);
+                    if(tt2.getCourse().equals(tt.getCourse()) && !tt2.getDay().equals(tt.getDay())) {
+                        temp.remove(tt2);
+                        break;
+                    }
+                }
+            }
             tempTimeTable.add(temp);
         }
 
        List<List<TimeTable>> temp =  UtilityService.cartesianProduct(tempTimeTable);
+        for (int i = 0; i < temp.size(); i++) {
+            List<TimeTable> list = temp.get(i);
+            int size = list.size();
+            for (int j = 0; j < size; j++) {
+                TimeTable tt = list.get(j);
+                if(tt.getDay().equals("Monday")||tt.getDay().equals("Tuesday")||tt.getDay().equals("Wednesday")) {
+                    List<TimeTable> courseTT = timeTableRepository.findByCourse_NameAndCourse_Section(tt.getCourse().getName(),tt.getCourse().getSection());
+                    for (TimeTable ctt:courseTT) {
+                        if(!ctt.getDay().equals(tt.getDay()))
+                            list.add(ctt);
+                    }
+                }
+            }
+        }
 
         List<List<TimeTable>> timetables= new ArrayList<>();
 
@@ -192,31 +216,29 @@ public class TimeTableService {
             timetables.add(tt);
         }
 
+        System.out.println("LEEEENNNFGTHHH,"+timetables.size());
+
         // timetables are sorted wrt start-time
 
         // After (before endtime - after endtime)
         // in between (after starttime - before endTime)
         // equal (at starttime - at endtime
-
         boolean clash = false;
+        int m = 0;
+        while(m<10) {
+
         for (int i = 0; i < timetables.size(); i++) {
                 List<TimeTable> current = timetables.get(i);
+            for (int j = 0; j < current.size(); j++) {
                 clash = false;
-            for (int j = 0; j < current.size()-1; j++) {
                 TimeTable tt = current.get(j);
                 for (int k = j+1; k < current.size(); k++) {
                     TimeTable tt2 = current.get(k);
                     if(tt.getDay().equals(tt2.getDay())) {
-                        if(tt.getTeacher().equals(tt2.getTeacher())||tt.getRoom().equals(tt2.getRoom())) {
-                            if(
-                                    (tt2.getStartTime().isBefore(tt.getEndTime()) && tt2.getEndTime().isAfter(tt.getEndTime()))||
-                                    (tt2.getStartTime().isAfter(tt.getStartTime()) && tt2.getEndTime().isBefore(tt.getEndTime()))||
-                                    (tt2.getStartTime().equals(tt.getStartTime()) && tt2.getEndTime().equals(tt.getEndTime()))
-                            ) {
+                        if (overLap(tt.getStartTime(), tt.getEndTime(), tt2.getStartTime(), tt2.getEndTime())) {
                                 clash = true;
                                 break;
                             }
-                        }
                     }
 
                 }
@@ -224,6 +246,9 @@ public class TimeTableService {
             }
             if(clash) timetables.remove(current);
         }
+        m++;
+        }
+
 
         return timetables;
 
@@ -248,6 +273,18 @@ public class TimeTableService {
         return (endB == null || startA == null || !startA.isAfter(endB))
                 && (endA == null || startB == null || !endA.isBefore(startB));
     }
+    public boolean overLap(LocalTime start1, LocalTime end1, LocalTime start2, LocalTime end2) {
+
+        return (start1.equals(start2) || end1.equals(end2) || (start1.isBefore(end2) && start2.isBefore(end1)));
+
+    }
+
+    public boolean isRoomAllocated(Long id) {
+       Long count = timeTableRepository.countByRoomId(id);
+       if(count>0) return true;
+       else return false;
+    }
+
 
 
 }

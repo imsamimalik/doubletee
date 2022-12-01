@@ -25,6 +25,9 @@ public class TeacherService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserServiceImpl userService;
+
     public Teacher findById(Long id) {
        return teacherRepository.findById(id).orElse(null);
     }
@@ -47,7 +50,9 @@ public class TeacherService {
 
     public void deleteTeacher(Long id) {
         User teacher = userRepository.findByEmployeeId(id);
-        userRepository.deleteById(teacher.getId());
+        if(teacher!=null) {
+            userService.deleteUser(teacher.getId());
+        }
         teacherRepository.deleteById(id);
         staffRepository.deleteById(id);
     }
