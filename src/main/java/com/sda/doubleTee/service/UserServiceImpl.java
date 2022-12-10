@@ -3,13 +3,12 @@ package com.sda.doubleTee.service;
 import java.util.Arrays;
 import java.util.List;
 
-import com.sda.doubleTee.model.Registration;
-import com.sda.doubleTee.repository.RegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sda.doubleTee.dto.UserDto;
+import com.sda.doubleTee.model.Registration;
 import com.sda.doubleTee.model.Role;
 import com.sda.doubleTee.model.User;
 import com.sda.doubleTee.repository.RoleRepository;

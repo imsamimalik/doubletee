@@ -1,6 +1,5 @@
 package com.sda.doubleTee.repository;
 
-import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
