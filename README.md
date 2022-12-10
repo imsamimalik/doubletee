@@ -1,5 +1,8 @@
 # doubleTee
 
+doubletee is a university timetable management system that provides a range of features for students, faculty, and administrators. With doubletee, users can login or sign up, add and remove courses, rooms, and faculty, register for courses, assign, modify, delete, and view their timetables, and even download their timetable as a CSV file. Additionally, doubletee offers an automatic timetable generation feature based on registered and assigned courses, as well as a clashless timetable feature and the ability to view faculty, student, and room availability. Users can also create personalized timetables to fit their specific needs.
+
+
 ![screenshot of timetable (admin view)](https://i.ibb.co/FnFyhZg/screenshot.png "screenshot of timetable")
 
 ## Features
