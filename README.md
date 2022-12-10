@@ -1,5 +1,7 @@
 # doubleTee
 
+![screenshot of timetable (admin view)](https://i.ibb.co/FnFyhZg/screenshot.png "screenshot of timetable")
+
 ## Features
   
 - Login/Sign up User
